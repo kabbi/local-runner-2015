@@ -40,14 +40,14 @@ import com.a.b.a.a.b.e.class_79;
 import com.a.b.a.a.b.e.class_84;
 import com.a.b.a.a.b.e.class_85;
 import com.a.b.a.a.b.e.class_86;
-import com.a.b.a.a.c.class_136;
-import com.a.b.a.a.c.class_137;
+import com.a.b.a.a.c.Car;
+import com.a.b.a.a.c.World;
 import com.a.b.a.a.c.class_138;
-import com.a.b.a.a.c.class_139;
+import com.a.b.a.a.c.TileType;
 import com.a.b.a.a.c.class_143;
-import com.a.b.a.a.c.class_144;
-import com.a.b.a.a.c.class_147;
-import com.a.b.a.a.c.class_149;
+import com.a.b.a.a.c.BonusType;
+import com.a.b.a.a.c.Move;
+import com.a.b.a.a.c.Game;
 import com.a.b.a.a.d.class_101;
 import com.a.b.a.a.d.class_5;
 import com.a.b.a.a.d.class_96;
@@ -510,8 +510,8 @@ public class class_176 implements class_1 {
                                 continue label94;
                             }
 
-                            final class_137 var19 = class_77.method_461(this.field_730, this.field_729, this.field_732, this.field_727, this.field_728, 1.0D / (double)this.field_721.method_24(), var1, this.field_722, var2, var7);
-                            final class_136[] var20 = new class_136[var9];
+                            final World var19 = class_77.method_461(this.field_730, this.field_729, this.field_732, this.field_727, this.field_728, 1.0D / (double)this.field_721.method_24(), var1, this.field_722, var2, var7);
+                            final Car[] var20 = new Car[var9];
 
                             for(int var21 = 0; var21 < var9; ++var21) {
                                 var20[var21] = class_79.method_476((class_43)var8.get(var21), 1.0D / (double)this.field_721.method_24(), var7);
@@ -519,7 +519,7 @@ public class class_176 implements class_1 {
 
                             Future var22 = this.field_738.submit(new Callable() {
                                 // $FF: renamed from: a () com.a.b.a.a.c.m[]
-                                public class_147[] method_916() throws Exception {
+                                public Move[] method_916() throws Exception {
                                     return var7.method_920().method_53(var20, var19);
                                 }
 
@@ -530,7 +530,7 @@ public class class_176 implements class_1 {
                             });
                             SimpleMutable var13 = new SimpleMutable();
                             if(this.method_946(var7, var22, var13)) {
-                                class_147[] var14 = (class_147[])var13.get();
+                                Move[] var14 = (Move[])var13.get();
                                 if(var14 != null && var14.length == var9) {
                                     int var15 = 0;
 
@@ -539,7 +539,7 @@ public class class_176 implements class_1 {
                                             continue label94;
                                         }
 
-                                        class_147 var16 = var14[var15];
+                                        Move var16 = var14[var15];
                                         if(var16 != null) {
                                             class_43 var17 = (class_43)var8.get(var15);
                                             if(!class_79.method_481(var17) && !var17.method_345()) {
@@ -650,7 +650,7 @@ public class class_176 implements class_1 {
     }
 
     // $FF: renamed from: a (com.a.b.a.a.b.d.c.b, com.a.b.a.a.c.m) void
-    private void method_949(class_43 var1, class_147 var2) {
+    private void method_949(class_43 var1, Move var2) {
         if(!class_79.method_481(var1) && !var1.method_345()) {
             class_159 var3;
             Point2D var4;
@@ -692,7 +692,7 @@ public class class_176 implements class_1 {
     }
 
     // $FF: renamed from: b (com.a.b.a.a.b.d.c.b, com.a.b.a.a.c.m) void
-    private void method_950(class_43 var1, class_147 var2) {
+    private void method_950(class_43 var1, Move var2) {
         if(!class_79.method_481(var1) && !var1.method_345()) {
             this.method_951(var1, var2);
             method_952(var1, var2);
@@ -700,7 +700,7 @@ public class class_176 implements class_1 {
     }
 
     // $FF: renamed from: c (com.a.b.a.a.b.d.c.b, com.a.b.a.a.c.m) void
-    private void method_951(class_43 var1, class_147 var2) {
+    private void method_951(class_43 var1, Move var2) {
         double var3 = var2.getEnginePower();
         if(!Double.isNaN(var3) && !Double.isInfinite(var3)) {
             if(var1.method_331() > 0) {
@@ -728,7 +728,7 @@ public class class_176 implements class_1 {
     }
 
     // $FF: renamed from: d (com.a.b.a.a.b.d.c.b, com.a.b.a.a.c.m) void
-    private static void method_952(class_43 var0, class_147 var1) {
+    private static void method_952(class_43 var0, Move var1) {
         double var2 = var1.getWheelTurn();
         if(!Double.isNaN(var2) && !Double.isInfinite(var2)) {
             var0.method_309(var2);
@@ -749,13 +749,13 @@ public class class_176 implements class_1 {
         this.field_723 = this.field_722.method_78(var1);
         this.field_727 = this.field_722.method_80();
         this.field_728 = this.field_722.method_81();
-        class_139[][] var2 = this.field_723.method_413();
+        TileType[][] var2 = this.field_723.method_413();
         ArrayList var3 = new ArrayList();
 
         for(int var4 = 0; var4 < this.field_727; ++var4) {
             for(int var5 = 0; var5 < this.field_728; ++var5) {
-                class_139 var6 = var2[var4][var5];
-                if(var6 != class_139.EMPTY) {
+                TileType var6 = var2[var4][var5];
+                if(var6 != TileType.EMPTY) {
                     var3.add(new IntPair(Integer.valueOf(var4), Integer.valueOf(var5)));
                 }
             }
@@ -801,11 +801,11 @@ public class class_176 implements class_1 {
     // $FF: renamed from: n () void
     private void method_955() {
         field_720.debug("Started to create static objects.");
-        class_139[][] var1 = this.field_723.method_413();
+        TileType[][] var1 = this.field_723.method_413();
 
         for(int var2 = 0; var2 < this.field_727; ++var2) {
             for(int var3 = 0; var3 < this.field_728; ++var3) {
-                class_139 var4 = var1[var2][var3];
+                TileType var4 = var1[var2][var3];
                 double var5 = 800.0D * (double)var2;
                 double var7 = 800.0D * (double)var3;
                 double var9 = var5 + 800.0D;
@@ -932,7 +932,7 @@ public class class_176 implements class_1 {
 
         while(var1.hasNext()) {
             final class_171 var2 = (class_171)var1.next();
-            final class_149 var3 = class_84.method_499(var2.method_919(), this.field_729, this.field_722);
+            final Game var3 = class_84.method_499(var2.method_919(), this.field_729, this.field_722);
             Future var4 = this.field_738.submit(new Callable() {
                 // $FF: renamed from: a () java.lang.Integer
                 public Integer method_914() throws Exception {
@@ -1009,7 +1009,7 @@ public class class_176 implements class_1 {
 
     // $FF: renamed from: s () void
     private void method_960() {
-        class_144 var1 = class_16.field_4[class_121.method_791(0, class_16.field_4.length - 1)];
+        BonusType var1 = class_16.field_4[class_121.method_791(0, class_16.field_4.length - 1)];
         double var2 = 570.0D;
         double var4 = 70.0D / Math.SQRT_2;
 
@@ -1186,9 +1186,9 @@ public class class_176 implements class_1 {
         // $FF: renamed from: a com.a.b.a.a.b.d.c.b
         private final class_43 field_429;
         // $FF: renamed from: b com.a.b.a.a.c.m
-        private final class_147 field_430;
+        private final Move field_430;
 
-        private class_213(class_43 var1, class_147 var2) {
+        private class_213(class_43 var1, Move var2) {
             this.field_429 = var1;
             this.field_430 = var2;
         }
@@ -1199,12 +1199,12 @@ public class class_176 implements class_1 {
         }
 
         // $FF: renamed from: b () com.a.b.a.a.c.m
-        private class_147 method_752() {
+        private Move method_752() {
             return this.field_430;
         }
 
         // $FF: synthetic method
-        class_213(class_43 var1, class_147 var2, Object var3) {
+        class_213(class_43 var1, Move var2, Object var3) {
             this(var1, var2);
         }
     }

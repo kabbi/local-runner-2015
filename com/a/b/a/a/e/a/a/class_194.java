@@ -1,56 +1,56 @@
 package com.a.b.a.a.e.a.a;
 
 import com.a.b.a.a.a.class_18;
-import com.a.b.a.a.c.class_130;
-import com.a.b.a.a.c.class_131;
-import com.a.b.a.a.c.class_132;
-import com.a.b.a.a.c.class_133;
-import com.a.b.a.a.c.class_134;
-import com.a.b.a.a.c.class_135;
-import com.a.b.a.a.c.class_136;
-import com.a.b.a.a.c.class_137;
-import com.a.b.a.a.c.class_145;
+import com.a.b.a.a.c.Unit;
+import com.a.b.a.a.c.CircularUnit;
+import com.a.b.a.a.c.OilSlick;
+import com.a.b.a.a.c.Projectile;
+import com.a.b.a.a.c.RectangularUnit;
+import com.a.b.a.a.c.Bonus;
+import com.a.b.a.a.c.Car;
+import com.a.b.a.a.c.World;
+import com.a.b.a.a.c.Player;
 import com.a.b.a.a.c.class_146;
-import com.a.b.a.a.c.class_147;
-import com.a.b.a.a.c.class_149;
+import com.a.b.a.a.c.Move;
+import com.a.b.a.a.c.Game;
 import com.a.b.a.a.e.a.class_177;
-import com.a.b.a.a.e.a.a.class_193;
+
 import java.io.File;
 
 // $FF: renamed from: com.a.b.a.a.e.a.a.g
 public class class_194 extends class_193 {
     // $FF: renamed from: a com.a.b.a.a.e.a.a.f$a
-    private final class_193.class_210 field_823 = new class_193.class_210<class_145>() {
+    private final class_193.class_210 field_823 = new class_193.class_210<Player>() {
         // $FF: renamed from: a (com.a.b.a.a.c.o) void
-        public void method_12(class_145 var1) {
+        public void method_12(Player var1) {
             class_194.this.method_1040(var1);
         }
     };
     // $FF: renamed from: b com.a.b.a.a.e.a.a.f$a
-    private final class_193.class_210 field_824 = new class_193.class_210<class_136>() {
+    private final class_193.class_210 field_824 = new class_193.class_210<Car>() {
         // $FF: renamed from: a (com.a.b.a.a.c.c) void
-        public void method_12(class_136 var1) {
+        public void method_12(Car var1) {
             class_194.this.method_1042(var1);
         }
     };
     // $FF: renamed from: c com.a.b.a.a.e.a.a.f$a
-    private final class_193.class_210 field_825 = new class_193.class_210<class_133>() {
+    private final class_193.class_210 field_825 = new class_193.class_210<Projectile>() {
         // $FF: renamed from: a (com.a.b.a.a.c.q) void
-        public void method_12(class_133 var1) {
+        public void method_12(Projectile var1) {
             class_194.this.method_1044(var1);
         }
     };
     // $FF: renamed from: d com.a.b.a.a.e.a.a.f$a
-    private final class_193.class_210 field_826 = new class_193.class_210<class_135>() {
+    private final class_193.class_210 field_826 = new class_193.class_210<Bonus>() {
         // $FF: renamed from: a (com.a.b.a.a.c.a) void
-        public void method_12(class_135 var1) {
+        public void method_12(Bonus var1) {
             class_194.this.method_1046(var1);
         }
     };
     // $FF: renamed from: e com.a.b.a.a.e.a.a.f$a
-    private final class_193.class_210 field_827 = new class_193.class_210<class_132>() {
+    private final class_193.class_210 field_827 = new class_193.class_210<OilSlick>() {
         // $FF: renamed from: a (com.a.b.a.a.c.n) void
-        public void method_12(class_132 var1) {
+        public void method_12(OilSlick var1) {
             class_194.this.method_1048(var1);
         }
     };
@@ -81,7 +81,7 @@ public class class_194 extends class_193 {
     }
 
     // $FF: renamed from: a (com.a.b.a.a.c.l) void
-    public void method_61(class_149 var1) {
+    public void method_61(Game var1) {
         this.a(class_194.class_224.field_776);
         if(var1 == null) {
             this.a(false);
@@ -159,17 +159,17 @@ public class class_194 extends class_193 {
     }
 
     // $FF: renamed from: d () com.a.b.a.a.c.m[]
-    public class_147[] method_63() {
+    public Move[] method_63() {
         method_1052((class_194.class_224)this.a(class_194.class_224.class), class_194.class_224.field_778);
         int var1 = this.method_1028();
         if(var1 < 0) {
             return null;
         } else {
-            class_147[] var2 = new class_147[var1];
+            Move[] var2 = new Move[var1];
 
             for(int var3 = 0; var3 < var1; ++var3) {
                 if(this.method_1026()) {
-                    class_147 var4 = new class_147();
+                    Move var4 = new Move();
                     var2[var3] = var4;
                     var4.setEnginePower(this.method_1032());
                     var4.setBrake(this.method_1026());
@@ -196,7 +196,7 @@ public class class_194 extends class_193 {
     }
 
     // $FF: renamed from: a (com.a.b.a.a.c.v, boolean) void
-    private void method_1038(class_137 var1, boolean var2) {
+    private void method_1038(World var1, boolean var2) {
         if(var1 == null) {
             this.a(false);
         } else {
@@ -222,12 +222,12 @@ public class class_194 extends class_193 {
     }
 
     // $FF: renamed from: a (com.a.b.a.a.c.o[]) void
-    private void method_1039(class_145[] var1) {
+    private void method_1039(Player[] var1) {
         this.a(var1, this.field_823);
     }
 
     // $FF: renamed from: a (com.a.b.a.a.c.o) void
-    private void method_1040(class_145 var1) {
+    private void method_1040(Player var1) {
         if(var1 == null) {
             this.a(false);
         } else {
@@ -242,12 +242,12 @@ public class class_194 extends class_193 {
     }
 
     // $FF: renamed from: a (com.a.b.a.a.c.c[]) void
-    private void method_1041(class_136[] var1) {
+    private void method_1041(Car[] var1) {
         this.a(var1, this.field_824);
     }
 
     // $FF: renamed from: a (com.a.b.a.a.c.c) void
-    private void method_1042(class_136 var1) {
+    private void method_1042(Car var1) {
         if(var1 == null) {
             this.a(false);
         } else {
@@ -276,12 +276,12 @@ public class class_194 extends class_193 {
     }
 
     // $FF: renamed from: a (com.a.b.a.a.c.q[]) void
-    private void method_1043(class_133[] var1) {
+    private void method_1043(Projectile[] var1) {
         this.a(var1, this.field_825);
     }
 
     // $FF: renamed from: a (com.a.b.a.a.c.q) void
-    private void method_1044(class_133 var1) {
+    private void method_1044(Projectile var1) {
         if(var1 == null) {
             this.a(false);
         } else {
@@ -295,12 +295,12 @@ public class class_194 extends class_193 {
     }
 
     // $FF: renamed from: a (com.a.b.a.a.c.a[]) void
-    private void method_1045(class_135[] var1) {
+    private void method_1045(Bonus[] var1) {
         this.a(var1, this.field_826);
     }
 
     // $FF: renamed from: a (com.a.b.a.a.c.a) void
-    private void method_1046(class_135 var1) {
+    private void method_1046(Bonus var1) {
         if(var1 == null) {
             this.a(false);
         } else {
@@ -312,12 +312,12 @@ public class class_194 extends class_193 {
     }
 
     // $FF: renamed from: a (com.a.b.a.a.c.n[]) void
-    private void method_1047(class_132[] var1) {
+    private void method_1047(OilSlick[] var1) {
         this.a(var1, this.field_827);
     }
 
     // $FF: renamed from: a (com.a.b.a.a.c.n) void
-    private void method_1048(class_132 var1) {
+    private void method_1048(OilSlick var1) {
         if(var1 == null) {
             this.a(false);
         } else {
@@ -329,20 +329,20 @@ public class class_194 extends class_193 {
     }
 
     // $FF: renamed from: a (com.a.b.a.a.c.e) void
-    private void method_1049(class_131 var1) {
+    private void method_1049(CircularUnit var1) {
         this.method_1051(var1);
         this.a(var1.getRadius());
     }
 
     // $FF: renamed from: a (com.a.b.a.a.c.s) void
-    private void method_1050(class_134 var1) {
+    private void method_1050(RectangularUnit var1) {
         this.method_1051(var1);
         this.a(var1.getWidth());
         this.a(var1.getHeight());
     }
 
     // $FF: renamed from: a (com.a.b.a.a.c.u) void
-    private void method_1051(class_130 var1) {
+    private void method_1051(Unit var1) {
         this.a(var1.getId());
         this.a(var1.getMass());
         this.a(var1.getX());

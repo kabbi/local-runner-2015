@@ -1,19 +1,19 @@
 package com.a.b.a.a.b.d.a;
 
 import com.a.b.class_42;
-import com.a.b.a.a.c.class_144;
+import com.a.b.a.a.c.BonusType;
 import com.a.c.a.class_128;
 
 // $FF: renamed from: com.a.b.a.a.b.d.a.a
 public class class_47 extends class_42 {
     // $FF: renamed from: a com.a.b.a.a.c.b
-    private final class_144 field_184;
+    private final BonusType field_184;
     // $FF: renamed from: b int
     private final int field_185;
     // $FF: renamed from: c int
     private int field_186;
 
-    public class_47(class_144 var1, double var2, double var4) {
+    public class_47(BonusType var1, double var2, double var4) {
         super(new class_128(70.0D, 70.0D));
         this.field_184 = var1;
         this.field_185 = Integer.MAX_VALUE;
@@ -26,7 +26,7 @@ public class class_47 extends class_42 {
     }
 
     // $FF: renamed from: k () com.a.b.a.a.c.b
-    public class_144 method_349() {
+    public BonusType method_349() {
         return this.field_184;
     }
 

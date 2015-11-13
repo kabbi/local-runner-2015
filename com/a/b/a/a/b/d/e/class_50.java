@@ -3,8 +3,7 @@ package com.a.b.a.a.b.d.e;
 import com.a.b.class_58;
 import com.a.b.a.a.b.class_171;
 import com.a.b.a.a.b.d.c.class_43;
-import com.a.b.a.a.b.d.e.class_48;
-import com.a.b.a.a.c.class_140;
+import com.a.b.a.a.c.ProjectileType;
 import com.a.c.a.class_129;
 import com.codeforces.commons.geometry.Point2D;
 import com.codeforces.commons.geometry.Vector2D;
@@ -13,7 +12,7 @@ import com.codeforces.commons.math.Math;
 // $FF: renamed from: com.a.b.a.a.b.d.e.b
 public class class_50 extends class_48 {
     public class_50(class_43 var1, class_171 var2, int var3, Point2D var4, double var5) {
-        super(new class_129(70.0D), var1, var2, class_140.TIRE, var3, var4, (new Vector2D(60.0D, 0.0D)).rotate(var5), var5, 1000.0D);
+        super(new class_129(70.0D), var1, var2, ProjectileType.TIRE, var3, var4, (new Vector2D(60.0D, 0.0D)).rotate(var5), var5, 1000.0D);
     }
 
     // $FF: renamed from: a (com.a.b.f, int) double

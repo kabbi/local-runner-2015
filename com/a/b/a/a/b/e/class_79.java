@@ -2,9 +2,8 @@ package com.a.b.a.a.b.e;
 
 import com.a.b.a.a.b.class_171;
 import com.a.b.a.a.b.d.c.class_43;
-import com.a.b.a.a.b.e.class_86;
-import com.a.b.a.a.c.class_136;
-import com.a.b.a.a.c.class_150;
+import com.a.b.a.a.c.Car;
+import com.a.b.a.a.c.Direction;
 import com.a.c.a.class_125;
 import com.a.c.a.class_128;
 import com.codeforces.commons.geometry.Point2D;
@@ -17,7 +16,7 @@ import com.google.common.base.Preconditions;
 // $FF: renamed from: com.a.b.a.a.b.e.b
 public final class class_79 {
     // $FF: renamed from: a (com.a.b.a.a.b.d.c.b, double, com.a.b.a.a.b.n) com.a.b.a.a.c.c
-    public static class_136 method_476(class_43 var0, double var1, class_171 var3) {
+    public static Car method_476(class_43 var0, double var1, class_171 var3) {
         class_125 var4 = var0.method_279().method_902();
         if(!(var4 instanceof class_128)) {
             throw new IllegalArgumentException("Unsupported car form: " + var4 + '.');
@@ -26,7 +25,7 @@ public final class class_79 {
             IntPair var6 = var0.method_312();
             Preconditions.checkNotNull(var6.getFirst());
             Preconditions.checkNotNull(var6.getSecond());
-            return new class_136(var0.method_278(), var0.method_279().method_900(), var0.method_279().method_870(),
+            return new Car(var0.method_278(), var0.method_279().method_900(), var0.method_279().method_870(),
                     var0.method_279().method_872(), var0.method_279().method_876().getX() * var1,
                     var0.method_279().method_876().getY() * var1, var0.method_279().method_874(),
                     var0.method_279().method_880() * var1, var5.method_827(), var5.method_828(),
@@ -45,7 +44,7 @@ public final class class_79 {
     // $FF: renamed from: a (com.a.b.a.a.b.e.i$a, int, int, int, int) com.codeforces.commons.geometry.Point2D
     public static Point2D method_477(class_86.class_206 var0, int var1, int var2, int var3, int var4) {
         method_484(var1, var2, var3, var4);
-        class_150 var5 = var0.method_415();
+        Direction var5 = var0.method_415();
         IntPair var6 = var0.method_414()[0];
         double var7 = 16.0D;
         double var9 = 80.0D + var7 + 70.0D;
@@ -120,7 +119,7 @@ public final class class_79 {
     }
 
     // $FF: renamed from: a (com.a.b.a.a.c.c) boolean
-    public static boolean method_482(class_136 var0) {
+    public static boolean method_482(Car var0) {
         return method_483(var0.getDurability());
     }
 

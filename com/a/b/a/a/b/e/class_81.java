@@ -1,8 +1,6 @@
 package com.a.b.a.a.b.e;
 
 import com.a.b.a.a.a.class_18;
-import com.a.b.a.a.b.e.class_76;
-import com.a.b.a.a.b.e.class_77;
 import com.a.b.a.a.c.*;
 import com.codeforces.commons.collection.CollectionUtil;
 import com.codeforces.commons.math.Math;
@@ -178,11 +176,11 @@ public final class class_81 {
     // $FF: renamed from: a (java.lang.Object, java.lang.Class) boolean
     private boolean method_487(Object var1, Class var2) {
         if(var2 == class_138.class) {
-            return ((class_137)var1).getTick() == 0;
-        } else if(var2 == class_145.class) {
-            return this.field_303.add(((class_145) var1).getId());
-        } else if(class_130.class.isAssignableFrom(var2)) {
-            return this.field_304.add(((class_130) var1).getId());
+            return ((World)var1).getTick() == 0;
+        } else if(var2 == Player.class) {
+            return this.field_303.add(((Player) var1).getId());
+        } else if(Unit.class.isAssignableFrom(var2)) {
+            return this.field_304.add(((Unit) var1).getId());
         } else if(var2 == class_151.class) {
             return this.field_305.add(((class_151) var1).getId());
         } else if(var2 != class_142.class && var2 != class_141.class) {
@@ -429,21 +427,21 @@ public final class class_81 {
     }
 
     // $FF: renamed from: a (com.a.b.a.a.c.v) void
-    private void method_493(class_137 var1) {
+    private void method_493(World var1) {
         Map var2 = class_77.method_472(this.field_314);
         List var3 = method_494(var1);
         boolean var4 = this.field_307.method_90();
         Iterator var5 = var3.iterator();
 
         while(true) {
-            class_130 var6;
+            Unit var6;
             do {
                 if(!var5.hasNext()) {
                     return;
                 }
 
-                var6 = (class_130)var5.next();
-            } while(!class_76.method_460(var6, (class_130)var2.get(var6.getId())));
+                var6 = (Unit)var5.next();
+            } while(!class_76.method_460(var6, (Unit)var2.get(var6.getId())));
 
             Pattern var7 = method_496(var6.getId());
 
@@ -460,11 +458,11 @@ public final class class_81 {
     }
 
     // $FF: renamed from: b (com.a.b.a.a.c.v) java.util.List
-    private static List method_494(class_137 var0) {
-        class_136[] var1 = var0.getCarsUnsafe();
-        class_133[] var2 = var0.getProjectilesUnsafe();
-        class_135[] var3 = var0.getBonusesUnsafe();
-        class_132[] var4 = var0.getOilSlicksUnsafe();
+    private static List method_494(World var0) {
+        Car[] var1 = var0.getCarsUnsafe();
+        Projectile[] var2 = var0.getProjectilesUnsafe();
+        Bonus[] var3 = var0.getBonusesUnsafe();
+        OilSlick[] var4 = var0.getOilSlicksUnsafe();
         ArrayList var5 = new ArrayList(var1.length + var2.length + var3.length + var4.length);
         CollectionUtil.addAll(var5, var1);
         CollectionUtil.addAll(var5, var2);
@@ -474,15 +472,15 @@ public final class class_81 {
     }
 
     // $FF: renamed from: c (com.a.b.a.a.c.v) void
-    private void method_495(class_137 var1) {
+    private void method_495(World var1) {
         Map var2 = class_77.method_471(this.field_314);
         boolean var3 = this.field_307.method_90();
-        class_145[] var4 = var1.getPlayersUnsafe();
+        Player[] var4 = var1.getPlayersUnsafe();
         int var5 = var4.length;
 
         for(int var6 = 0; var6 < var5; ++var6) {
-            class_145 var7 = var4[var6];
-            if(class_145.areFieldEquals(var7, (class_145)var2.get(var7.getId()))) {
+            Player var7 = var4[var6];
+            if(Player.areFieldEquals(var7, (Player) var2.get(var7.getId()))) {
                 Pattern var8 = method_497(var7.getId());
 
                 int var9;

@@ -5,31 +5,31 @@ import com.codeforces.commons.text.StringUtil;
 import com.google.gson.annotations.Until;
 
 // $FF: renamed from: com.a.b.a.a.c.o
-public class class_145 {
+public class Player {
     // $FF: renamed from: id long
-    private final long field_583;
+    private final long id;
     // $FF: renamed from: me boolean
     @Until(1.0D)
-    private final boolean field_584;
+    private final boolean me;
     @Until(1.0D)
     private final String name;
     private final boolean strategyCrashed;
     private final int score;
 
-    public class_145(@Name("id") long var1, @Name("me") boolean var3, @Name("name") String var4, @Name("strategyCrashed") boolean var5, @Name("score") int var6) {
-        this.field_583 = var1;
-        this.field_584 = var3;
+    public Player(@Name("id") long var1, @Name("me") boolean var3, @Name("name") String var4, @Name("strategyCrashed") boolean var5, @Name("score") int var6) {
+        this.id = var1;
+        this.me = var3;
         this.name = var4;
         this.strategyCrashed = var5;
         this.score = var6;
     }
 
     public long getId() {
-        return this.field_583;
+        return this.id;
     }
 
     public boolean isMe() {
-        return this.field_584;
+        return this.me;
     }
 
     public String getName() {
@@ -44,7 +44,7 @@ public class class_145 {
         return this.score;
     }
 
-    public static boolean areFieldEquals(class_145 var0, class_145 var1) {
-        return var0 == var1 || var0 != null && var1 != null && var0.field_583 == var1.field_583 && var0.field_584 == var1.field_584 && StringUtil.equals(var0.name, var1.name) && var0.strategyCrashed == var1.strategyCrashed && var0.score == var1.score;
+    public static boolean areFieldEquals(Player a, Player b) {
+        return a == b || a != null && b != null && a.id == b.id && a.me == b.me && StringUtil.equals(a.name, b.name) && a.strategyCrashed == b.strategyCrashed && a.score == b.score;
     }
 }

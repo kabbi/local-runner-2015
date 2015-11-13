@@ -1,12 +1,10 @@
 package com.a.b.a.a.c;
 
-import com.a.b.a.a.c.class_134;
-import com.a.b.a.a.c.class_143;
 import com.codeforces.commons.reflection.Name;
 import com.google.gson.annotations.Until;
 
 // $FF: renamed from: com.a.b.a.a.c.c
-public class class_136 extends class_134 {
+public class Car extends RectangularUnit {
     @Until(1.0D)
     private final long playerId;
     @Until(1.0D)
@@ -30,7 +28,7 @@ public class class_136 extends class_134 {
     private final int nextWaypointY;
     private final boolean finishedTrack;
 
-    public class_136(@Name("id") long var1, @Name("mass") double var3, @Name("x") double var5, @Name("y") double var7, @Name("speedX") double var9, @Name("speedY") double var11, @Name("angle") double var13, @Name("angularSpeed") double var15, @Name("width") double var17, @Name("height") double var19, @Name("playerId") long var21, @Name("teammateIndex") int var23, @Name("teammate") boolean var24, @Name("type") class_143 var25, @Name("projectileCount") int var26, @Name("nitroChargeCount") int var27, @Name("oilCanisterCount") int var28, @Name("remainingProjectileCooldownTicks") int var29, @Name("remainingNitroCooldownTicks") int var30, @Name("remainingOilCooldownTicks") int var31, @Name("remainingNitroTicks") int var32, @Name("remainingOiledTicks") int var33, @Name("durability") double var34, @Name("enginePower") double var36, @Name("wheelTurn") double var38, @Name("nextWaypointX") int var40, @Name("nextWaypointY") int var41, @Name("finishedTrack") boolean var42) {
+    public Car(@Name("id") long var1, @Name("mass") double var3, @Name("x") double var5, @Name("y") double var7, @Name("speedX") double var9, @Name("speedY") double var11, @Name("angle") double var13, @Name("angularSpeed") double var15, @Name("width") double var17, @Name("height") double var19, @Name("playerId") long var21, @Name("teammateIndex") int var23, @Name("teammate") boolean var24, @Name("type") class_143 var25, @Name("projectileCount") int var26, @Name("nitroChargeCount") int var27, @Name("oilCanisterCount") int var28, @Name("remainingProjectileCooldownTicks") int var29, @Name("remainingNitroCooldownTicks") int var30, @Name("remainingOilCooldownTicks") int var31, @Name("remainingNitroTicks") int var32, @Name("remainingOiledTicks") int var33, @Name("durability") double var34, @Name("enginePower") double var36, @Name("wheelTurn") double var38, @Name("nextWaypointX") int var40, @Name("nextWaypointY") int var41, @Name("finishedTrack") boolean var42) {
         super(var1, var3, var5, var7, var9, var11, var13, var15, var17, var19);
         this.playerId = var21;
         this.teammateIndex = var23;
@@ -124,7 +122,7 @@ public class class_136 extends class_134 {
         return this.finishedTrack;
     }
 
-    public static boolean areFieldEquals(class_136 var0, class_136 var1) {
-        return var0 == var1 || var0 != null && var1 != null && class_134.areFieldEquals(var0, var1) && var0.playerId == var1.playerId && var0.teammateIndex == var1.teammateIndex && var0.teammate == var1.teammate && var0.type == var1.type && var0.projectileCount == var1.projectileCount && var0.nitroChargeCount == var1.nitroChargeCount && var0.oilCanisterCount == var1.oilCanisterCount && var0.remainingProjectileCooldownTicks == var1.remainingProjectileCooldownTicks && var0.remainingNitroCooldownTicks == var1.remainingNitroCooldownTicks && var0.remainingOilCooldownTicks == var1.remainingOilCooldownTicks && var0.remainingNitroTicks == var1.remainingNitroTicks && var0.remainingOiledTicks == var1.remainingOiledTicks && Double.compare(var0.durability, var1.durability) == 0 && Double.compare(var0.enginePower, var1.enginePower) == 0 && Double.compare(var0.wheelTurn, var1.wheelTurn) == 0 && var0.nextWaypointX == var1.nextWaypointX && var0.nextWaypointY == var1.nextWaypointY && var0.finishedTrack == var1.finishedTrack;
+    public static boolean areFieldEquals(Car a, Car b) {
+        return a == b || a != null && b != null && RectangularUnit.areFieldEquals(a, b) && a.playerId == b.playerId && a.teammateIndex == b.teammateIndex && a.teammate == b.teammate && a.type == b.type && a.projectileCount == b.projectileCount && a.nitroChargeCount == b.nitroChargeCount && a.oilCanisterCount == b.oilCanisterCount && a.remainingProjectileCooldownTicks == b.remainingProjectileCooldownTicks && a.remainingNitroCooldownTicks == b.remainingNitroCooldownTicks && a.remainingOilCooldownTicks == b.remainingOilCooldownTicks && a.remainingNitroTicks == b.remainingNitroTicks && a.remainingOiledTicks == b.remainingOiledTicks && Double.compare(a.durability, b.durability) == 0 && Double.compare(a.enginePower, b.enginePower) == 0 && Double.compare(a.wheelTurn, b.wheelTurn) == 0 && a.nextWaypointX == b.nextWaypointX && a.nextWaypointY == b.nextWaypointY && a.finishedTrack == b.finishedTrack;
     }
 }

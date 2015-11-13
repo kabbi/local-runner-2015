@@ -3,7 +3,7 @@ package com.a.b.a.a.c;
 import java.util.Arrays;
 
 // $FF: renamed from: com.a.b.a.a.c.l
-public class class_149 {
+public class Game {
     private final long randomSeed;
     private final int tickCount;
     private final int worldWidth;
@@ -59,7 +59,7 @@ public class class_149 {
     private final int oilSlickLifetime;
     private final int maxOiledStateDurationTicks;
 
-    public class_149(long var1, int var3, int var4, int var5, double var6, double var8, int var10, int var11, int var12, double var13, int[] var15, int var16, double var17, double var19, int var21, double var22, double var24, double var26, double var28, double var30, double var32, double var34, double var36, double var38, double var40, int var42, int var43, int var44, double var45, int var47, int var48, double var49, double var51, double var53, double var55, double var57, double var59, double var61, double var63, int var65, double var66, double var68, double var70, double var72, double var74, double var76, double var78, double var80, double var82, double var84, double var86, double var88, int var90, int var91) {
+    public Game(long var1, int var3, int var4, int var5, double var6, double var8, int var10, int var11, int var12, double var13, int[] var15, int var16, double var17, double var19, int var21, double var22, double var24, double var26, double var28, double var30, double var32, double var34, double var36, double var38, double var40, int var42, int var43, int var44, double var45, int var47, int var48, double var49, double var51, double var53, double var55, double var57, double var59, double var61, double var63, int var65, double var66, double var68, double var70, double var72, double var74, double var76, double var78, double var80, double var82, double var84, double var86, double var88, int var90, int var91) {
         this.randomSeed = var1;
         this.tickCount = var3;
         this.worldWidth = var4;

@@ -1,8 +1,8 @@
 package com.a.b.a.a.e.a.a;
 
 import com.a.b.a.a.c.class_146;
-import com.a.b.a.a.c.class_147;
-import com.a.b.a.a.c.class_149;
+import com.a.b.a.a.c.Move;
+import com.a.b.a.a.c.Game;
 
 // $FF: renamed from: com.a.b.a.a.e.a.a.e
 public interface class_14 {
@@ -22,13 +22,13 @@ public interface class_14 {
     int method_60();
 
     // $FF: renamed from: a (com.a.b.a.a.c.l) void
-    void method_61(class_149 var1);
+    void method_61(Game var1);
 
     // $FF: renamed from: a (com.a.b.a.a.c.p, boolean) void
     void method_62(class_146 var1, boolean var2);
 
     // $FF: renamed from: d () com.a.b.a.a.c.m[]
-    class_147[] method_63();
+    Move[] method_63();
 
     // $FF: renamed from: e () void
     void method_64();

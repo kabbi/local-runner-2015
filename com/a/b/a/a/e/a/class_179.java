@@ -1,10 +1,10 @@
 package com.a.b.a.a.e.a;
 
-import com.a.b.a.a.c.class_136;
-import com.a.b.a.a.c.class_137;
-import com.a.b.a.a.c.class_147;
-import com.a.b.a.a.c.class_149;
-import com.a.b.a.a.e.a.class_11;
+import com.a.b.a.a.c.Car;
+import com.a.b.a.a.c.World;
+import com.a.b.a.a.c.Move;
+import com.a.b.a.a.c.Game;
+
 import java.util.concurrent.atomic.AtomicLong;
 
 // $FF: renamed from: com.a.b.a.a.e.a.c
@@ -25,19 +25,19 @@ public class class_179 implements class_11 {
     }
 
     // $FF: renamed from: a (com.a.b.a.a.c.l) void
-    public void method_52(class_149 var1) {
+    public void method_52(Game var1) {
     }
 
     // $FF: renamed from: a (com.a.b.a.a.c.c[], com.a.b.a.a.c.v) com.a.b.a.a.c.m[]
-    public class_147[] method_53(class_136[] var1, class_137 var2) {
+    public Move[] method_53(Car[] var1, World var2) {
         if(var1.length != this.field_753) {
             throw new IllegalArgumentException(String.format("Strategy adapter \'%s\' got %d cars while team size is %d.", new Object[]{this.getClass().getSimpleName(), Integer.valueOf(var1.length), Integer.valueOf(this.field_753)}));
         } else {
-            class_147[] var3 = new class_147[this.field_753];
+            Move[] var3 = new Move[this.field_753];
 
             for(int var4 = 0; var4 < this.field_753; ++var4) {
-                class_136 var5 = var1[var4];
-                class_147 var6 = new class_147();
+                Car var5 = var1[var4];
+                Move var6 = new Move();
                 this.method_974(var5, var6);
                 var3[var4] = var6;
             }
@@ -50,7 +50,7 @@ public class class_179 implements class_11 {
     }
 
     // $FF: renamed from: a (com.a.b.a.a.c.c, com.a.b.a.a.c.m) void
-    private void method_974(class_136 var1, class_147 var2) {
+    private void method_974(Car var1, Move var2) {
         if(this.field_754.method_249(var1.getTeammateIndex())) {
             var2.setBrake(true);
         }

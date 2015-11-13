@@ -1,7 +1,5 @@
 package com.a.b.a.a.c;
 
-import com.a.b.a.a.c.class_137;
-import com.a.b.a.a.c.class_151;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.Until;
 import java.util.Arrays;
@@ -10,7 +8,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 // $FF: renamed from: com.a.b.a.a.c.h
-public final class class_138 extends class_137 {
+public final class class_138 extends World {
     @Until(1.0D)
     private final Long randomSeed;
     @Until(1.0D)
@@ -25,7 +23,7 @@ public final class class_138 extends class_137 {
     )
     private final Object systemData;
 
-    public class_138(class_137 var1, Long var2, double var3, boolean var5, class_151[] var6, Map var7, Map var8, Object var9) {
+    public class_138(World var1, Long var2, double var3, boolean var5, class_151[] var6, Map var7, Map var8, Object var9) {
         super(var1.getTick(), var1.getTickCount(), var1.getLastTickIndex(), var1.getWidth(), var1.getHeight(), var1.getPlayersUnsafe(), var1.getCarsUnsafe(), var1.getProjectilesUnsafe(), var1.getBonusesUnsafe(), var1.getOilSlicksUnsafe(), var1.getMapName(), var1.getTilesXYUnsafe(), var1.getWaypointsUnsafe(), var1.getStartingDirection());
         this.randomSeed = var2;
         this.speedFactor = var3;

@@ -1,13 +1,11 @@
 package com.a.b.a.a.e.a;
 
 import com.a.b.a.a.a.class_18;
-import com.a.b.a.a.c.class_136;
-import com.a.b.a.a.c.class_137;
+import com.a.b.a.a.c.Car;
+import com.a.b.a.a.c.World;
 import com.a.b.a.a.c.class_146;
-import com.a.b.a.a.c.class_147;
-import com.a.b.a.a.c.class_149;
-import com.a.b.a.a.e.a.class_11;
-import com.a.b.a.a.e.a.class_177;
+import com.a.b.a.a.c.Move;
+import com.a.b.a.a.c.Game;
 import com.a.b.a.a.e.a.a.class_14;
 import com.a.b.a.a.e.a.a.class_189;
 import com.a.b.a.a.e.a.a.class_194;
@@ -161,12 +159,12 @@ public class class_180 implements class_11 {
     }
 
     // $FF: renamed from: a (com.a.b.a.a.c.l) void
-    public void method_52(class_149 var1) {
+    public void method_52(Game var1) {
         this.field_763.method_61(var1);
     }
 
     // $FF: renamed from: a (com.a.b.a.a.c.c[], com.a.b.a.a.c.v) com.a.b.a.a.c.m[]
-    public class_147[] method_53(class_136[] var1, class_137 var2) {
+    public Move[] method_53(Car[] var1, World var2) {
         if(var1.length != this.field_761) {
             throw new IllegalArgumentException(String.format("Strategy adapter \'%s\' got %d cars while team size is %d.", new Object[]{this.getClass().getSimpleName(), Integer.valueOf(var1.length), Integer.valueOf(this.field_761)}));
         } else {

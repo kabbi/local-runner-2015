@@ -1,7 +1,7 @@
 package com.a.b.a.a.b.e;
 
-import com.a.b.a.a.c.class_139;
-import com.a.b.a.a.c.class_150;
+import com.a.b.a.a.c.TileType;
+import com.a.b.a.a.c.Direction;
 import com.codeforces.commons.math.NumberUtil;
 import com.codeforces.commons.pair.IntPair;
 import com.codeforces.commons.resource.CantReadResourceException;
@@ -54,7 +54,7 @@ public final class class_86 {
             String[] var4 = Patterns.LINE_BREAK_PATTERN.split(new String(var3, StandardCharsets.UTF_8));
             MutableInt var5 = new MutableInt(0);
             MutableInt var6 = new MutableInt(0);
-            class_139[][] var7 = method_504(var4, var5, var1);
+            TileType[][] var7 = method_504(var4, var5, var1);
             if(var7.length > 0) {
                 method_505(var7, var4, var5, var7.length, var7[0].length);
                 method_506(var7, var7.length, var7[0].length);
@@ -66,7 +66,7 @@ public final class class_86 {
                 method_510(var8, var7, var7.length, var7[0].length, var6);
             }
 
-            class_150 var9 = method_514(var4, var5, var7, var8);
+            Direction var9 = method_514(var4, var5, var7, var8);
             var2 = new class_86.class_206(var0, var7, var8, var9, var6.intValue());
             field_324.putIfAbsent(var0, var2);
         }
@@ -98,10 +98,10 @@ public final class class_86 {
     }
 
     // $FF: renamed from: a (java.lang.String[], org.apache.commons.lang3.mutable.MutableInt, boolean) com.a.b.a.a.c.t[][]
-    private static class_139[][] method_504(String[] var0, MutableInt var1, boolean var2) {
+    private static TileType[][] method_504(String[] var0, MutableInt var1, boolean var2) {
         int var3 = var0.length;
 
-        class_139[][] var4;
+        TileType[][] var4;
         for(var4 = null; var1.intValue() < var3 && var4 == null; var1.increment()) {
             String var5 = var0[var1.intValue()];
             if(StringUtil.isNotBlank(var5) && var5.indexOf(35) != 0) {
@@ -123,7 +123,7 @@ public final class class_86 {
                 }
 
                 int var11 = Integer.parseInt(var10);
-                var4 = new class_139[var9][var11];
+                var4 = new TileType[var9][var11];
             }
         }
 
@@ -135,7 +135,7 @@ public final class class_86 {
     }
 
     // $FF: renamed from: a (com.a.b.a.a.c.t[][], java.lang.String[], org.apache.commons.lang3.mutable.MutableInt, int, int) void
-    private static void method_505(class_139[][] var0, String[] var1, MutableInt var2, int var3, int var4) {
+    private static void method_505(TileType[][] var0, String[] var1, MutableInt var2, int var3, int var4) {
         int var5 = var1.length;
 
         int var6;
@@ -162,14 +162,14 @@ public final class class_86 {
     }
 
     // $FF: renamed from: a (com.a.b.a.a.c.t[][], int, int) void
-    private static void method_506(class_139[][] var0, int var1, int var2) {
+    private static void method_506(TileType[][] var0, int var1, int var2) {
         for(int var3 = 0; var3 < var1; ++var3) {
             for(int var4 = 0; var4 < var2; ++var4) {
-                class_139 var5 = var0[var3][var4];
-                class_139 var6 = var3 > 0?var0[var3 - 1][var4]:null;
-                class_139 var7 = var3 < var1 - 1?var0[var3 + 1][var4]:null;
-                class_139 var8 = var4 > 0?var0[var3][var4 - 1]:null;
-                class_139 var9 = var4 < var2 - 1?var0[var3][var4 + 1]:null;
+                TileType var5 = var0[var3][var4];
+                TileType var6 = var3 > 0?var0[var3 - 1][var4]:null;
+                TileType var7 = var3 < var1 - 1?var0[var3 + 1][var4]:null;
+                TileType var8 = var4 > 0?var0[var3][var4 - 1]:null;
+                TileType var9 = var4 < var2 - 1?var0[var3][var4 + 1]:null;
                 method_507(var3, var4, var5, var6, var7, var8, var9);
             }
         }
@@ -177,7 +177,7 @@ public final class class_86 {
     }
 
     // $FF: renamed from: a (int, int, com.a.b.a.a.c.t, com.a.b.a.a.c.t, com.a.b.a.a.c.t, com.a.b.a.a.c.t, com.a.b.a.a.c.t) void
-    private static void method_507(int var0, int var1, class_139 var2, class_139 var3, class_139 var4, class_139 var5, class_139 var6) {
+    private static void method_507(int var0, int var1, TileType var2, TileType var3, TileType var4, TileType var5, TileType var6) {
         if(field_322.contains(var2) && (var5 == null || !field_321.contains(var5)) || field_321.contains(var2) && (var6 == null || !field_322.contains(var6)) || field_319.contains(var2) && (var4 == null || !field_320.contains(var4)) || field_320.contains(var2) && (var3 == null || !field_319.contains(var3))) {
             throw new IllegalArgumentException(String.format("Illegal environment of tile (%d, %d) (tileType=%s, leftTileType=%s, rightTileType=%s, topTileType=%s, bottomTileType=%s).", new Object[]{Integer.valueOf(var0), Integer.valueOf(var1), var2, var3, var4, var5, var6}));
         }
@@ -214,7 +214,7 @@ public final class class_86 {
     }
 
     // $FF: renamed from: a (com.codeforces.commons.pair.IntPair[], java.lang.String[], org.apache.commons.lang3.mutable.MutableInt, com.a.b.a.a.c.t[][], int, int) void
-    private static void method_509(IntPair[] var0, String[] var1, MutableInt var2, class_139[][] var3, int var4, int var5) {
+    private static void method_509(IntPair[] var0, String[] var1, MutableInt var2, TileType[][] var3, int var4, int var5) {
         int var6 = var0.length;
         int var7 = var1.length;
 
@@ -239,11 +239,11 @@ public final class class_86 {
                 }
 
                 int var14 = Integer.parseInt(var13);
-                if(var12 >= var4 || var14 >= var5 || var3[var12][var14] == class_139.EMPTY) {
+                if(var12 >= var4 || var14 >= var5 || var3[var12][var14] == TileType.EMPTY) {
                     throw new IllegalArgumentException(String.format("Waypoint (%d, %d) is outside the track.", var12, var14));
                 }
 
-                if(var8 == 0 && var3[var12][var14] != class_139.VERTICAL && var3[var12][var14] != class_139.HORIZONTAL) {
+                if(var8 == 0 && var3[var12][var14] != TileType.VERTICAL && var3[var12][var14] != TileType.HORIZONTAL) {
                     throw new IllegalArgumentException(String.format("Starting waypoint (%d, %d) should lay either on VERTICAL or HORIZONTAL track tile (current is %s).", var12, var14, var3[var12][var14]));
                 }
 
@@ -267,7 +267,7 @@ public final class class_86 {
     }
 
     // $FF: renamed from: a (com.codeforces.commons.pair.IntPair[], com.a.b.a.a.c.t[][], int, int, org.apache.commons.lang3.mutable.MutableInt) void
-    private static void method_510(IntPair[] var0, class_139[][] var1, int var2, int var3, MutableInt var4) {
+    private static void method_510(IntPair[] var0, TileType[][] var1, int var2, int var3, MutableInt var4) {
         int var5 = var0.length;
         IntPair[] var6 = new IntPair[var5 + 1];
         System.arraycopy(var0, 0, var6, 0, var5);
@@ -290,7 +290,7 @@ public final class class_86 {
     }
 
     // $FF: renamed from: a (com.a.b.a.a.b.e.i$b, com.codeforces.commons.pair.IntPair, com.a.b.a.a.c.t[][], java.lang.Integer[][], int, int) com.a.b.a.a.b.e.i$b
-    private static class_86.class_211 method_511(class_86.class_211 var0, IntPair var1, class_139[][] var2, Integer[][] var3, int var4, int var5) {
+    private static class_86.class_211 method_511(class_86.class_211 var0, IntPair var1, TileType[][] var2, Integer[][] var3, int var4, int var5) {
         List var6 = method_512(var0.field_266, var2, var4, var5);
         class_86.class_211 var7 = null;
         Iterator var8 = var6.iterator();
@@ -349,7 +349,7 @@ public final class class_86 {
     }
 
     // $FF: renamed from: a (com.codeforces.commons.pair.IntPair, com.a.b.a.a.c.t[][], int, int) java.util.List
-    private static List method_512(IntPair var0, class_139[][] var1, int var2, int var3) {
+    private static List method_512(IntPair var0, TileType[][] var1, int var2, int var3) {
         int var4 = (Integer) var0.getFirst();
         int var5 = (Integer) var0.getSecond();
         ArrayList var6 = new ArrayList(4);
@@ -394,15 +394,15 @@ public final class class_86 {
     }
 
     // $FF: renamed from: a (java.lang.String[], org.apache.commons.lang3.mutable.MutableInt, com.a.b.a.a.c.t[][], com.codeforces.commons.pair.IntPair[]) com.a.b.a.a.c.i
-    private static class_150 method_514(String[] var0, MutableInt var1, class_139[][] var2, IntPair[] var3) {
+    private static Direction method_514(String[] var0, MutableInt var1, TileType[][] var2, IntPair[] var3) {
         int var4 = var0.length;
 
-        class_150 var5;
+        Direction var5;
         for(var5 = null; var1.intValue() < var4 && var5 == null; var1.increment()) {
             String var6 = var0[var1.intValue()];
             if(StringUtil.isNotBlank(var6) && var6.indexOf(35) != 0) {
                 try {
-                    var5 = class_150.valueOf(var6.trim().toUpperCase());
+                    var5 = Direction.valueOf(var6.trim().toUpperCase());
                 } catch (IllegalArgumentException var8) {
                     throw new CantReadResourceException("Can\'t parse starting direction.", var8);
                 }
@@ -413,15 +413,15 @@ public final class class_86 {
             throw new CantReadResourceException("Can\'t read starting direction.");
         } else {
             IntPair var9 = var3[0];
-            class_139 var7 = var2[((Integer) var9.getFirst())][((Integer) var9.getSecond())];
+            TileType var7 = var2[((Integer) var9.getFirst())][((Integer) var9.getSecond())];
             switch(var7.ordinal()) {
             case 1:
-                if(var5 != class_150.UP && var5 != class_150.DOWN) {
+                if(var5 != Direction.UP && var5 != Direction.DOWN) {
                     throw new IllegalArgumentException(String.format("Starting direction should be either UP or DOWN for VERTICAL waypoint, but got %s.", new Object[]{var5}));
                 }
                 break;
             case 2:
-                if(var5 != class_150.LEFT && var5 != class_150.RIGHT) {
+                if(var5 != Direction.LEFT && var5 != Direction.RIGHT) {
                     throw new IllegalArgumentException(String.format("Starting direction should be either LEFT or RIGHT for HORIZONTAL waypoint, but got %s.", new Object[]{var5}));
                 }
                 break;
@@ -434,42 +434,42 @@ public final class class_86 {
     }
 
     // $FF: renamed from: a (char) com.a.b.a.a.c.t
-    private static class_139 method_515(char var0) {
+    private static TileType method_515(char var0) {
         switch(var0) {
         case '═':
-            return class_139.HORIZONTAL;
+            return TileType.HORIZONTAL;
         case '║':
-            return class_139.VERTICAL;
+            return TileType.VERTICAL;
         case '╔':
-            return class_139.LEFT_TOP_CORNER;
+            return TileType.LEFT_TOP_CORNER;
         case '╗':
-            return class_139.RIGHT_TOP_CORNER;
+            return TileType.RIGHT_TOP_CORNER;
         case '╚':
-            return class_139.LEFT_BOTTOM_CORNER;
+            return TileType.LEFT_BOTTOM_CORNER;
         case '╝':
-            return class_139.RIGHT_BOTTOM_CORNER;
+            return TileType.RIGHT_BOTTOM_CORNER;
         case '╠':
-            return class_139.RIGHT_HEADED_T;
+            return TileType.RIGHT_HEADED_T;
         case '╣':
-            return class_139.LEFT_HEADED_T;
+            return TileType.LEFT_HEADED_T;
         case '╦':
-            return class_139.BOTTOM_HEADED_T;
+            return TileType.BOTTOM_HEADED_T;
         case '╩':
-            return class_139.TOP_HEADED_T;
+            return TileType.TOP_HEADED_T;
         case '╬':
-            return class_139.CROSSROADS;
+            return TileType.CROSSROADS;
         case '█':
-            return class_139.EMPTY;
+            return TileType.EMPTY;
         default:
             throw new IllegalArgumentException("Unexpected tile character \'" + var0 + "\'.");
         }
     }
 
     static {
-        field_319 = Collections.unmodifiableSet(EnumSet.of(class_139.HORIZONTAL, class_139.LEFT_TOP_CORNER, class_139.LEFT_BOTTOM_CORNER, class_139.RIGHT_HEADED_T, class_139.TOP_HEADED_T, class_139.BOTTOM_HEADED_T, class_139.CROSSROADS));
-        field_320 = Collections.unmodifiableSet(EnumSet.of(class_139.HORIZONTAL, class_139.RIGHT_TOP_CORNER, class_139.RIGHT_BOTTOM_CORNER, class_139.LEFT_HEADED_T, class_139.TOP_HEADED_T, class_139.BOTTOM_HEADED_T, class_139.CROSSROADS));
-        field_321 = Collections.unmodifiableSet(EnumSet.of(class_139.VERTICAL, class_139.LEFT_TOP_CORNER, class_139.RIGHT_TOP_CORNER, class_139.LEFT_HEADED_T, class_139.RIGHT_HEADED_T, class_139.BOTTOM_HEADED_T, class_139.CROSSROADS));
-        field_322 = Collections.unmodifiableSet(EnumSet.of(class_139.VERTICAL, class_139.LEFT_BOTTOM_CORNER, class_139.RIGHT_BOTTOM_CORNER, class_139.LEFT_HEADED_T, class_139.RIGHT_HEADED_T, class_139.TOP_HEADED_T, class_139.CROSSROADS));
+        field_319 = Collections.unmodifiableSet(EnumSet.of(TileType.HORIZONTAL, TileType.LEFT_TOP_CORNER, TileType.LEFT_BOTTOM_CORNER, TileType.RIGHT_HEADED_T, TileType.TOP_HEADED_T, TileType.BOTTOM_HEADED_T, TileType.CROSSROADS));
+        field_320 = Collections.unmodifiableSet(EnumSet.of(TileType.HORIZONTAL, TileType.RIGHT_TOP_CORNER, TileType.RIGHT_BOTTOM_CORNER, TileType.LEFT_HEADED_T, TileType.TOP_HEADED_T, TileType.BOTTOM_HEADED_T, TileType.CROSSROADS));
+        field_321 = Collections.unmodifiableSet(EnumSet.of(TileType.VERTICAL, TileType.LEFT_TOP_CORNER, TileType.RIGHT_TOP_CORNER, TileType.LEFT_HEADED_T, TileType.RIGHT_HEADED_T, TileType.BOTTOM_HEADED_T, TileType.CROSSROADS));
+        field_322 = Collections.unmodifiableSet(EnumSet.of(TileType.VERTICAL, TileType.LEFT_BOTTOM_CORNER, TileType.RIGHT_BOTTOM_CORNER, TileType.LEFT_HEADED_T, TileType.RIGHT_HEADED_T, TileType.TOP_HEADED_T, TileType.CROSSROADS));
         field_324 = new ConcurrentHashMap();
         byte var0 = 5;
         byte var1 = 25;
@@ -498,15 +498,15 @@ public final class class_86 {
         // $FF: renamed from: a java.lang.String
         private final String field_261;
         // $FF: renamed from: b com.a.b.a.a.c.t[][]
-        private final class_139[][] field_262;
+        private final TileType[][] field_262;
         // $FF: renamed from: c com.codeforces.commons.pair.IntPair[]
         private final IntPair[] field_263;
         // $FF: renamed from: d com.a.b.a.a.c.i
-        private final class_150 field_264;
+        private final Direction field_264;
         // $FF: renamed from: e int
         private final int field_265;
 
-        public class_206(String var1, class_139[][] var2, IntPair[] var3, class_150 var4, int var5) {
+        public class_206(String var1, TileType[][] var2, IntPair[] var3, Direction var4, int var5) {
             this.field_261 = var1;
             this.field_262 = var2;
             this.field_263 = var3;
@@ -520,7 +520,7 @@ public final class class_86 {
         }
 
         // $FF: renamed from: b () com.a.b.a.a.c.t[][]
-        public class_139[][] method_413() {
+        public TileType[][] method_413() {
             return this.field_262;
         }
 
@@ -530,7 +530,7 @@ public final class class_86 {
         }
 
         // $FF: renamed from: d () com.a.b.a.a.c.i
-        public class_150 method_415() {
+        public Direction method_415() {
             return this.field_264;
         }
 

@@ -4,7 +4,7 @@ import com.a.b.class_42;
 import com.a.b.class_58;
 import com.a.b.a.a.b.class_171;
 import com.a.b.a.a.b.d.c.class_43;
-import com.a.b.a.a.c.class_140;
+import com.a.b.a.a.c.ProjectileType;
 import com.a.c.a.class_125;
 import com.codeforces.commons.geometry.Point2D;
 import com.codeforces.commons.geometry.Vector2D;
@@ -20,14 +20,14 @@ public abstract class class_48 extends class_42 {
     private final class_171 field_188;
     // $FF: renamed from: c com.a.b.a.a.c.r
     @Name("type")
-    private final class_140 field_189;
+    private final ProjectileType field_189;
     // $FF: renamed from: d int
     @Name("creationTick")
     private final int field_190;
     // $FF: renamed from: e boolean
     private boolean field_191 = true;
 
-    protected class_48(class_125 var1, class_43 var2, class_171 var3, class_140 var4, int var5, Point2D var6, Vector2D var7, double var8, double var10) {
+    protected class_48(class_125 var1, class_43 var2, class_171 var3, ProjectileType var4, int var5, Point2D var6, Vector2D var7, double var8, double var10) {
         super(var1);
         if(!Double.isNaN(var10) && !Double.isInfinite(var10) && var10 > 0.0D) {
             this.field_187 = var2;
@@ -57,7 +57,7 @@ public abstract class class_48 extends class_42 {
     }
 
     // $FF: renamed from: m () com.a.b.a.a.c.r
-    public class_140 method_354() {
+    public ProjectileType method_354() {
         return this.field_189;
     }
 

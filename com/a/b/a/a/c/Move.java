@@ -1,7 +1,7 @@
 package com.a.b.a.a.c;
 
 // $FF: renamed from: com.a.b.a.a.c.m
-public class class_147 {
+public class Move {
     private double enginePower;
     private boolean brake;
     private double wheelTurn;

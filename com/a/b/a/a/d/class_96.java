@@ -10,18 +10,17 @@ import com.a.b.a.a.b.e.class_72;
 import com.a.b.a.a.b.e.class_79;
 import com.a.b.a.a.b.e.class_84;
 import com.a.b.a.a.b.e.class_85;
-import com.a.b.a.a.c.class_132;
-import com.a.b.a.a.c.class_133;
-import com.a.b.a.a.c.class_135;
-import com.a.b.a.a.c.class_136;
-import com.a.b.a.a.c.class_137;
+import com.a.b.a.a.c.OilSlick;
+import com.a.b.a.a.c.Projectile;
+import com.a.b.a.a.c.Bonus;
+import com.a.b.a.a.c.Car;
+import com.a.b.a.a.c.World;
 import com.a.b.a.a.c.class_138;
 import com.a.b.a.a.c.class_141;
 import com.a.b.a.a.c.class_142;
-import com.a.b.a.a.c.class_145;
-import com.a.b.a.a.c.class_149;
+import com.a.b.a.a.c.Player;
+import com.a.b.a.a.c.Game;
 import com.a.b.a.a.c.class_151;
-import com.a.b.a.a.d.class_5;
 import com.a.b.a.a.e.a.class_179;
 import com.a.c.a.class_126;
 import com.a.c.a.class_127;
@@ -528,7 +527,7 @@ public class class_96 implements class_5 {
         this.method_526();
         class_138 var2 = var1.method_859();
         Preconditions.checkNotNull(var2);
-        class_149 var3 = class_84.method_499(0L, var2.getTickCount(), this.field_341);
+        Game var3 = class_84.method_499(0L, var2.getTickCount(), this.field_341);
         Graphics var4 = method_590(this.field_350.getGraphics());
         if(this.field_342 > 0) {
             var4.setColor(class_120.method_787(Color.WHITE, 255 - this.field_342));
@@ -615,10 +614,10 @@ public class class_96 implements class_5 {
 
         double var19 = (double)var1.getWidth() * 800.0D;
         double var7 = (double)var1.getHeight() * 800.0D;
-        class_136[] var9 = var1.getCars();
+        Car[] var9 = var1.getCars();
         Arrays.sort(var9, new Comparator() {
             // $FF: renamed from: a (com.a.b.a.a.c.c, com.a.b.a.a.c.c) int
-            public int method_517(class_136 var1, class_136 var2) {
+            public int method_517(Car var1, Car var2) {
                 if(Math.abs(var1.getX() - var2.getX()) < Math.abs(var1.getY() - var2.getY())) {
                     if(var1.getY() > var2.getY()) {
                         return 1;
@@ -642,14 +641,14 @@ public class class_96 implements class_5 {
 
             // $FF: synthetic method
             public int compare(Object var1, Object var2) {
-                return this.method_517((class_136)var1, (class_136)var2);
+                return this.method_517((Car)var1, (Car)var2);
             }
         });
-        class_136[] var10 = var9;
+        Car[] var10 = var9;
         int var11 = var9.length;
 
         for(int var12 = 0; var12 < var11; ++var12) {
-            class_136 var13 = var10[var12];
+            Car var13 = var10[var12];
             var4.setColor(method_591(var13.getPlayerId()));
             double var14 = class_85.method_500(new class_128(var13.getWidth(), var13.getHeight())) * 1.5D;
             class_96.class_218 var16 = method_574(var13.getX() - var14, var13.getY() - var14, 0.0D, 0.0D, var19, var7, var18, var3);
@@ -718,18 +717,18 @@ public class class_96 implements class_5 {
 
     // $FF: renamed from: e (com.a.b.a.a.c.h) void
     private void method_533(class_138 var1) {
-        class_136[] var2 = var1.getCars();
+        Car[] var2 = var1.getCars();
         int var3 = var2.length;
         if(this.field_343.get() == Long.MIN_VALUE) {
             Arrays.sort(var2, new Comparator() {
                 // $FF: renamed from: a (com.a.b.a.a.c.c, com.a.b.a.a.c.c) int
-                public int method_643(class_136 var1, class_136 var2) {
+                public int method_643(Car var1, Car var2) {
                     return Long.compare(var1.getId(), var2.getId());
                 }
 
                 // $FF: synthetic method
                 public int compare(Object var1, Object var2) {
-                    return this.method_643((class_136)var1, (class_136)var2);
+                    return this.method_643((Car)var1, (Car)var2);
                 }
             });
 
@@ -737,14 +736,14 @@ public class class_96 implements class_5 {
                 this.field_344.putIfAbsent(var4, var2[var4].getId());
             }
 
-            class_145 var14 = null;
+            Player var14 = null;
             Map var5 = var1.getDecoratedPlayerById();
             if(var5 != null) {
-                class_145[] var6 = var1.getPlayersUnsafe();
+                Player[] var6 = var1.getPlayersUnsafe();
                 int var7 = var6.length;
 
                 for(int var8 = 0; var8 < var7; ++var8) {
-                    class_145 var9 = var6[var8];
+                    Player var9 = var6[var8];
                     class_141 var10 = (class_141)var5.get(var9.getId());
                     if(var10 != null && var10.isKeyboardPlayer()) {
                         var14 = var9;
@@ -759,7 +758,7 @@ public class class_96 implements class_5 {
                 }
             } else {
                 for(int var17 = 0; var17 < var3; ++var17) {
-                    class_136 var19 = var2[var17];
+                    Car var19 = var2[var17];
                     if(var19.getPlayerId() == var14.getId() && var19.getTeammateIndex() == 0) {
                         this.field_343.set(var19.getId());
                         break;
@@ -769,10 +768,10 @@ public class class_96 implements class_5 {
         }
 
         if(this.field_343.get() != Long.MIN_VALUE) {
-            class_136 var16 = null;
+            Car var16 = null;
 
             for(int var15 = 0; var15 < var3; ++var15) {
-                class_136 var18 = var2[var15];
+                Car var18 = var2[var15];
                 if(var18.getId() == this.field_343.get()) {
                     var16 = var18;
                     break;
@@ -870,7 +869,7 @@ public class class_96 implements class_5 {
     private void method_537(class_138 var1) {
         Graphics var2 = method_590(this.field_350.getGraphics());
         Font var3 = new Font("Courier New", 1, this.method_570(0.0D, 48.0D).method_856());
-        class_145[] var4 = var1.getPlayers();
+        Player[] var4 = var1.getPlayers();
         Arrays.sort(var4, class_72.method_456());
         int var5 = 1;
         class_96.class_218 var6 = this.method_570(200.0D, 400.0D - 37.5D * (double)var4.length);
@@ -879,7 +878,7 @@ public class class_96 implements class_5 {
         int var9 = 0;
 
         for(int var10 = var4.length; var9 < var10; ++var9) {
-            class_145 var11 = var4[var9];
+            Player var11 = var4[var9];
             int var12;
             if(var9 != 0 && var11.getScore() == var4[var9 - 1].getScore()) {
                 var12 = var5;
@@ -914,11 +913,11 @@ public class class_96 implements class_5 {
     // $FF: renamed from: c (com.a.b.a.a.c.h, java.awt.Graphics) void
     private void method_538(class_138 var1, Graphics var2) {
         Color var3 = var2.getColor();
-        class_136[] var4 = var1.getCarsUnsafe();
+        Car[] var4 = var1.getCarsUnsafe();
         int var5 = var4.length;
 
         for(int var6 = 0; var6 < var5; ++var6) {
-            class_136 var7 = var4[var6];
+            Car var7 = var4[var6];
             this.method_539(var1, var7);
             if(var7.getRemainingNitroTicks() > 0) {
                 ConcurrentMap var8 = (ConcurrentMap)this.field_364.get(var7.getId());
@@ -935,7 +934,7 @@ public class class_96 implements class_5 {
     }
 
     // $FF: renamed from: a (com.a.b.a.a.c.h, com.a.b.a.a.c.c) void
-    private void method_539(class_138 var1, class_136 var2) {
+    private void method_539(class_138 var1, Car var2) {
         ConcurrentMap var3 = (ConcurrentMap)this.field_364.get(var2.getId());
         if(var3 == null) {
             this.field_364.putIfAbsent(var2.getId(), new ConcurrentHashMap());
@@ -946,7 +945,7 @@ public class class_96 implements class_5 {
     }
 
     // $FF: renamed from: a (com.a.b.a.a.c.h, java.awt.Graphics, com.a.b.a.a.c.c, com.a.b.a.a.d.a$b, java.lang.Integer) void
-    private void method_540(class_138 var1, Graphics var2, class_136 var3, class_96.class_221 var4, Integer var5) {
+    private void method_540(class_138 var1, Graphics var2, Car var3, class_96.class_221 var4, Integer var5) {
         Color var6 = method_591(var3.getPlayerId());
         if(var4 != null && var5 != null) {
             var6 = class_120.method_787(var6, var5.intValue());
@@ -988,7 +987,7 @@ public class class_96 implements class_5 {
     }
 
     // $FF: renamed from: a (com.a.b.a.a.c.h, java.awt.Graphics, com.a.b.a.a.c.c) void
-    private void method_541(class_138 var1, Graphics var2, class_136 var3) {
+    private void method_541(class_138 var1, Graphics var2, Car var3) {
         double var4 = 0.5D * Math.hypot(var3.getWidth(), var3.getHeight());
         double var6 = 0.5D * Math.min(var3.getWidth(), var3.getHeight());
         double var8 = var3.getDurability();
@@ -1004,7 +1003,7 @@ public class class_96 implements class_5 {
     }
 
     // $FF: renamed from: a (java.awt.Graphics, com.a.b.a.a.c.c) void
-    private void method_543(Graphics var1, class_136 var2) {
+    private void method_543(Graphics var1, Car var2) {
         double var3 = 0.5D * Math.hypot(var2.getWidth(), var2.getHeight());
         double var5 = 0.5D * Math.min(var2.getWidth(), var2.getHeight());
         var1.setColor(Color.BLACK);
@@ -1015,7 +1014,7 @@ public class class_96 implements class_5 {
     }
 
     // $FF: renamed from: b (java.awt.Graphics, com.a.b.a.a.c.c) void
-    private void method_544(Graphics var1, class_136 var2) {
+    private void method_544(Graphics var1, Car var2) {
         double var3 = 0.5D * Math.hypot(var2.getWidth(), var2.getHeight());
         double var5 = 0.5D * Math.min(var2.getWidth(), var2.getHeight());
         double var7 = 0.35D * var5;
@@ -1034,7 +1033,7 @@ public class class_96 implements class_5 {
     }
 
     // $FF: renamed from: a (java.awt.Graphics, com.a.b.a.a.c.c, double, double, double) com.codeforces.commons.geometry.Point2D
-    private Point2D method_545(Graphics var1, class_136 var2, double var3, double var5, double var7) {
+    private Point2D method_545(Graphics var1, Car var2, double var3, double var5, double var7) {
         Point2D var9 = new Point2D(var2.getX() + var3 + 2.0D + var7, var2.getY() - 0.85D * var5);
         var1.setColor(Color.BLACK);
         this.method_580(var1, var9, var7);
@@ -1044,7 +1043,7 @@ public class class_96 implements class_5 {
     }
 
     // $FF: renamed from: a (java.awt.Graphics, com.a.b.a.a.c.c, double, double) com.codeforces.commons.geometry.Point2D
-    private Point2D method_546(Graphics var1, class_136 var2, double var3, double var5) {
+    private Point2D method_546(Graphics var1, Car var2, double var3, double var5) {
         Point2D var7 = new Point2D(var2.getX() + var3 + 2.0D + var5, var2.getY());
         var1.setColor(Color.BLACK);
         double var8 = var5 / 2.0D;
@@ -1060,7 +1059,7 @@ public class class_96 implements class_5 {
     }
 
     // $FF: renamed from: b (java.awt.Graphics, com.a.b.a.a.c.c, double, double, double) com.codeforces.commons.geometry.Point2D
-    private Point2D method_547(Graphics var1, class_136 var2, double var3, double var5, double var7) {
+    private Point2D method_547(Graphics var1, Car var2, double var3, double var5, double var7) {
         double var9 = var7 / 2.0D;
         Point2D var11 = new Point2D(var2.getX() + var3 + 2.0D + var7, var2.getY() + 0.85D * var5);
         var1.setColor(Color.BLACK);
@@ -1074,7 +1073,7 @@ public class class_96 implements class_5 {
     }
 
     // $FF: renamed from: c (java.awt.Graphics, com.a.b.a.a.c.c) void
-    private void method_548(Graphics var1, class_136 var2) {
+    private void method_548(Graphics var1, Car var2) {
         Vector2D var3 = new Vector2D(var2.getWidth() * 0.15D, var2.getHeight() * 0.05D);
         double var4 = var2.getWheelTurn() * 0.5235987755982988D;
         double var6 = 0.5D * var2.getWidth() - 1.5D * var3.getX();
@@ -1090,7 +1089,7 @@ public class class_96 implements class_5 {
     }
 
     // $FF: renamed from: b (com.a.b.a.a.c.h, java.awt.Graphics, com.a.b.a.a.c.c) void
-    private void method_549(class_138 var1, Graphics var2, class_136 var3) {
+    private void method_549(class_138 var1, Graphics var2, Car var3) {
         if(var3.getWidth() > var3.getHeight()) {
             if(var2 instanceof Graphics2D) {
                 Graphics2D var4 = (Graphics2D)var2;
@@ -1141,7 +1140,7 @@ public class class_96 implements class_5 {
     }
 
     // $FF: renamed from: c (com.a.b.a.a.c.h, java.awt.Graphics, com.a.b.a.a.c.c) void
-    private void method_551(class_138 var1, Graphics var2, class_136 var3) {
+    private void method_551(class_138 var1, Graphics var2, Car var3) {
         if(var3.getWidth() > var3.getHeight()) {
             Map var4 = var1.getDecoratedCarById();
             class_142 var5 = var4 == null?null:(class_142)var4.get(var3.getId());
@@ -1165,11 +1164,11 @@ public class class_96 implements class_5 {
     // $FF: renamed from: d (com.a.b.a.a.c.h, java.awt.Graphics) void
     private void method_552(class_138 var1, Graphics var2) {
         Color var3 = var2.getColor();
-        class_132[] var4 = var1.getOilSlicksUnsafe();
+        OilSlick[] var4 = var1.getOilSlicksUnsafe();
         int var5 = var4.length;
 
         for(int var6 = 0; var6 < var5; ++var6) {
-            class_132 var7 = var4[var6];
+            OilSlick var7 = var4[var6];
             this.method_553(var2, var7);
         }
 
@@ -1177,7 +1176,7 @@ public class class_96 implements class_5 {
     }
 
     // $FF: renamed from: a (java.awt.Graphics, com.a.b.a.a.c.n) void
-    private void method_553(Graphics var1, class_132 var2) {
+    private void method_553(Graphics var1, OilSlick var2) {
         var1.setColor(class_120.method_787(Color.BLACK, NumberUtil.toInt(255.0D * ((double)var2.getRemainingLifetime() / 600.0D))));
         this.method_579(var1, var2.getX(), var2.getY(), var2.getRadius());
     }
@@ -1185,11 +1184,11 @@ public class class_96 implements class_5 {
     // $FF: renamed from: e (com.a.b.a.a.c.h, java.awt.Graphics) void
     private void method_554(class_138 var1, Graphics var2) {
         Color var3 = var2.getColor();
-        class_135[] var4 = var1.getBonusesUnsafe();
+        Bonus[] var4 = var1.getBonusesUnsafe();
         int var5 = var4.length;
 
         for(int var6 = 0; var6 < var5; ++var6) {
-            class_135 var7 = var4[var6];
+            Bonus var7 = var4[var6];
             this.method_555(var2, var7);
         }
 
@@ -1197,7 +1196,7 @@ public class class_96 implements class_5 {
     }
 
     // $FF: renamed from: a (java.awt.Graphics, com.a.b.a.a.c.a) void
-    private void method_555(Graphics var1, class_135 var2) {
+    private void method_555(Graphics var1, Bonus var2) {
         switch(var2.getType().ordinal()) {
         case 1:
             this.method_556(var1, var2);
@@ -1223,7 +1222,7 @@ public class class_96 implements class_5 {
     }
 
     // $FF: renamed from: b (java.awt.Graphics, com.a.b.a.a.c.a) void
-    private void method_556(Graphics var1, class_135 var2) {
+    private void method_556(Graphics var1, Bonus var2) {
         var1.setColor(new Color(14487062));
         double var3 = Math.min(var2.getWidth(), var2.getHeight()) * 0.4D;
         double var5 = Math.min(var2.getWidth(), var2.getHeight()) * 0.1D;
@@ -1231,7 +1230,7 @@ public class class_96 implements class_5 {
     }
 
     // $FF: renamed from: c (java.awt.Graphics, com.a.b.a.a.c.a) void
-    private void method_557(Graphics var1, class_135 var2) {
+    private void method_557(Graphics var1, Bonus var2) {
         var1.setColor(new Color(2367521));
         this.method_579(var1, var2.getX(), var2.getY(), Math.min(var2.getWidth(), var2.getHeight()) / 2.0D);
         var1.setColor(Color.WHITE);
@@ -1239,7 +1238,7 @@ public class class_96 implements class_5 {
     }
 
     // $FF: renamed from: d (java.awt.Graphics, com.a.b.a.a.c.a) void
-    private void method_558(Graphics var1, class_135 var2) {
+    private void method_558(Graphics var1, Bonus var2) {
         var1.setColor(new Color(1066854));
         double var3 = var2.getWidth() / 4.0D;
         double var5 = var2.getHeight() / 2.0D;
@@ -1253,7 +1252,7 @@ public class class_96 implements class_5 {
     }
 
     // $FF: renamed from: e (java.awt.Graphics, com.a.b.a.a.c.a) void
-    private void method_559(Graphics var1, class_135 var2) {
+    private void method_559(Graphics var1, Bonus var2) {
         var1.setColor(new Color(12028738));
         this.method_584(var1, var2.getX() - var2.getWidth() / 4.0D, var2.getY() - var2.getHeight() / 4.0D, var2.getWidth() / 2.0D, var2.getHeight() / 2.0D);
         this.method_577(var1, var2.getX() - var2.getWidth() / 2.0D, var2.getY() - var2.getHeight() / 2.0D, var2.getX() - var2.getWidth() / 4.0D, var2.getY() - var2.getHeight() / 4.0D);
@@ -1263,7 +1262,7 @@ public class class_96 implements class_5 {
     }
 
     // $FF: renamed from: f (java.awt.Graphics, com.a.b.a.a.c.a) void
-    private void method_560(Graphics var1, class_135 var2) {
+    private void method_560(Graphics var1, Bonus var2) {
         var1.setColor(new Color(9526102));
         String var3 = "\u20bd";
         double var4 = var2.getHeight();
@@ -1276,11 +1275,11 @@ public class class_96 implements class_5 {
     // $FF: renamed from: f (com.a.b.a.a.c.h, java.awt.Graphics) void
     private void method_561(class_138 var1, Graphics var2) {
         Color var3 = var2.getColor();
-        class_133[] var4 = var1.getProjectilesUnsafe();
+        Projectile[] var4 = var1.getProjectilesUnsafe();
         int var5 = var4.length;
 
         for(int var6 = 0; var6 < var5; ++var6) {
-            class_133 var7 = var4[var6];
+            Projectile var7 = var4[var6];
             this.method_562(var2, var7);
         }
 
@@ -1288,7 +1287,7 @@ public class class_96 implements class_5 {
     }
 
     // $FF: renamed from: a (java.awt.Graphics, com.a.b.a.a.c.q) void
-    private void method_562(Graphics var1, class_133 var2) {
+    private void method_562(Graphics var1, Projectile var2) {
         var1.setColor(Color.BLACK);
         this.method_579(var1, var2.getX(), var2.getY(), var2.getRadius());
         var1.setColor(Color.WHITE);
@@ -1338,7 +1337,7 @@ public class class_96 implements class_5 {
     private void method_564(class_138 var1, Graphics var2, class_151 var3) {
         Long var4 = var3.getAffectedUnitId();
         if(var4 != null) {
-            class_136 var5 = method_565(var1, var4);
+            Car var5 = method_565(var1, var4);
             if(var5 != null) {
                 double var6 = 0.5D * Math.hypot(var5.getWidth(), var5.getHeight());
                 double var8 = 0.5D * Math.min(var5.getWidth(), var5.getHeight());
@@ -1367,12 +1366,12 @@ public class class_96 implements class_5 {
     }
 
     // $FF: renamed from: a (com.a.b.a.a.c.v, long) com.a.b.a.a.c.c
-    private static class_136 method_565(class_137 var0, long var1) {
-        class_136[] var3 = var0.getCarsUnsafe();
+    private static Car method_565(World var0, long var1) {
+        Car[] var3 = var0.getCarsUnsafe();
         int var4 = var3.length;
 
         for(int var5 = 0; var5 < var4; ++var5) {
-            class_136 var6 = var3[var5];
+            Car var6 = var3[var5];
             if(var6.getId() == var1) {
                 return var6;
             }
@@ -1385,16 +1384,16 @@ public class class_96 implements class_5 {
     private void method_566(class_138 var1, Graphics var2) {
         if(this.field_359.get() >= 1) {
             var2.setFont(new Font("Courier New", 1, this.method_570(0.0D, 15.0D).method_856()));
-            class_145[] var3 = var1.getPlayers();
+            Player[] var3 = var1.getPlayers();
             Arrays.sort(var3, new Comparator() {
                 // $FF: renamed from: a (com.a.b.a.a.c.o, com.a.b.a.a.c.o) int
-                public int method_622(class_145 var1, class_145 var2) {
+                public int method_622(Player var1, Player var2) {
                     return Long.valueOf(var1.getId()).compareTo(Long.valueOf(var2.getId()));
                 }
 
                 // $FF: synthetic method
                 public int compare(Object var1, Object var2) {
-                    return this.method_622((class_145)var1, (class_145)var2);
+                    return this.method_622((Player)var1, (Player)var2);
                 }
             });
             if(var3.length > 0) {
@@ -1506,7 +1505,7 @@ public class class_96 implements class_5 {
     }
 
     // $FF: renamed from: a (java.awt.Graphics, double, double, com.a.b.a.a.c.o) void
-    private void method_569(Graphics var1, double var2, double var4, class_145 var6) {
+    private void method_569(Graphics var1, double var2, double var4, Player var6) {
         Color var7 = var1.getColor();
         var1.setColor(method_591(var6.getId()));
         class_96.class_218 var8 = this.method_570(var2, var4);
@@ -1689,9 +1688,9 @@ public class class_96 implements class_5 {
         // $FF: renamed from: e java.lang.reflect.Method
         private volatile Method field_621;
         // $FF: renamed from: f com.a.b.a.a.c.v
-        private volatile class_137 field_622;
+        private volatile World field_622;
         // $FF: renamed from: g com.a.b.a.a.c.l
-        private volatile class_149 field_623;
+        private volatile Game field_623;
         // $FF: renamed from: h java.lang.Object
         private volatile Object field_624;
         // $FF: renamed from: i java.lang.Object
@@ -1723,7 +1722,7 @@ public class class_96 implements class_5 {
         }
 
         // $FF: renamed from: a (java.awt.Graphics, com.a.b.a.a.c.v, com.a.b.a.a.c.l, int, int, double, double, double, double) void
-        public void method_34(Graphics var1, class_137 var2, class_149 var3, int var4, int var5, double var6, double var8, double var10, double var12) {
+        public void method_34(Graphics var1, World var2, Game var3, int var4, int var5, double var6, double var8, double var10, double var12) {
             if(this.field_619 != null) {
                 try {
                     List var14 = this.field_618.getParameterTypes();
@@ -1742,7 +1741,7 @@ public class class_96 implements class_5 {
         }
 
         // $FF: renamed from: b (java.awt.Graphics, com.a.b.a.a.c.v, com.a.b.a.a.c.l, int, int, double, double, double, double) void
-        public void method_35(Graphics var1, class_137 var2, class_149 var3, int var4, int var5, double var6, double var8, double var10, double var12) {
+        public void method_35(Graphics var1, World var2, Game var3, int var4, int var5, double var6, double var8, double var10, double var12) {
             if(this.field_621 != null) {
                 try {
                     List var14 = this.field_620.getParameterTypes();
@@ -1813,10 +1812,10 @@ public class class_96 implements class_5 {
 
     private interface class_219 {
         // $FF: renamed from: a (java.awt.Graphics, com.a.b.a.a.c.v, com.a.b.a.a.c.l, int, int, double, double, double, double) void
-        void method_34(Graphics var1, class_137 var2, class_149 var3, int var4, int var5, double var6, double var8, double var10, double var12);
+        void method_34(Graphics var1, World var2, Game var3, int var4, int var5, double var6, double var8, double var10, double var12);
 
         // $FF: renamed from: b (java.awt.Graphics, com.a.b.a.a.c.v, com.a.b.a.a.c.l, int, int, double, double, double, double) void
-        void method_35(Graphics var1, class_137 var2, class_149 var3, int var4, int var5, double var6, double var8, double var10, double var12);
+        void method_35(Graphics var1, World var2, Game var3, int var4, int var5, double var6, double var8, double var10, double var12);
     }
 
     private static final class class_216 {

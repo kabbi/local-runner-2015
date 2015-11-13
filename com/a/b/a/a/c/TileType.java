@@ -1,7 +1,7 @@
 package com.a.b.a.a.c;
 
 // $FF: renamed from: com.a.b.a.a.c.t
-public enum class_139 {
+public enum TileType {
     EMPTY,
     VERTICAL,
     HORIZONTAL,

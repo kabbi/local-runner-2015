@@ -2,7 +2,7 @@ package com.a.b.a.a.b.e;
 
 import com.a.b.a.a.a.class_18;
 import com.a.b.a.a.b.class_171;
-import com.a.b.a.a.c.class_145;
+import com.a.b.a.a.c.Player;
 import com.a.b.a.a.d.class_5;
 import com.a.b.a.a.d.class_96;
 import com.a.b.a.a.e.a.class_179;
@@ -91,14 +91,14 @@ public final class class_72 {
     }
 
     // $FF: renamed from: a (com.a.b.a.a.b.n, com.a.b.a.a.b.n) com.a.b.a.a.c.o
-    public static class_145 method_453(class_171 var0, class_171 var1) {
-        return new class_145(var0.method_917(), var0.equals(var1), var0.method_918(), var0.method_922(), var0.method_928());
+    public static Player method_453(class_171 var0, class_171 var1) {
+        return new Player(var0.method_917(), var0.equals(var1), var0.method_918(), var0.method_922(), var0.method_928());
     }
 
     // $FF: renamed from: a (java.util.List, com.a.b.a.a.b.n) com.a.b.a.a.c.o[]
-    public static class_145[] method_454(List var0, class_171 var1) {
+    public static Player[] method_454(List var0, class_171 var1) {
         int var2 = var0.size();
-        class_145[] var3 = new class_145[var2];
+        Player[] var3 = new Player[var2];
 
         for(int var4 = 0; var4 < var2; ++var4) {
             var3[var4] = method_453((class_171)var0.get(var4), var1);
@@ -126,13 +126,13 @@ public final class class_72 {
     public static Comparator method_456() {
         return new Comparator() {
             // $FF: renamed from: a (com.a.b.a.a.c.o, com.a.b.a.a.c.o) int
-            public int method_458(class_145 var1, class_145 var2) {
+            public int method_458(Player var1, Player var2) {
                 return var2.getScore() > var1.getScore()?1:(var2.getScore() < var1.getScore()?-1:(var2.getId() > var1.getId()?1:(var2.getId() < var1.getId()?-1:0)));
             }
 
             // $FF: synthetic method
             public int compare(Object var1, Object var2) {
-                return this.method_458((class_145)var1, (class_145)var2);
+                return this.method_458((Player)var1, (Player)var2);
             }
         };
     }

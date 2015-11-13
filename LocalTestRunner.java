@@ -1,6 +1,6 @@
 import com.a.b.class_32;
-import com.a.b.a.a.e.class_30;
-import com.a.b.a.a.e.class_31;
+import com.a.b.a.a.e.EmptyStrategy;
+import com.a.b.a.a.e.QuickStartGuyStrategy;
 import com.codeforces.commons.math.Math;
 import com.codeforces.commons.text.StringUtil;
 import java.io.File;
@@ -13,155 +13,127 @@ import java.util.HashMap;
 import java.util.Properties;
 import java.util.regex.Pattern;
 import org.apache.commons.lang3.mutable.MutableBoolean;
-import org.apache.log4j.Logger;
 
 public final class LocalTestRunner {
     public static void main(String[] args) throws IOException {
 //        Logger.getRootLogger().removeAllAppenders();
-        Properties var1 = new Properties();
-        var1.load(new InputStreamReader(new FileInputStream(args[0]), StandardCharsets.UTF_8));
-        Long var2 = getSeed(args, var1);
-        MutableBoolean var3 = new MutableBoolean(Boolean.parseBoolean(StringUtil.trimToEmpty(var1.getProperty("render-to-screen"))));
-        MutableBoolean var4 = new MutableBoolean(Boolean.parseBoolean(StringUtil.trimToEmpty(var1.getProperty("render-to-screen-sync"))));
-        String var5 = getRenderToScreenSize(var1);
-        String var6 = StringUtil.trimToEmpty(var1.getProperty("results-file"));
-        String var7 = StringUtil.trimToEmpty(var1.getProperty("log-file"));
-        String var8 = StringUtil.trimToEmpty(var1.getProperty("replay-file"));
-        int var9 = getBaseAdapterPort(var1);
-        String var10 = StringUtil.trimToEmpty(var1.getProperty("map"));
+        Properties properties = new Properties();
+        properties.load(new InputStreamReader(new FileInputStream(args[0]), StandardCharsets.UTF_8));
+
+        Long var2 = getSeed(args, properties);
+        MutableBoolean var3 = new MutableBoolean(Boolean.parseBoolean(StringUtil.trimToEmpty(properties.getProperty("render-to-screen"))));
+        MutableBoolean var4 = new MutableBoolean(Boolean.parseBoolean(StringUtil.trimToEmpty(properties.getProperty("render-to-screen-sync"))));
+        String var5 = getRenderToScreenSize(properties);
+        String var6 = StringUtil.trimToEmpty(properties.getProperty("results-file"));
+        String var7 = StringUtil.trimToEmpty(properties.getProperty("log-file"));
+        String var8 = StringUtil.trimToEmpty(properties.getProperty("replay-file"));
+        int var9 = getBaseAdapterPort(properties);
+        String var10 = StringUtil.trimToEmpty(properties.getProperty("map"));
         var10 = Pattern.compile("[^_01-9a-zA-Z\\.\\-]+").matcher(var10).replaceAll("");
         if(!var10.isEmpty() && !var10.endsWith(".map")) {
             var10 = var10 + ".map";
         }
 
-        int var11 = getTickCount(var1);
-        int var12 = getTeamSize(var1);
-        int var13 = getPlayerCount(var1);
-        int var14 = getPsychoLevel(var1);
-        boolean var15 = Boolean.parseBoolean(StringUtil.trimToEmpty(var1.getProperty("swap-car-types")));
-        boolean var16 = Boolean.parseBoolean(StringUtil.trimToEmpty(var1.getProperty("loose-map-check")));
-        String var17 = getPluginsDirectory(var1);
+        int var11 = getTickCount(properties);
+        int var12 = getTeamSize(properties);
+        int var13 = getPlayerCount(properties);
+        int var14 = getPsychoLevel(properties);
+        boolean var15 = Boolean.parseBoolean(StringUtil.trimToEmpty(properties.getProperty("swap-car-types")));
+        boolean var16 = Boolean.parseBoolean(StringUtil.trimToEmpty(properties.getProperty("loose-map-check")));
+        String var17 = getPluginsDirectory(properties);
         String[] var18 = new String[var13];
         String[] var19 = new String[var13];
-        setupPlayerNamesAndDefinitions(var1, var3, var4, var13, var18, var19);
-        ArrayList var20 = new ArrayList();
+        setupPlayerNamesAndDefinitions(properties, var3, var4, var13, var18, var19);
+        ArrayList<String> params = new ArrayList<>();
         if(var11 > 0) {
-            var20.add("-tick-count=" + var11);
+            params.add("-tick-count=" + var11);
         }
 
-        var20.add("-render-to-screen=" + var3.booleanValue());
-        var20.add("-render-to-screen-sync=" + var4.booleanValue());
-        var20.add("-render-to-screen-size=" + var5);
-        var20.add("-results-file=" + var6);
-        var20.add("-write-to-text-file=" + var7);
-        var20.add("-replay-file=" + var8);
-        var20.add("-map=" + var10);
-        var20.add("-debug=true");
-        var20.add("-base-adapter-port=" + var9);
+        params.add("-render-to-screen=" + var3.booleanValue());
+        params.add("-render-to-screen-sync=" + var4.booleanValue());
+        params.add("-render-to-screen-size=" + var5);
+        params.add("-results-file=" + var6);
+        params.add("-write-to-text-file=" + var7);
+        params.add("-replay-file=" + var8);
+        params.add("-map=" + var10);
+        params.add("-debug=true");
+        params.add("-base-adapter-port=" + var9);
         if(var2 != null) {
-            var20.add("-seed=" + var2);
+            params.add("-seed=" + var2);
         }
 
         if(var14 > 0) {
-            var20.add("-psycho-level=" + var14);
+            params.add("-psycho-level=" + var14);
         }
 
         if(var15) {
-            var20.add("-swap-car-types=true");
+            params.add("-swap-car-types=true");
         }
 
         if(var16) {
-            var20.add("-loose-map-check=true");
+            params.add("-loose-map-check=true");
         }
 
         if(var17 != null) {
-            var20.add("-plugins-directory=" + var17);
+            params.add("-plugins-directory=" + var17);
         }
 
         for(int var21 = 0; var21 < var13; ++var21) {
-            var20.add("-p" + (var21 + 1) + "-name=" + var18[var21]);
-            var20.add("-p" + (var21 + 1) + "-team-size=" + var12);
-            var20.add(var19[var21]);
+            params.add("-p" + (var21 + 1) + "-name=" + var18[var21]);
+            params.add("-p" + (var21 + 1) + "-team-size=" + var12);
+            params.add(var19[var21]);
         }
 
-        (new class_32((String[])var20.toArray(new String[var20.size()]))).run();
+        (new class_32(params.toArray(new String[params.size()]))).run();
     }
 
     private static void setupPlayerNamesAndDefinitions(Properties var0, MutableBoolean var1, MutableBoolean var2, int var3, String[] var4, String[] var5) {
-        HashMap var6 = new HashMap(var3);
+        HashMap<String, Integer> var6 = new HashMap<>(var3);
         boolean var7 = false;
 
         for(int var8 = 0; var8 < var3; ++var8) {
-            String var9 = StringUtil.trimToEmpty(var0.getProperty("p" + (var8 + 1) + "-type"));
-            String var10 = StringUtil.trimToEmpty(var0.getProperty("p" + (var8 + 1) + "-name"));
-            byte var12 = -1;
-            switch(var9.hashCode()) {
-            case 67081517:
-                if(var9.equals("Empty")) {
-                    var12 = 4;
-                }
-                break;
-            case 73592651:
-                if(var9.equals("Local")) {
-                    var12 = 0;
-                }
-                break;
-            case 78394829:
-                if(var9.equals("Quick")) {
-                    var12 = 1;
-                }
-                break;
-            case 79996329:
-                if(var9.equals("Smart")) {
-                    var12 = 2;
-                }
-                break;
-            case 568383495:
-                if(var9.equals("Keyboard")) {
-                    var12 = 3;
-                }
+            String playerType = StringUtil.trimToEmpty(var0.getProperty("p" + (var8 + 1) + "-type"));
+            String playerName = StringUtil.trimToEmpty(var0.getProperty("p" + (var8 + 1) + "-name"));
+            switch (playerType) {
+                case "Local":
+                    var5[var8] = "#LocalTestPlayer";
+                    if(playerName.isEmpty()) {
+                        playerName = "MyStrategy";
+                    }
+                    break;
+                case "Quick":
+                    var5[var8] = QuickStartGuyStrategy.class.getSimpleName() + ".class";
+                    if(playerName.isEmpty()) {
+                        playerName = "QuickStartGuy";
+                    }
+                    break;
+                case "Smart":
+                    var5[var8] = EmptyStrategy.class.getSimpleName() + ".class";
+                    playerName = playerName.isEmpty() ? "EmptyPlayer" : playerName;
+                    break;
+                case "Keyboard":
+                    if(var7) {
+                        throw new IllegalArgumentException("Can\'t add two or more keyboard players.");
+                    }
+
+                    var7 = true;
+                    var1.setValue(true);
+                    var2.setValue(true);
+                    var5[var8] = "#KeyboardPlayer";
+                    if(playerName.isEmpty()) {
+                        playerName = "KeyboardPlayer";
+                    }
+                    break;
+                case "Empty":
+                default:
+                    var5[var8] = EmptyStrategy.class.getSimpleName() + ".class";
+                    playerName = playerName.isEmpty()?"EmptyPlayer":playerName;
             }
 
-            switch(var12) {
-            case 0:
-                var5[var8] = "#LocalTestPlayer";
-                if(var10.isEmpty()) {
-                    var10 = "MyStrategy";
-                }
-                break;
-            case 1:
-                var5[var8] = class_31.class.getSimpleName() + ".class";
-                if(var10.isEmpty()) {
-                    var10 = "QuickStartGuy";
-                }
-                break;
-            case 2:
-                var5[var8] = class_30.class.getSimpleName() + ".class";
-                var10 = var10.isEmpty()?"EmptyPlayer":var10;
-                break;
-            case 3:
-                if(var7) {
-                    throw new IllegalArgumentException("Can\'t add two or more keyboard players.");
-                }
-
-                var7 = true;
-                var1.setValue(true);
-                var2.setValue(true);
-                var5[var8] = "#KeyboardPlayer";
-                if(var10.isEmpty()) {
-                    var10 = "KeyboardPlayer";
-                }
-                break;
-            case 4:
-            default:
-                var5[var8] = class_30.class.getSimpleName() + ".class";
-                var10 = var10.isEmpty()?"EmptyPlayer":var10;
-            }
-
-            Integer var11 = (Integer)var6.get(var10);
+            Integer var11 = var6.get(playerName);
             var11 = var11 == null ? 1 : var11 + 1;
-            var6.put(var10, var11);
-            var4[var8] = var11 == 1?var10:String.format("%s (%d)", var10, var11);
+            var6.put(playerName, var11);
+            var4[var8] = var11 == 1 ? playerName:String.format("%s (%d)", playerName, var11);
         }
 
     }
@@ -170,7 +142,7 @@ public final class LocalTestRunner {
         if(var0.length > 1) {
             try {
                 return Long.valueOf(var0[1]);
-            } catch (NumberFormatException var4) {
+            } catch (NumberFormatException ignored) {
                 ;
             }
         }
