@@ -16,7 +16,7 @@ import com.google.common.base.Preconditions;
 // $FF: renamed from: com.a.b.a.a.b.e.b
 public final class class_79 {
     // $FF: renamed from: a (com.a.b.a.a.b.d.c.b, double, com.a.b.a.a.b.n) com.a.b.a.a.c.c
-    public static Car carNextTick(CarPhysicalBody var0, double secondsPerTick, BoringTeamInfo team) {
+    public static Car carNextTick(CarPhysicalBody var0, double oneDividedByTheNumberOfIterationsByEngine, BoringTeamInfo team) {
         Form var4 = var0.getBody().getForm();
         if(!(var4 instanceof class_128)) {
             throw new IllegalArgumentException("Unsupported car form: " + var4 + '.');
@@ -26,9 +26,9 @@ public final class class_79 {
             Preconditions.checkNotNull(nextWaypoint.getFirst());
             Preconditions.checkNotNull(nextWaypoint.getSecond());
             return new Car(var0.getId(), var0.getBody().getMass(), var0.getBody().getX(),
-                    var0.getBody().getY(), var0.getBody().getSpeed().getX() * secondsPerTick,
-                    var0.getBody().getSpeed().getY() * secondsPerTick, var0.getBody().getAngle(),
-                    var0.getBody().angularSpeed() * secondsPerTick, var5.getCarWidth(), var5.getCarHeight(),
+                    var0.getBody().getY(), var0.getBody().getSpeed().getX() * oneDividedByTheNumberOfIterationsByEngine,
+                    var0.getBody().getSpeed().getY() * oneDividedByTheNumberOfIterationsByEngine, var0.getBody().getAngle(),
+                    var0.getBody().angularSpeed() * oneDividedByTheNumberOfIterationsByEngine, var5.getCarWidth(), var5.getCarHeight(),
                     var0.getBoringTeamInfo().getPlayerId(), var0.getTeammateIndex(),
                     var0.getBoringTeamInfo().equals(team), var0.type(),
                     var0.getProjectileCount(), var0.getNitroChangeCount(), var0.getOildCannisterCount(),

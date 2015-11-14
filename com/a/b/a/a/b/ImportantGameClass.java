@@ -26,7 +26,7 @@ import com.a.b.a.a.b.d.a.class_47;
 import com.a.b.a.a.b.d.b.class_51;
 import com.a.b.a.a.b.d.b.a.a.ProbablyProjectileOfSomeSort;
 import com.a.b.a.a.b.d.b.a.b.class_55;
-import com.a.b.a.a.b.d.b.b.class_53;
+import com.a.b.a.a.b.d.b.b.ProbablyLineWall;
 import com.a.b.a.a.b.d.c.CarPhysicalBody;
 import com.a.b.a.a.b.d.c.class_44;
 import com.a.b.a.a.b.d.c.class_45;
@@ -577,7 +577,7 @@ public class ImportantGameClass implements class_1 {
 
             while(var5.hasNext()) {
                 var18 = (ImportantGameClass.class_213)var5.next();
-                this.method_950(var18.method_751(), var18.method_752());
+                this.processPowerAndWheelTurn(var18.method_751(), var18.method_752());
             }
 
             return;
@@ -691,7 +691,7 @@ public class ImportantGameClass implements class_1 {
     }
 
     // $FF: renamed from: b (com.a.b.a.a.b.d.c.b, com.a.b.a.a.c.m) void
-    private void method_950(CarPhysicalBody var1, Move var2) {
+    private void processPowerAndWheelTurn(CarPhysicalBody var1, Move var2) {
         if(!class_79.method_481(var1) && !var1.isFinishedTrack()) {
             this.processPower(var1, var2);
             setWheelTurn(var1, var2);
@@ -815,54 +815,54 @@ public class ImportantGameClass implements class_1 {
                 case 1:
                     break;
                 case 2:
-                    this.field_721.method_17(new class_53(var5 + 80.0D, var7, var5 + 80.0D, var11));
-                    this.field_721.method_17(new class_53(var9 - 80.0D, var7, var9 - 80.0D, var11));
+                    this.field_721.method_17(new ProbablyLineWall(var5 + 80.0D, var7, var5 + 80.0D, var11));
+                    this.field_721.method_17(new ProbablyLineWall(var9 - 80.0D, var7, var9 - 80.0D, var11));
                     break;
                 case 3:
-                    this.field_721.method_17(new class_53(var5, var7 + 80.0D, var9, var7 + 80.0D));
-                    this.field_721.method_17(new class_53(var5, var11 - 80.0D, var9, var11 - 80.0D));
+                    this.field_721.method_17(new ProbablyLineWall(var5, var7 + 80.0D, var9, var7 + 80.0D));
+                    this.field_721.method_17(new ProbablyLineWall(var5, var11 - 80.0D, var9, var11 - 80.0D));
                     break;
                 case 4:
-                    this.field_721.method_17(new class_53(var5 + 80.0D, var7 + 160.0D, var5 + 80.0D, var11));
-                    this.field_721.method_17(new class_53(var5 + 160.0D, var7 + 80.0D, var9, var7 + 80.0D));
+                    this.field_721.method_17(new ProbablyLineWall(var5 + 80.0D, var7 + 160.0D, var5 + 80.0D, var11));
+                    this.field_721.method_17(new ProbablyLineWall(var5 + 160.0D, var7 + 80.0D, var9, var7 + 80.0D));
                     this.field_721.method_17(new class_55(var5 + 160.0D, var7 + 160.0D, 3.141592653589793D, 1.5707963267948966D));
                     this.field_721.method_17(new ProbablyProjectileOfSomeSort(var9, var11, 3.141592653589793D, 1.5707963267948966D));
                     break;
                 case 5:
-                    this.field_721.method_17(new class_53(var9 - 80.0D, var7 + 160.0D, var9 - 80.0D, var11));
-                    this.field_721.method_17(new class_53(var5, var7 + 80.0D, var9 - 160.0D, var7 + 80.0D));
+                    this.field_721.method_17(new ProbablyLineWall(var9 - 80.0D, var7 + 160.0D, var9 - 80.0D, var11));
+                    this.field_721.method_17(new ProbablyLineWall(var5, var7 + 80.0D, var9 - 160.0D, var7 + 80.0D));
                     this.field_721.method_17(new class_55(var9 - 160.0D, var7 + 160.0D, -1.5707963267948966D, 1.5707963267948966D));
                     this.field_721.method_17(new ProbablyProjectileOfSomeSort(var5, var11, -1.5707963267948966D, 1.5707963267948966D));
                     break;
                 case 6:
-                    this.field_721.method_17(new class_53(var5 + 80.0D, var7, var5 + 80.0D, var11 - 160.0D));
-                    this.field_721.method_17(new class_53(var5 + 160.0D, var11 - 80.0D, var9, var11 - 80.0D));
+                    this.field_721.method_17(new ProbablyLineWall(var5 + 80.0D, var7, var5 + 80.0D, var11 - 160.0D));
+                    this.field_721.method_17(new ProbablyLineWall(var5 + 160.0D, var11 - 80.0D, var9, var11 - 80.0D));
                     this.field_721.method_17(new class_55(var5 + 160.0D, var11 - 160.0D, 1.5707963267948966D, 1.5707963267948966D));
                     this.field_721.method_17(new ProbablyProjectileOfSomeSort(var9, var7, 1.5707963267948966D, 1.5707963267948966D));
                     break;
                 case 7:
-                    this.field_721.method_17(new class_53(var9 - 80.0D, var7, var9 - 80.0D, var11 - 160.0D));
-                    this.field_721.method_17(new class_53(var5, var11 - 80.0D, var9 - 160.0D, var11 - 80.0D));
+                    this.field_721.method_17(new ProbablyLineWall(var9 - 80.0D, var7, var9 - 80.0D, var11 - 160.0D));
+                    this.field_721.method_17(new ProbablyLineWall(var5, var11 - 80.0D, var9 - 160.0D, var11 - 80.0D));
                     this.field_721.method_17(new class_55(var9 - 160.0D, var11 - 160.0D, 0.0D, 1.5707963267948966D));
                     this.field_721.method_17(new ProbablyProjectileOfSomeSort(var5, var7, 0.0D, 1.5707963267948966D));
                     break;
                 case 8:
-                    this.field_721.method_17(new class_53(var9 - 80.0D, var7, var9 - 80.0D, var11));
+                    this.field_721.method_17(new ProbablyLineWall(var9 - 80.0D, var7, var9 - 80.0D, var11));
                     this.field_721.method_17(new ProbablyProjectileOfSomeSort(var5, var7, 0.0D, 1.5707963267948966D));
                     this.field_721.method_17(new ProbablyProjectileOfSomeSort(var5, var11, -1.5707963267948966D, 1.5707963267948966D));
                     break;
                 case 9:
-                    this.field_721.method_17(new class_53(var5 + 80.0D, var7, var5 + 80.0D, var11));
+                    this.field_721.method_17(new ProbablyLineWall(var5 + 80.0D, var7, var5 + 80.0D, var11));
                     this.field_721.method_17(new ProbablyProjectileOfSomeSort(var9, var7, 1.5707963267948966D, 1.5707963267948966D));
                     this.field_721.method_17(new ProbablyProjectileOfSomeSort(var9, var11, 3.141592653589793D, 1.5707963267948966D));
                     break;
                 case 10:
-                    this.field_721.method_17(new class_53(var5, var11 - 80.0D, var9, var11 - 80.0D));
+                    this.field_721.method_17(new ProbablyLineWall(var5, var11 - 80.0D, var9, var11 - 80.0D));
                     this.field_721.method_17(new ProbablyProjectileOfSomeSort(var5, var7, 0.0D, 1.5707963267948966D));
                     this.field_721.method_17(new ProbablyProjectileOfSomeSort(var9, var7, 1.5707963267948966D, 1.5707963267948966D));
                     break;
                 case 11:
-                    this.field_721.method_17(new class_53(var5, var7 + 80.0D, var9, var7 + 80.0D));
+                    this.field_721.method_17(new ProbablyLineWall(var5, var7 + 80.0D, var9, var7 + 80.0D));
                     this.field_721.method_17(new ProbablyProjectileOfSomeSort(var5, var11, -1.5707963267948966D, 1.5707963267948966D));
                     this.field_721.method_17(new ProbablyProjectileOfSomeSort(var9, var11, 3.141592653589793D, 1.5707963267948966D));
                     break;
