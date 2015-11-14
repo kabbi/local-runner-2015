@@ -2,13 +2,13 @@ package com.a.b.a.a.d;
 
 import com.a.a.a.a.class_120;
 import com.a.a.a.a.class_123;
-import com.a.b.a.a.a.class_18;
-import com.a.b.a.a.b.d.b.a.a.class_57;
+import com.a.b.a.a.a.GameParatemers;
+import com.a.b.a.a.b.d.b.a.a.ProbablyProjectileOfSomeSort;
 import com.a.b.a.a.b.d.b.a.b.class_54;
 import com.a.b.a.a.b.d.b.b.class_52;
 import com.a.b.a.a.b.e.class_72;
 import com.a.b.a.a.b.e.class_79;
-import com.a.b.a.a.b.e.class_84;
+import com.a.b.a.a.b.e.GameCreationFactory;
 import com.a.b.a.a.b.e.class_85;
 import com.a.b.a.a.c.OilSlick;
 import com.a.b.a.a.c.Projectile;
@@ -90,7 +90,7 @@ public class class_96 implements class_5 {
     // $FF: renamed from: d java.awt.Color
     private static final Color field_340 = new Color(255, 153, 32, 255);
     // $FF: renamed from: e com.a.b.a.a.a.b
-    private final class_18 field_341;
+    private final GameParatemers field_341;
     // $FF: renamed from: f int
     private final int field_342;
     // $FF: renamed from: g java.util.concurrent.atomic.AtomicLong
@@ -138,7 +138,7 @@ public class class_96 implements class_5 {
     // $FF: renamed from: B java.util.concurrent.ConcurrentMap
     private final ConcurrentMap field_364 = new ConcurrentHashMap();
 
-    public class_96(final class_18 var1) {
+    public class_96(final GameParatemers var1) {
         this.field_341 = var1;
         this.field_342 = var1.method_107();
         this.field_346 = this.field_345 * (double)var1.method_75() / (double)var1.method_74();
@@ -200,7 +200,7 @@ public class class_96 implements class_5 {
     }
 
     // $FF: renamed from: a (com.a.b.a.a.a.b) com.a.b.a.a.d.a$e
-    private static class_96.class_219 method_520(class_18 var0) {
+    private static class_96.class_219 method_520(GameParatemers var0) {
         File var1 = var0.method_89();
         if(FileUtil.isDirectory(var1)) {
             ArrayList var2 = new ArrayList();
@@ -527,7 +527,7 @@ public class class_96 implements class_5 {
         this.method_526();
         class_138 var2 = var1.method_859();
         Preconditions.checkNotNull(var2);
-        Game var3 = class_84.method_499(0L, var2.getTickCount(), this.field_341);
+        Game var3 = GameCreationFactory.createGame(0L, var2.getTickCount(), this.field_341);
         Graphics var4 = method_590(this.field_350.getGraphics());
         if(this.field_342 > 0) {
             var4.setColor(class_120.method_787(Color.WHITE, 255 - this.field_342));
@@ -664,21 +664,21 @@ public class class_96 implements class_5 {
         double var7 = (double)var1.getHeight() * 800.0D;
         if(var2 instanceof class_52) {
             class_52 var14 = (class_52)var2;
-            class_127 var12 = (class_127)var14.method_279().method_902();
+            class_127 var12 = (class_127)var14.getBody().getForm();
             method_530(var0, var12, var5, var7, var3, var4);
         } else if(var2 instanceof class_54) {
             class_54 var13 = (class_54)var2;
-            class_126 var11 = (class_126)var13.method_279().method_902();
+            class_126 var11 = (class_126)var13.getBody().getForm();
             method_531(var0, var13, var11, var5, var7, var3, var4);
         } else {
-            if(var2 instanceof class_57) {
-                class_57 var9 = (class_57)var2;
+            if(var2 instanceof ProbablyProjectileOfSomeSort) {
+                ProbablyProjectileOfSomeSort var9 = (ProbablyProjectileOfSomeSort)var2;
                 if(var9.method_360() != null) {
                     method_529(var0, var1, var9.method_360(), var3, var4);
                     return;
                 }
 
-                class_129 var10 = (class_129)var9.method_279().method_902();
+                class_129 var10 = (class_129)var9.getBody().getForm();
                 method_532(var0, var9, var10, var5, var7, var3, var4);
             }
 
@@ -694,9 +694,9 @@ public class class_96 implements class_5 {
 
     // $FF: renamed from: a (java.awt.Graphics, com.a.b.a.a.b.d.b.a.b.a, com.a.c.a.a, double, double, int, int) void
     private static void method_531(Graphics var0, class_54 var1, class_126 var2, double var3, double var5, int var7, int var8) {
-        double var9 = var1.method_279().method_870();
-        double var11 = var1.method_279().method_872();
-        double var13 = -var1.method_279().method_874() - var2.method_821();
+        double var9 = var1.getBody().getX();
+        double var11 = var1.getBody().getY();
+        double var13 = -var1.getBody().getAngle() - var2.method_821();
         double var15 = -var2.method_822();
         Vector2D var17 = (new Vector2D(var2.method_820(), 0.0D)).rotate(-var13);
         Vector2D var18 = (new Vector2D(var2.method_820(), 0.0D)).rotate(-var13 - var15);
@@ -706,9 +706,9 @@ public class class_96 implements class_5 {
     }
 
     // $FF: renamed from: a (java.awt.Graphics, com.a.b.a.a.b.d.b.a.a.b, com.a.c.a.b, double, double, int, int) void
-    private static void method_532(Graphics var0, class_57 var1, class_129 var2, double var3, double var5, int var7, int var8) {
-        double var9 = var1.method_279().method_870();
-        double var11 = var1.method_279().method_872();
+    private static void method_532(Graphics var0, ProbablyProjectileOfSomeSort var1, class_129 var2, double var3, double var5, int var7, int var8) {
+        double var9 = var1.getBody().getX();
+        double var11 = var1.getBody().getY();
         double var13 = var2.method_829();
         class_96.class_218 var15 = method_574(var9 - var13, var11 - var13, 0.0D, 0.0D, var3, var5, var7, var8);
         class_96.class_218 var16 = method_572(2.0D * var13, 2.0D * var13, var3, var5, var7, var8);
@@ -825,18 +825,18 @@ public class class_96 implements class_5 {
     private void method_535(Graphics var1, Object var2) {
         if(var2 instanceof class_52) {
             class_52 var6 = (class_52)var2;
-            class_127 var8 = (class_127)var6.method_279().method_902();
+            class_127 var8 = (class_127)var6.getBody().getForm();
             this.method_577(var1, var8.method_823(), var8.method_824(), var8.method_825(), var8.method_826());
         } else if(var2 instanceof class_54) {
             class_54 var5 = (class_54)var2;
-            class_126 var7 = (class_126)var5.method_279().method_902();
-            this.method_583(var1, var5.method_279().method_870(), var5.method_279().method_872(), var7.method_820(), -var5.method_279().method_874() - var7.method_821(), -var7.method_822());
+            class_126 var7 = (class_126)var5.getBody().getForm();
+            this.method_583(var1, var5.getBody().getX(), var5.getBody().getY(), var7.method_820(), -var5.getBody().getAngle() - var7.method_821(), -var7.method_822());
         } else {
-            if(var2 instanceof class_57) {
-                class_57 var3 = (class_57)var2;
+            if(var2 instanceof ProbablyProjectileOfSomeSort) {
+                ProbablyProjectileOfSomeSort var3 = (ProbablyProjectileOfSomeSort)var2;
                 if(var3.method_360() == null) {
-                    class_129 var4 = (class_129)var3.method_279().method_902();
-                    this.method_581(var1, var3.method_279().method_870(), var3.method_279().method_872(), var4.method_829());
+                    class_129 var4 = (class_129)var3.getBody().getForm();
+                    this.method_581(var1, var3.getBody().getX(), var3.getBody().getY(), var4.method_829());
                 } else {
                     this.method_535(var1, var3.method_360());
                 }

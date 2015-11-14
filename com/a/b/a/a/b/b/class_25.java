@@ -2,8 +2,8 @@ package com.a.b.a.a.b.b;
 
 import com.a.b.class_2;
 import com.a.b.class_3;
-import com.a.b.class_42;
-import com.a.b.a.a.a.class_18;
+import com.a.b.RectangleBody;
+import com.a.b.a.a.a.GameParatemers;
 import com.codeforces.commons.geometry.Vector2D;
 import com.codeforces.commons.math.Math;
 import java.util.Iterator;
@@ -13,7 +13,7 @@ public class class_25 implements class_2 {
     // $FF: renamed from: a boolean
     private final boolean field_91;
 
-    public class_25(class_18 var1) {
+    public class_25(GameParatemers var1) {
         this.field_91 = var1.method_104();
     }
 
@@ -22,9 +22,9 @@ public class class_25 implements class_2 {
         Iterator var3 = var1.method_19().iterator();
 
         while(var3.hasNext()) {
-            class_42 var4 = (class_42)var3.next();
-            double var5 = var4.method_279().method_870();
-            double var7 = var4.method_279().method_872();
+            RectangleBody var4 = (RectangleBody)var3.next();
+            double var5 = var4.getBody().getX();
+            double var7 = var4.getBody().getY();
             if(var4.method_291() == null) {
                 var4.method_292(0.0D);
                 var4.method_294(new Vector2D(0.0D, 0.0D));

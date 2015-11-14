@@ -1,11 +1,11 @@
 package com.a.b.a.a.b.d.a;
 
-import com.a.b.class_42;
+import com.a.b.RectangleBody;
 import com.a.b.a.a.c.BonusType;
 import com.a.c.a.class_128;
 
 // $FF: renamed from: com.a.b.a.a.b.d.a.a
-public class class_47 extends class_42 {
+public class class_47 extends RectangleBody {
     // $FF: renamed from: a com.a.b.a.a.c.b
     private final BonusType field_184;
     // $FF: renamed from: b int
@@ -18,11 +18,11 @@ public class class_47 extends class_42 {
         this.field_184 = var1;
         this.field_185 = Integer.MAX_VALUE;
         this.field_186 = Integer.MAX_VALUE;
-        this.method_279().method_871(var2);
-        this.method_279().method_873(var4);
-        this.method_279().method_901(100.0D);
-        this.method_279().method_897(1.0D);
-        this.method_279().method_899(1.0D);
+        this.getBody().setX(var2);
+        this.getBody().setY(var4);
+        this.getBody().setMass(100.0D);
+        this.getBody().setMomentumTransferFactor(1.0D);
+        this.getBody().setSurfaceFriction(1.0D);
     }
 
     // $FF: renamed from: k () com.a.b.a.a.c.b

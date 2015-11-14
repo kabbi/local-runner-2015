@@ -1,9 +1,7 @@
 package com.a.b;
 
-import com.a.b.class_32;
-import com.a.b.class_1;
 import com.a.b.a.a.a.class_17;
-import com.a.b.a.a.a.class_18;
+import com.a.b.a.a.a.GameParatemers;
 import com.google.inject.Guice;
 import com.google.inject.Module;
 import java.io.File;
@@ -33,11 +31,11 @@ public final class class_32 implements Runnable {
                 var2.printStackTrace();
             }
         });
-        class_18 var1 = null;
+        GameParatemers var1 = null;
 
         try {
-            var1 = new class_18(this.field_141);
-            class_18.method_115(var1);
+            var1 = new GameParatemers(this.field_141);
+            GameParatemers.method_115(var1);
             class_1 var11 = (class_1)Guice.createInjector(new Module[]{new class_17()}).getInstance(class_1.class);
 
             try {

@@ -530,7 +530,7 @@ public final class class_86 {
         }
 
         // $FF: renamed from: d () com.a.b.a.a.c.i
-        public Direction method_415() {
+        public Direction getDirection() {
             return this.field_264;
         }
 

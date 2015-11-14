@@ -2,9 +2,9 @@ package com.a.b.a.a.b.b;
 
 import com.a.b.class_2;
 import com.a.b.class_3;
-import com.a.b.class_42;
+import com.a.b.RectangleBody;
 import com.a.b.a.a.b.d.a.class_47;
-import com.a.b.a.a.b.d.c.class_43;
+import com.a.b.a.a.b.d.c.CarPhysicalBody;
 import com.a.b.a.a.b.d.d.class_46;
 import java.util.Iterator;
 
@@ -15,18 +15,18 @@ public class class_24 implements class_2 {
         Iterator var3 = var1.method_19().iterator();
 
         while(var3.hasNext()) {
-            class_42 var4 = (class_42)var3.next();
-            if(var4 instanceof class_43) {
-                class_43 var5 = (class_43)var4;
+            RectangleBody var4 = (RectangleBody)var3.next();
+            if(var4 instanceof CarPhysicalBody) {
+                CarPhysicalBody var5 = (CarPhysicalBody)var4;
                 var5.method_324();
                 var5.method_327();
                 var5.method_330();
                 var5.method_333();
-                if(var5.method_334() > 0) {
+                if(var5.getRemainingOiledTicks() > 0) {
                     var5.method_336();
-                    if(var5.method_334() <= 0) {
-                        var5.method_279().method_893(0.25D);
-                        var5.method_279().method_895(0.008726646259971648D);
+                    if(var5.getRemainingOiledTicks() <= 0) {
+                        var5.getBody().setCrosswiseMovementFrictionFactor(0.25D);
+                        var5.getBody().setRotationFrictionFactor(0.008726646259971648D);
                     }
                 }
 

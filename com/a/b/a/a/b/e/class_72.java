@@ -1,7 +1,7 @@
 package com.a.b.a.a.b.e;
 
-import com.a.b.a.a.a.class_18;
-import com.a.b.a.a.b.class_171;
+import com.a.b.a.a.a.GameParatemers;
+import com.a.b.a.a.b.BoringTeamInfo;
 import com.a.b.a.a.c.Player;
 import com.a.b.a.a.d.class_5;
 import com.a.b.a.a.d.class_96;
@@ -27,12 +27,12 @@ public final class class_72 {
     }
 
     // $FF: renamed from: a (com.a.b.a.a.a.b, int, java.lang.String, java.lang.String, int, java.util.List) com.a.b.a.a.b.n
-    public static class_171 method_450(class_18 var0, int var1, String var2, String var3, int var4, List var5) {
+    public static BoringTeamInfo method_450(GameParatemers var0, int var1, String var2, String var3, int var4, List var5) {
         method_452(var2, var3);
 
         try {
             if(var3.endsWith(".class")) {
-                return new class_171(var2, new class_181(var3, var4));
+                return new BoringTeamInfo(var2, new class_181(var3, var4));
             } else {
                 if("#KeyboardPlayer".equals(var3)) {
                     Iterator var6 = var5.iterator();
@@ -40,7 +40,7 @@ public final class class_72 {
                     while(var6.hasNext()) {
                         class_5 var12 = (class_5)var6.next();
                         if(var12 instanceof class_96) {
-                            return new class_171(var2, new class_179(var4, ((class_96)var12).method_592()));
+                            return new BoringTeamInfo(var2, new class_179(var4, ((class_96)var12).method_592()));
                         }
                     }
                 } else {
@@ -63,17 +63,17 @@ public final class class_72 {
         } catch (RuntimeException var9) {
             String var7 = String.format("Can\'t load player defined by \'%s\'.", var3);
             field_295.error(var7, var9);
-            class_171 var8 = new class_171(var2, new class_182(var4));
+            BoringTeamInfo var8 = new BoringTeamInfo(var2, new class_182(var4));
             var8.method_924("При инициализации игрока возникло непредвиденное исключение.");
             return var8;
         }
     }
 
     // $FF: renamed from: a (java.lang.String, com.a.b.a.a.e.a.d) com.a.b.a.a.b.n
-    private static class_171 method_451(String var0, class_180 var1) {
+    private static BoringTeamInfo method_451(String var0, class_180 var1) {
         try {
             var1.method_979();
-            return new class_171(var0, var1);
+            return new BoringTeamInfo(var0, var1);
         } catch (RuntimeException var3) {
             var3.printStackTrace();
             var1.close();
@@ -91,17 +91,17 @@ public final class class_72 {
     }
 
     // $FF: renamed from: a (com.a.b.a.a.b.n, com.a.b.a.a.b.n) com.a.b.a.a.c.o
-    public static Player method_453(class_171 var0, class_171 var1) {
-        return new Player(var0.method_917(), var0.equals(var1), var0.method_918(), var0.method_922(), var0.method_928());
+    public static Player method_453(BoringTeamInfo var0, BoringTeamInfo var1) {
+        return new Player(var0.getPlayerId(), var0.equals(var1), var0.method_918(), var0.method_922(), var0.method_928());
     }
 
     // $FF: renamed from: a (java.util.List, com.a.b.a.a.b.n) com.a.b.a.a.c.o[]
-    public static Player[] method_454(List var0, class_171 var1) {
+    public static Player[] method_454(List var0, BoringTeamInfo var1) {
         int var2 = var0.size();
         Player[] var3 = new Player[var2];
 
         for(int var4 = 0; var4 < var2; ++var4) {
-            var3[var4] = method_453((class_171)var0.get(var4), var1);
+            var3[var4] = method_453((BoringTeamInfo)var0.get(var4), var1);
         }
 
         return var3;
@@ -111,13 +111,13 @@ public final class class_72 {
     public static Comparator method_455() {
         return new Comparator() {
             // $FF: renamed from: a (com.a.b.a.a.b.n, com.a.b.a.a.b.n) int
-            public int method_457(class_171 var1, class_171 var2) {
-                return var2.method_928() > var1.method_928()?1:(var2.method_928() < var1.method_928()?-1:(var2.method_917() > var1.method_917()?1:(var2.method_917() < var1.method_917()?-1:0)));
+            public int method_457(BoringTeamInfo var1, BoringTeamInfo var2) {
+                return var2.method_928() > var1.method_928()?1:(var2.method_928() < var1.method_928()?-1:(var2.getPlayerId() > var1.getPlayerId()?1:(var2.getPlayerId() < var1.getPlayerId()?-1:0)));
             }
 
             // $FF: synthetic method
             public int compare(Object var1, Object var2) {
-                return this.method_457((class_171)var1, (class_171)var2);
+                return this.method_457((BoringTeamInfo)var1, (BoringTeamInfo)var2);
             }
         };
     }

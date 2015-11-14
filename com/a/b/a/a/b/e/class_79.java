@@ -1,10 +1,10 @@
 package com.a.b.a.a.b.e;
 
-import com.a.b.a.a.b.class_171;
-import com.a.b.a.a.b.d.c.class_43;
+import com.a.b.a.a.b.BoringTeamInfo;
+import com.a.b.a.a.b.d.c.CarPhysicalBody;
 import com.a.b.a.a.c.Car;
 import com.a.b.a.a.c.Direction;
-import com.a.c.a.class_125;
+import com.a.c.a.Form;
 import com.a.c.a.class_128;
 import com.codeforces.commons.geometry.Point2D;
 import com.codeforces.commons.geometry.Vector2D;
@@ -16,42 +16,42 @@ import com.google.common.base.Preconditions;
 // $FF: renamed from: com.a.b.a.a.b.e.b
 public final class class_79 {
     // $FF: renamed from: a (com.a.b.a.a.b.d.c.b, double, com.a.b.a.a.b.n) com.a.b.a.a.c.c
-    public static Car method_476(class_43 var0, double var1, class_171 var3) {
-        class_125 var4 = var0.method_279().method_902();
+    public static Car carNextTick(CarPhysicalBody var0, double secondsPerTick, BoringTeamInfo team) {
+        Form var4 = var0.getBody().getForm();
         if(!(var4 instanceof class_128)) {
             throw new IllegalArgumentException("Unsupported car form: " + var4 + '.');
         } else {
             class_128 var5 = (class_128)var4;
-            IntPair var6 = var0.method_312();
-            Preconditions.checkNotNull(var6.getFirst());
-            Preconditions.checkNotNull(var6.getSecond());
-            return new Car(var0.method_278(), var0.method_279().method_900(), var0.method_279().method_870(),
-                    var0.method_279().method_872(), var0.method_279().method_876().getX() * var1,
-                    var0.method_279().method_876().getY() * var1, var0.method_279().method_874(),
-                    var0.method_279().method_880() * var1, var5.method_827(), var5.method_828(),
-                    var0.method_297().method_917(), var0.method_298(),
-                    var0.method_297().equals(var3), var0.method_299(),
-                    var0.method_316(), var0.method_318(), var0.method_320(),
-                    var0.method_322(), var0.method_325(), var0.method_328(),
-                    var0.method_331(), var0.method_334(), var0.method_300(),
-                    var0.method_304(), var0.method_307(),
-                    ((Integer)var6.getFirst()).intValue(),
-                    ((Integer)var6.getSecond()).intValue(),
-                    var0.method_345());
+            IntPair nextWaypoint = var0.getNextWaypoint();
+            Preconditions.checkNotNull(nextWaypoint.getFirst());
+            Preconditions.checkNotNull(nextWaypoint.getSecond());
+            return new Car(var0.getId(), var0.getBody().getMass(), var0.getBody().getX(),
+                    var0.getBody().getY(), var0.getBody().getSpeed().getX() * secondsPerTick,
+                    var0.getBody().getSpeed().getY() * secondsPerTick, var0.getBody().getAngle(),
+                    var0.getBody().angularSpeed() * secondsPerTick, var5.getCarWidth(), var5.getCarHeight(),
+                    var0.getBoringTeamInfo().getPlayerId(), var0.getTeammateIndex(),
+                    var0.getBoringTeamInfo().equals(team), var0.type(),
+                    var0.getProjectileCount(), var0.getNitroChangeCount(), var0.getOildCannisterCount(),
+                    var0.getRemainingProjectilesCooldownTicks(), var0.getRemainingNitroCooldownTicks(), var0.getRemainingOilCooldownTicks(),
+                    var0.getRemainingNitroTicks(), var0.getRemainingOiledTicks(), var0.getDurability(),
+                    var0.getEnginePower(), var0.getWheelTurn(),
+                    ((Integer)nextWaypoint.getFirst()).intValue(),
+                    ((Integer)nextWaypoint.getSecond()).intValue(),
+                    var0.isFinishedTrack());
         }
     }
 
     // $FF: renamed from: a (com.a.b.a.a.b.e.i$a, int, int, int, int) com.codeforces.commons.geometry.Point2D
-    public static Point2D method_477(class_86.class_206 var0, int var1, int var2, int var3, int var4) {
+    public static Point2D getStartingDirectionLocation(class_86.class_206 var0, int var1, int var2, int var3, int var4) {
         method_484(var1, var2, var3, var4);
-        Direction var5 = var0.method_415();
+        Direction direction = var0.getDirection();
         IntPair var6 = var0.method_414()[0];
         double var7 = 16.0D;
         double var9 = 80.0D + var7 + 70.0D;
         double var11 = (140.0D + var7) * (double)(var4 * var2 + var1);
         Preconditions.checkNotNull(var6.getFirst());
         Preconditions.checkNotNull(var6.getSecond());
-        switch(var5.ordinal()) {
+        switch(direction.ordinal()) {
         case 1:
             return new Point2D(800.0D * ((double) (Integer) var6.getFirst() + 0.5D), 800.0D * (double)((Integer) var6.getSecond() + 1) - var9 - var11);
         case 2:
@@ -61,14 +61,14 @@ public final class class_79 {
         case 4:
             return new Point2D(800.0D * (double)((Integer) var6.getFirst() + 1) - var9 - var11, 800.0D * ((double) (Integer) var6.getSecond() + 0.5D));
         default:
-            throw new IllegalArgumentException("Unsupported starting direction: " + var0.method_415() + '.');
+            throw new IllegalArgumentException("Unsupported starting direction: " + var0.getDirection() + '.');
         }
     }
 
     // $FF: renamed from: b (com.a.b.a.a.b.e.i$a, int, int, int, int) double
-    public static double method_478(class_86.class_206 var0, int var1, int var2, int var3, int var4) {
+    public static double getStartingDirectionAngle(class_86.class_206 var0, int var1, int var2, int var3, int var4) {
         method_484(var1, var2, var3, var4);
-        switch(var0.method_415().ordinal()) {
+        switch(var0.getDirection().ordinal()) {
         case 1:
             return 3.141592653589793D;
         case 2:
@@ -78,35 +78,35 @@ public final class class_79 {
         case 4:
             return 1.5707963267948966D;
         default:
-            throw new IllegalArgumentException("Unsupported starting direction: " + var0.method_415() + '.');
+            throw new IllegalArgumentException("Unsupported starting direction: " + var0.getDirection() + '.');
         }
     }
 
     // $FF: renamed from: a (com.a.b.a.a.b.d.c.b, com.a.b.a.a.b.n, double) void
-    public static void method_479(class_43 var0, class_171 var1, double var2) {
+    public static void method_479(CarPhysicalBody var0, BoringTeamInfo var1, double var2) {
         method_480(var0, var1, var2, 1.0D);
     }
 
     // $FF: renamed from: a (com.a.b.a.a.b.d.c.b, com.a.b.a.a.b.n, double, double) void
-    public static void method_480(class_43 var0, class_171 var1, double var2, double var4) {
-        if(!method_481(var0) && !var0.method_345() && var2 > 0.0D) {
+    public static void method_480(CarPhysicalBody var0, BoringTeamInfo var1, double var2, double var4) {
+        if(!method_481(var0) && !var0.isFinishedTrack() && var2 > 0.0D) {
             byte var6 = 0;
-            var2 = Math.min(var0.method_300(), var2);
+            var2 = Math.min(var0.getDurability(), var2);
             int var7 = (int)((double)var6 + var2 * 100.0D);
-            var0.method_301(var0.method_300() - var2);
+            var0.setDurability(var0.getDurability() - var2);
             if(method_481(var0)) {
-                var0.method_301(0.0D);
-                var0.method_305(0.0D, false);
+                var0.setDurability(0.0D);
+                var0.setEnginePower(0.0D, false);
                 var0.method_332(0);
                 var0.method_338(0);
-                var0.method_279().method_879(new Vector2D(0.0D, 0.0D));
-                var0.method_279().method_883(0.0D);
+                var0.getBody().getMedianSpeed(new Vector2D(0.0D, 0.0D));
+                var0.getBody().setMoreAngularSpeed(0.0D);
                 var7 += 100;
             } else {
                 var0.method_338(var0.method_337() + NumberUtil.toInt(var2 * 300.0D * var4));
             }
 
-            if(var1 != null && var1.method_917() != var0.method_297().method_917()) {
+            if(var1 != null && var1.getPlayerId() != var0.getBoringTeamInfo().getPlayerId()) {
                 var1.method_929(var7);
             }
 
@@ -114,8 +114,8 @@ public final class class_79 {
     }
 
     // $FF: renamed from: a (com.a.b.a.a.b.d.c.b) boolean
-    public static boolean method_481(class_43 var0) {
-        return method_483(var0.method_300());
+    public static boolean method_481(CarPhysicalBody var0) {
+        return method_483(var0.getDurability());
     }
 
     // $FF: renamed from: a (com.a.b.a.a.c.c) boolean

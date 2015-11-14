@@ -1,6 +1,6 @@
 package com.a.b.a.a.b.e;
 
-import com.a.b.a.a.a.class_18;
+import com.a.b.a.a.a.GameParatemers;
 import com.a.b.a.a.c.*;
 import com.codeforces.commons.collection.CollectionUtil;
 import com.codeforces.commons.math.Math;
@@ -46,7 +46,7 @@ public final class class_81 {
     // $FF: renamed from: g java.lang.StringBuilder
     private final StringBuilder field_306;
     // $FF: renamed from: h com.a.b.a.a.a.b
-    private final class_18 field_307;
+    private final GameParatemers field_307;
     // $FF: renamed from: i boolean
     private final boolean field_308;
     // $FF: renamed from: j com.a.b.a.a.b.e.d$a
@@ -62,7 +62,7 @@ public final class class_81 {
     // $FF: renamed from: o com.a.b.a.a.c.h
     private class_138 field_314;
 
-    public class_81(class_18 var1, boolean var2, class_81.class_223 var3, int var4, int var5) {
+    public class_81(GameParatemers var1, boolean var2, class_81.class_223 var3, int var4, int var5) {
         this.field_303 = new HashSet();
         this.field_304 = new HashSet();
         this.field_305 = new HashSet();
@@ -99,7 +99,7 @@ public final class class_81 {
         }
     }
 
-    public class_81(class_18 var1) {
+    public class_81(GameParatemers var1) {
         this(var1, false, class_81.class_223.field_522, 3, 3);
     }
 

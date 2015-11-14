@@ -1,6 +1,6 @@
 package com.a.b.a.a.e.a;
 
-import com.a.b.a.a.a.class_18;
+import com.a.b.a.a.a.GameParatemers;
 import com.a.b.a.a.c.Car;
 import com.a.b.a.a.c.World;
 import com.a.b.a.a.c.class_146;
@@ -8,7 +8,7 @@ import com.a.b.a.a.c.Move;
 import com.a.b.a.a.c.Game;
 import com.a.b.a.a.e.a.a.class_14;
 import com.a.b.a.a.e.a.a.class_189;
-import com.a.b.a.a.e.a.a.class_194;
+import com.a.b.a.a.e.a.a.TheSenderOfThings;
 import com.codeforces.commons.text.StringUtil;
 import com.google.common.base.Preconditions;
 import java.io.File;
@@ -29,7 +29,7 @@ public class class_180 implements class_11 {
     // $FF: renamed from: b java.util.concurrent.atomic.AtomicInteger
     private static final AtomicInteger field_756 = new AtomicInteger();
     // $FF: renamed from: c com.a.b.a.a.a.b
-    private final class_18 field_757;
+    private final GameParatemers field_757;
     // $FF: renamed from: d java.lang.String
     private final String field_758;
     // $FF: renamed from: e boolean
@@ -46,14 +46,14 @@ public class class_180 implements class_11 {
     private final AtomicBoolean field_764 = new AtomicBoolean(true);
 
     // $FF: renamed from: a (com.a.b.a.a.a.b, int, java.lang.String, int) com.a.b.a.a.e.a.d
-    public static class_180 method_975(class_18 var0, int var1, String var2, int var3) {
+    public static class_180 method_975(GameParatemers var0, int var1, String var2, int var3) {
         method_977(var1, var3);
         Preconditions.checkArgument((new File(var2)).isFile(), "Argument \'playerDefinition\' is expected to be a file.");
         return new class_180(var0, var1, var2, var3, false);
     }
 
     // $FF: renamed from: b (com.a.b.a.a.a.b, int, java.lang.String, int) com.a.b.a.a.e.a.d
-    public static class_180 method_976(class_18 var0, int var1, String var2, int var3) {
+    public static class_180 method_976(GameParatemers var0, int var1, String var2, int var3) {
         method_977(var1, var3);
         Preconditions.checkArgument("#LocalTestPlayer".equals(var2), "Argument \'playerDefinition\' is not \'#LocalTestPlayer\'.");
         return new class_180(var0, var1, var2, var3, true);
@@ -65,7 +65,7 @@ public class class_180 implements class_11 {
         Preconditions.checkArgument(var1 >= 1 && var1 <= 9, "Unexpected argument \'teamSize\': " + var1 + '.');
     }
 
-    private class_180(class_18 var1, int var2, String var3, int var4, boolean var5) {
+    private class_180(GameParatemers var1, int var2, String var3, int var4, boolean var5) {
         this.field_760 = var2;
         this.field_757 = var1;
         this.field_758 = var3;
@@ -90,7 +90,7 @@ public class class_180 implements class_11 {
         }
 
         File var4 = this.field_757.method_100(this.field_760);
-        this.field_763 = new class_194(this.field_757, var4);
+        this.field_763 = new TheSenderOfThings(this.field_757, var4);
         this.field_763.method_56(var1);
         if(!this.field_759) {
             long var5 = TimeUnit.MILLISECONDS.toSeconds(15L * (long)this.field_761 * (long)this.field_757.method_82() + 5000L + TimeUnit.SECONDS.toMillis(1L) - 1L);
@@ -160,7 +160,7 @@ public class class_180 implements class_11 {
 
     // $FF: renamed from: a (com.a.b.a.a.c.l) void
     public void method_52(Game var1) {
-        this.field_763.method_61(var1);
+        this.field_763.sendThings(var1);
     }
 
     // $FF: renamed from: a (com.a.b.a.a.c.c[], com.a.b.a.a.c.v) com.a.b.a.a.c.m[]

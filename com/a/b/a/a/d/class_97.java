@@ -1,9 +1,8 @@
 package com.a.b.a.a.d;
 
-import com.a.b.a.a.a.class_18;
+import com.a.b.a.a.a.GameParatemers;
 import com.a.b.a.a.b.e.class_81;
 import com.a.b.a.a.c.class_138;
-import com.a.b.a.a.d.class_5;
 import com.codeforces.commons.io.FileUtil;
 import com.codeforces.commons.io.IoUtil;
 import com.codeforces.commons.math.NumberUtil;
@@ -30,7 +29,7 @@ public class class_97 implements class_5 {
     // $FF: renamed from: d com.a.b.a.a.b.e.d
     private final class_81 field_368;
 
-    public class_97(File var1, class_18 var2) throws IOException {
+    public class_97(File var1, GameParatemers var2) throws IOException {
         FileUtil.ensureParentDirectoryExists(var1);
         this.field_367 = new OutputStreamWriter(new BufferedOutputStream(new FileOutputStream(var1, false), NumberUtil.toInt(262144L)), StandardCharsets.UTF_8);
         this.field_368 = new class_81(var2);

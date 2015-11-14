@@ -1,20 +1,19 @@
 package com.a.b.a.a.b.e;
 
 import com.a.a.a.a.class_121;
-import com.a.b.class_42;
-import com.a.b.a.a.a.class_18;
-import com.a.b.a.a.b.class_171;
+import com.a.b.RectangleBody;
+import com.a.b.a.a.a.GameParatemers;
+import com.a.b.a.a.b.BoringTeamInfo;
 import com.a.b.a.a.b.a.class_124;
 import com.a.b.a.a.b.d.a.class_47;
 import com.a.b.a.a.b.d.b.class_51;
-import com.a.b.a.a.b.d.c.class_43;
+import com.a.b.a.a.b.d.c.CarPhysicalBody;
 import com.a.b.a.a.b.d.d.class_46;
-import com.a.b.a.a.b.d.e.class_48;
+import com.a.b.a.a.b.d.e.Car;
 import com.a.b.a.a.c.Unit;
 import com.a.b.a.a.c.OilSlick;
 import com.a.b.a.a.c.Projectile;
 import com.a.b.a.a.c.Bonus;
-import com.a.b.a.a.c.Car;
 import com.a.b.a.a.c.World;
 import com.a.b.a.a.c.class_138;
 import com.a.b.a.a.c.class_141;
@@ -56,7 +55,7 @@ public final class class_77 {
     }
 
     // $FF: renamed from: a (int, int, int, int, int, double, java.util.List, com.a.b.a.a.a.b, java.util.List, com.a.b.a.a.b.n) com.a.b.a.a.c.v
-    public static World method_461(int var0, int var1, int var2, int var3, int var4, double var5, List var7, class_18 var8, List var9, class_171 var10) {
+    public static World method_461(int var0, int var1, int var2, int var3, int var4, double var5, List var7, GameParatemers var8, List var9, BoringTeamInfo var10) {
         ArrayList var11 = new ArrayList(4);
         ArrayList var12 = new ArrayList();
         ArrayList var13 = new ArrayList();
@@ -64,11 +63,11 @@ public final class class_77 {
         Iterator var15 = var9.iterator();
 
         while(var15.hasNext()) {
-            class_42 var16 = (class_42)var15.next();
-            if(var16 instanceof class_43) {
-                var11.add(class_79.method_476((class_43)var16, var5, var10));
-            } else if(var16 instanceof class_48) {
-                var12.add(class_75.method_459((class_48)var16, var5));
+            RectangleBody var16 = (RectangleBody)var15.next();
+            if(var16 instanceof CarPhysicalBody) {
+                var11.add(class_79.carNextTick((CarPhysicalBody) var16, var5, var10));
+            } else if(var16 instanceof Car) {
+                var12.add(class_75.method_459((Car)var16, var5));
             } else if(var16 instanceof class_47) {
                 var13.add(class_78.method_475((class_47)var16));
             } else if(var16 instanceof class_46) {
@@ -95,7 +94,7 @@ public final class class_77 {
             var18[var19][1] = (Integer) var20.getSecond();
         }
 
-        return new World(var0, var1, var2, var3, var4, class_72.method_454(var7, var10), (Car[])var11.toArray(new Car[var11.size()]), (Projectile[])var12.toArray(new Projectile[var12.size()]), (Bonus[])var13.toArray(new Bonus[var13.size()]), (OilSlick[])var14.toArray(new OilSlick[var14.size()]), var21.method_412(), var21.method_413(), var18, var21.method_415());
+        return new World(var0, var1, var2, var3, var4, class_72.method_454(var7, var10), (com.a.b.a.a.c.Car[])var11.toArray(new com.a.b.a.a.c.Car[var11.size()]), (Projectile[])var12.toArray(new Projectile[var12.size()]), (Bonus[])var13.toArray(new Bonus[var13.size()]), (OilSlick[])var14.toArray(new OilSlick[var14.size()]), var21.method_412(), var21.method_413(), var18, var21.getDirection());
     }
 
     // $FF: renamed from: a (com.a.b.a.a.c.v, java.lang.Long, double, boolean, java.util.List, java.util.List, java.util.List) com.a.b.a.a.c.h
@@ -111,12 +110,12 @@ public final class class_77 {
         Iterator var11 = var7.iterator();
 
         while(var11.hasNext()) {
-            class_42 var12 = (class_42)var11.next();
-            if(var12 instanceof class_43) {
-                class_43 var13 = (class_43)var12;
-                Vector2D var14 = (new Vector2D(1.0D, 0.0D)).rotate(var13.method_279().method_874());
+            RectangleBody var12 = (RectangleBody)var11.next();
+            if(var12 instanceof CarPhysicalBody) {
+                CarPhysicalBody var13 = (CarPhysicalBody)var12;
+                Vector2D var14 = (new Vector2D(1.0D, 0.0D)).rotate(var13.getBody().getAngle());
                 double var15 = var13.method_293().dotProduct(var14);
-                var17.put(var13.method_278(), new class_142(var13.method_291() == null?0.0D: var13.method_291(), var13.method_337() > 0? var13.method_337() :null, var13.method_340()? true :null, var15));
+                var17.put(var13.getId(), new class_142(var13.method_291() == null?0.0D: var13.method_291(), var13.method_337() > 0? var13.method_337() :null, var13.method_340()? true :null, var15));
             }
         }
 
@@ -124,13 +123,13 @@ public final class class_77 {
         Iterator var19 = var6.iterator();
 
         while(var19.hasNext()) {
-            class_171 var20 = (class_171)var19.next();
+            BoringTeamInfo var20 = (BoringTeamInfo)var19.next();
             if(var20.method_921()) {
                 if(var18 == null) {
                     var18 = new HashMap();
                 }
 
-                var18.put(var20.method_917(), new class_141(true));
+                var18.put(var20.getPlayerId(), new class_141(true));
             }
         }
 
@@ -217,12 +216,12 @@ public final class class_77 {
     // $FF: renamed from: c (com.google.gson.Gson, com.google.gson.JsonObject, com.a.b.a.a.c.h) void
     private static void method_466(Gson var0, JsonObject var1, class_138 var2) {
         Map var3 = method_473(var2.getCarsUnsafe());
-        Map var4 = ReflectionUtil.getFieldsByNameMap(Car.class);
+        Map var4 = ReflectionUtil.getFieldsByNameMap(com.a.b.a.a.c.Car.class);
         Iterator var5 = var1.getAsJsonArray("cars").iterator();
 
         while(true) {
             JsonObject var7;
-            Car var10;
+            com.a.b.a.a.c.Car var10;
             do {
                 if(!var5.hasNext()) {
                     return;
@@ -231,7 +230,7 @@ public final class class_77 {
                 JsonElement var6 = (JsonElement)var5.next();
                 var7 = var6.getAsJsonObject();
                 long var8 = var7.get("id").getAsLong();
-                var10 = (Car)var3.get(var8);
+                var10 = (com.a.b.a.a.c.Car)var3.get(var8);
             } while(var10 == null);
 
             Iterator var11 = var4.entrySet().iterator();
@@ -365,12 +364,12 @@ public final class class_77 {
     // $FF: renamed from: b (com.a.b.a.a.c.h) java.util.Map
     public static Map method_472(class_138 var0) {
         HashMap var1 = new HashMap();
-        Car[] var2 = var0.getCarsUnsafe();
+        com.a.b.a.a.c.Car[] var2 = var0.getCarsUnsafe();
         int var3 = var2.length;
 
         int var4;
         for(var4 = 0; var4 < var3; ++var4) {
-            Car var5 = var2[var4];
+            com.a.b.a.a.c.Car var5 = var2[var4];
             var1.put(var5.getId(), var5);
         }
 

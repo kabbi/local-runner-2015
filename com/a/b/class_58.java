@@ -1,7 +1,5 @@
 package com.a.b;
 
-import com.a.b.class_3;
-import com.a.b.class_42;
 import com.codeforces.commons.geometry.Point2D;
 import com.codeforces.commons.geometry.Vector2D;
 
@@ -10,15 +8,15 @@ public final class class_58 {
     // $FF: renamed from: a com.a.b.h
     private final class_3 field_193;
     // $FF: renamed from: b com.a.b.e
-    private final class_42 field_194;
+    private final RectangleBody field_194;
     // $FF: renamed from: c com.a.b.e
-    private final class_42 field_195;
+    private final RectangleBody field_195;
     // $FF: renamed from: d com.codeforces.commons.geometry.Point2D
     private final Point2D field_196;
     // $FF: renamed from: e com.codeforces.commons.geometry.Vector2D
     private final Vector2D field_197;
 
-    public class_58(class_3 var1, class_42 var2, class_42 var3, Point2D var4, Vector2D var5) {
+    public class_58(class_3 var1, RectangleBody var2, RectangleBody var3, Point2D var4, Vector2D var5) {
         this.field_193 = var1;
         this.field_194 = var2;
         this.field_195 = var3;
@@ -32,12 +30,12 @@ public final class class_58 {
     }
 
     // $FF: renamed from: b () com.a.b.e
-    public class_42 method_362() {
+    public RectangleBody method_362() {
         return this.field_194;
     }
 
     // $FF: renamed from: c () com.a.b.e
-    public class_42 method_363() {
+    public RectangleBody method_363() {
         return this.field_195;
     }
 

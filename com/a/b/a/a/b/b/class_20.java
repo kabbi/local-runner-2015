@@ -2,9 +2,9 @@ package com.a.b.a.a.b.b;
 
 import com.a.b.class_2;
 import com.a.b.class_3;
-import com.a.b.class_42;
+import com.a.b.RectangleBody;
 import com.a.b.a.a.b.a.class_124;
-import com.a.b.a.a.b.d.c.class_43;
+import com.a.b.a.a.b.d.c.CarPhysicalBody;
 import com.a.b.a.a.c.class_148;
 import com.codeforces.commons.math.Math;
 import com.codeforces.commons.math.NumberUtil;
@@ -23,14 +23,14 @@ public class class_20 implements class_2 {
         Iterator var4 = var1.method_19().iterator();
 
         while(var4.hasNext()) {
-            class_42 var5 = (class_42)var4.next();
-            if(var5 instanceof class_43) {
-                class_43 var6 = (class_43)var5;
-                var3.put(var6.method_278(), var6.method_300());
+            RectangleBody var5 = (RectangleBody)var4.next();
+            if(var5 instanceof CarPhysicalBody) {
+                CarPhysicalBody var6 = (CarPhysicalBody)var5;
+                var3.put(var6.getId(), var6.getDurability());
                 if(this.field_82 != null) {
-                    Double var7 = (Double)this.field_82.get(var6.method_278());
-                    if(var7 != null && !NumberUtil.equals(var6.method_300(), var7)) {
-                        int var8 = NumberUtil.toInt(Math.floor(var6.method_300() * 100.0D) - Math.floor(var7 * 100.0D));
+                    Double var7 = (Double)this.field_82.get(var6.getId());
+                    if(var7 != null && !NumberUtil.equals(var6.getDurability(), var7)) {
+                        int var8 = NumberUtil.toInt(Math.floor(var6.getDurability() * 100.0D) - Math.floor(var7 * 100.0D));
                         if(var8 != 0) {
                             HashMap var9 = new HashMap();
                             var9.put("durabilityPercentsChange", var8);

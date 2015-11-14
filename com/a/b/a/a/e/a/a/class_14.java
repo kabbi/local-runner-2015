@@ -22,7 +22,7 @@ public interface class_14 {
     int method_60();
 
     // $FF: renamed from: a (com.a.b.a.a.c.l) void
-    void method_61(Game var1);
+    void sendThings(Game var1);
 
     // $FF: renamed from: a (com.a.b.a.a.c.p, boolean) void
     void method_62(class_146 var1, boolean var2);

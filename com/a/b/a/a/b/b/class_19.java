@@ -3,7 +3,7 @@ package com.a.b.a.a.b.b;
 import com.a.a.a.a.class_121;
 import com.a.b.class_2;
 import com.a.b.class_3;
-import com.a.b.class_42;
+import com.a.b.RectangleBody;
 import com.a.b.a.a.b.d.a.class_47;
 import com.codeforces.commons.math.Math;
 import com.codeforces.commons.math.NumberUtil;
@@ -28,7 +28,7 @@ public class class_19 implements class_2 {
         Iterator var4 = var1.method_19().iterator();
 
         while(var4.hasNext()) {
-            class_42 var5 = (class_42)var4.next();
+            RectangleBody var5 = (RectangleBody)var4.next();
             if(var5 instanceof class_47) {
                 ++var3;
             }

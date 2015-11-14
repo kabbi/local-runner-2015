@@ -12,7 +12,7 @@ public class Car extends RectangularUnit {
     @Until(1.0D)
     private final boolean teammate;
     @Until(1.0D)
-    private final class_143 type;
+    private final CarClass type;
     private final int projectileCount;
     private final int nitroChargeCount;
     private final int oilCanisterCount;
@@ -28,26 +28,38 @@ public class Car extends RectangularUnit {
     private final int nextWaypointY;
     private final boolean finishedTrack;
 
-    public Car(@Name("id") long var1, @Name("mass") double var3, @Name("x") double var5, @Name("y") double var7, @Name("speedX") double var9, @Name("speedY") double var11, @Name("angle") double var13, @Name("angularSpeed") double var15, @Name("width") double var17, @Name("height") double var19, @Name("playerId") long var21, @Name("teammateIndex") int var23, @Name("teammate") boolean var24, @Name("type") class_143 var25, @Name("projectileCount") int var26, @Name("nitroChargeCount") int var27, @Name("oilCanisterCount") int var28, @Name("remainingProjectileCooldownTicks") int var29, @Name("remainingNitroCooldownTicks") int var30, @Name("remainingOilCooldownTicks") int var31, @Name("remainingNitroTicks") int var32, @Name("remainingOiledTicks") int var33, @Name("durability") double var34, @Name("enginePower") double var36, @Name("wheelTurn") double var38, @Name("nextWaypointX") int var40, @Name("nextWaypointY") int var41, @Name("finishedTrack") boolean var42) {
-        super(var1, var3, var5, var7, var9, var11, var13, var15, var17, var19);
-        this.playerId = var21;
-        this.teammateIndex = var23;
-        this.teammate = var24;
-        this.type = var25;
-        this.projectileCount = var26;
-        this.nitroChargeCount = var27;
-        this.oilCanisterCount = var28;
-        this.remainingProjectileCooldownTicks = var29;
-        this.remainingNitroCooldownTicks = var30;
-        this.remainingOilCooldownTicks = var31;
-        this.remainingNitroTicks = var32;
-        this.remainingOiledTicks = var33;
-        this.durability = var34;
-        this.enginePower = var36;
-        this.wheelTurn = var38;
-        this.nextWaypointX = var40;
-        this.nextWaypointY = var41;
-        this.finishedTrack = var42;
+    public Car(@Name("id") long id, @Name("mass") double mass, @Name("x") double x, @Name("y") double y, @Name("speedX") double speedX, @Name("speedY") double speedY, @Name("angle") double angle, @Name("angularSpeed") double angularSpeed, @Name("width") double width,
+               @Name("height") double height, @Name("playerId") long playerId, @Name("teammateIndex") int teammateIndex, @Name("teammate") boolean teammate,
+               @Name("type") CarClass type, @Name("projectileCount") int projectileCount, @Name("nitroChargeCount") int nitroChangeCount,
+               @Name("oilCanisterCount") int oilCannisterCount,
+               @Name("remainingProjectileCooldownTicks") int remainingProjectileCooldownTicks,
+               @Name("remainingNitroCooldownTicks") int remainingNitroCooldownTicks,
+               @Name("remainingOilCooldownTicks") int remainingOilCooldownTicks,
+               @Name("remainingNitroTicks") int remainingNitroTicks,
+               @Name("remainingOiledTicks") int remainingOiledTicks,
+               @Name("durability") double durability, @Name("enginePower") double enginePower,
+               @Name("wheelTurn") double wheelTurn, @Name("nextWaypointX") int nextWaypointX,
+               @Name("nextWaypointY") int nextWaypointY,
+               @Name("finishedTrack") boolean finishedTrack) {
+        super(id, mass, x, y, speedX, speedY, angle, angularSpeed, width, height);
+        this.playerId = playerId;
+        this.teammateIndex = teammateIndex;
+        this.teammate = teammate;
+        this.type = type;
+        this.projectileCount = projectileCount;
+        this.nitroChargeCount = nitroChangeCount;
+        this.oilCanisterCount = oilCannisterCount;
+        this.remainingProjectileCooldownTicks = remainingProjectileCooldownTicks;
+        this.remainingNitroCooldownTicks = remainingNitroCooldownTicks;
+        this.remainingOilCooldownTicks = remainingOilCooldownTicks;
+        this.remainingNitroTicks = remainingNitroTicks;
+        this.remainingOiledTicks = remainingOiledTicks;
+        this.durability = durability;
+        this.enginePower = enginePower;
+        this.wheelTurn = wheelTurn;
+        this.nextWaypointX = nextWaypointX;
+        this.nextWaypointY = nextWaypointY;
+        this.finishedTrack = finishedTrack;
     }
 
     public long getPlayerId() {
@@ -62,7 +74,7 @@ public class Car extends RectangularUnit {
         return this.teammate;
     }
 
-    public class_143 getType() {
+    public CarClass getType() {
         return this.type;
     }
 

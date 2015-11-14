@@ -2,12 +2,12 @@ package com.a.b.a.a.b;
 
 import com.a.b.class_3;
 import com.a.b.class_34;
-import com.a.b.class_42;
+import com.a.b.RectangleBody;
 import com.a.b.class_58;
 import com.a.b.a.a.b.a.class_124;
 import com.a.c.class_10;
-import com.a.c.class_159;
-import com.a.c.class_162;
+import com.a.c.Body;
+import com.a.c.maybeCollisionInfo;
 import com.a.c.class_8;
 import com.a.c.class_9;
 import com.google.inject.Inject;
@@ -38,20 +38,20 @@ public class class_175 implements class_3 {
     }
 
     // $FF: renamed from: a (com.a.b.e) com.a.b.e
-    public class_42 method_17(class_42 var1) {
-        class_159 var2 = this.field_715.method_44(var1.method_279());
+    public RectangleBody method_17(RectangleBody var1) {
+        Body var2 = this.field_715.method_44(var1.getBody());
         this.field_715.method_45(var2);
-        this.field_716.put(var1.method_278(), var1);
-        this.field_717.put(var2.method_867(), var1);
-        var1.method_280(var2);
+        this.field_716.put(var1.getId(), var1);
+        this.field_717.put(var2.getId(), var1);
+        var1.setBody(var2);
         return var1;
     }
 
     // $FF: renamed from: b (com.a.b.e) void
-    public void method_18(class_42 var1) {
-        this.field_715.method_47(var1.method_279());
-        this.field_716.remove(var1.method_278());
-        this.field_717.remove(var1.method_279().method_867());
+    public void method_18(RectangleBody var1) {
+        this.field_715.method_47(var1.getBody());
+        this.field_716.remove(var1.getId());
+        this.field_717.remove(var1.getBody().getId());
     }
 
     // $FF: renamed from: a () java.util.List
@@ -84,22 +84,22 @@ public class class_175 implements class_3 {
             }
         }
 
-        class_42 var4;
+        RectangleBody var4;
         Iterator var5;
         if(this.field_719) {
             var5 = this.field_716.values().iterator();
 
             while(var5.hasNext()) {
-                var4 = (class_42)var5.next();
-                this.field_715.method_45(var4.method_279());
+                var4 = (RectangleBody)var5.next();
+                this.field_715.method_45(var4.getBody());
             }
         } else {
             var5 = this.field_716.values().iterator();
 
             while(var5.hasNext()) {
-                var4 = (class_42)var5.next();
-                if(!var4.method_279().method_904()) {
-                    this.field_715.method_45(var4.method_279());
+                var4 = (RectangleBody)var5.next();
+                if(!var4.getBody().getStaticBody()) {
+                    this.field_715.method_45(var4.getBody());
                 }
             }
         }
@@ -109,16 +109,16 @@ public class class_175 implements class_3 {
             var5 = this.field_716.values().iterator();
 
             while(var5.hasNext()) {
-                var4 = (class_42)var5.next();
-                var4.method_280(this.field_715.method_44(var4.method_279()));
+                var4 = (RectangleBody)var5.next();
+                var4.setBody(this.field_715.method_44(var4.getBody()));
             }
         } else {
             var5 = this.field_716.values().iterator();
 
             while(var5.hasNext()) {
-                var4 = (class_42)var5.next();
-                if(!var4.method_279().method_904()) {
-                    var4.method_280(this.field_715.method_44(var4.method_279()));
+                var4 = (RectangleBody)var5.next();
+                if(!var4.getBody().getStaticBody()) {
+                    var4.setBody(this.field_715.method_44(var4.getBody()));
                 }
             }
         }
@@ -126,10 +126,10 @@ public class class_175 implements class_3 {
     }
 
     // $FF: renamed from: a (java.lang.Class, java.lang.Class, com.a.b.g) void
-    public void method_23(final Class var1, final Class var2, final class_34 var3) {
+    public void colllisionSetListener(final Class var1, final Class var2, final class_34 var3) {
         final Method var4;
         try {
-            var4 = var3.getClass().getMethod("beforeCollision", class_3.class, class_42.class, class_42.class);
+            var4 = var3.getClass().getMethod("beforeCollision", class_3.class, RectangleBody.class, RectangleBody.class);
         } catch (NoSuchMethodException var10) {
             throw new IllegalArgumentException(String.format("Listener %s doesn\'t implement beforeCollision(...) method.", new Object[]{var3.getClass().getSimpleName()}), var10);
         }
@@ -150,10 +150,10 @@ public class class_175 implements class_3 {
 
         final class_8 var7 = new class_8() {
             // $FF: renamed from: a (com.a.c.a) void
-            public void method_41(class_162 var1x) {
+            public void method_41(maybeCollisionInfo var1x) {
                 if(var6.getDeclaringClass() != class_34.class) {
-                    class_42 var2x = var1x.method_907() == null?null:(class_42)class_175.this.field_717.get(var1x.method_907().method_867());
-                    class_42 var3x = var1x.method_908() == null?null:(class_42)class_175.this.field_717.get(var1x.method_908().method_867());
+                    RectangleBody var2x = var1x.method_907() == null?null:(RectangleBody)class_175.this.field_717.get(var1x.method_907().getId());
+                    RectangleBody var3x = var1x.method_908() == null?null:(RectangleBody)class_175.this.field_717.get(var1x.method_908().getId());
                     if(var1.isInstance(var2x) && var2.isInstance(var3x)) {
                         class_175.this.method_930(var2x, var3x);
                         var3.afterCollision(new class_58(class_175.this, var2x, var3x, var1x.method_909().copy(), var1x.method_910().copy()));
@@ -172,12 +172,12 @@ public class class_175 implements class_3 {
         } else {
             this.field_715.method_49(new class_9() {
                 // $FF: renamed from: a (com.a.c.c, com.a.c.c) boolean
-                public boolean method_42(class_159 var1x, class_159 var2x) {
+                public boolean method_42(Body var1x, Body var2x) {
                     if(var4.getDeclaringClass() == class_34.class) {
                         return true;
                     } else {
-                        class_42 var3x = var1x == null?null:(class_42)class_175.this.field_717.get(var1x.method_867());
-                        class_42 var4x = var2x == null?null:(class_42)class_175.this.field_717.get(var2x.method_867());
+                        RectangleBody var3x = var1x == null?null:(RectangleBody)class_175.this.field_717.get(var1x.getId());
+                        RectangleBody var4x = var2x == null?null:(RectangleBody)class_175.this.field_717.get(var2x.getId());
                         boolean var5x;
                         if(var1.isInstance(var3x) && var2.isInstance(var4x)) {
                             class_175.this.method_930(var3x, var4x);
@@ -196,12 +196,12 @@ public class class_175 implements class_3 {
                 }
 
                 // $FF: renamed from: b (com.a.c.a) boolean
-                public boolean method_43(class_162 var1x) {
+                public boolean method_43(maybeCollisionInfo var1x) {
                     if(var5.getDeclaringClass() == class_34.class) {
                         return true;
                     } else {
-                        class_42 var2x = var1x.method_907() == null?null:(class_42)class_175.this.field_717.get(var1x.method_907().method_867());
-                        class_42 var3x = var1x.method_908() == null?null:(class_42)class_175.this.field_717.get(var1x.method_908().method_867());
+                        RectangleBody var2x = var1x.method_907() == null?null:(RectangleBody)class_175.this.field_717.get(var1x.method_907().getId());
+                        RectangleBody var3x = var1x.method_908() == null?null:(RectangleBody)class_175.this.field_717.get(var1x.method_908().getId());
                         boolean var4x;
                         if(var1.isInstance(var2x) && var2.isInstance(var3x)) {
                             class_175.this.method_930(var2x, var3x);
@@ -220,7 +220,7 @@ public class class_175 implements class_3 {
                 }
 
                 // $FF: renamed from: a (com.a.c.a) void
-                public void method_41(class_162 var1x) {
+                public void method_41(maybeCollisionInfo var1x) {
                     var7.method_41(var1x);
                 }
             });
@@ -234,34 +234,34 @@ public class class_175 implements class_3 {
     }
 
     // $FF: renamed from: a (com.a.b.e, com.a.b.e) void
-    private void method_930(class_42 var1, class_42 var2) {
+    private void method_930(RectangleBody var1, RectangleBody var2) {
         if(this.field_719) {
-            var1.method_280(this.field_715.method_44(var1.method_279()));
-            var2.method_280(this.field_715.method_44(var2.method_279()));
+            var1.setBody(this.field_715.method_44(var1.getBody()));
+            var2.setBody(this.field_715.method_44(var2.getBody()));
         } else {
-            if(!var1.method_279().method_904()) {
-                var1.method_280(this.field_715.method_44(var1.method_279()));
+            if(!var1.getBody().getStaticBody()) {
+                var1.setBody(this.field_715.method_44(var1.getBody()));
             }
 
-            if(!var2.method_279().method_904()) {
-                var2.method_280(this.field_715.method_44(var2.method_279()));
+            if(!var2.getBody().getStaticBody()) {
+                var2.setBody(this.field_715.method_44(var2.getBody()));
             }
         }
 
     }
 
     // $FF: renamed from: b (com.a.b.e, com.a.b.e) void
-    private void method_931(class_42 var1, class_42 var2) {
+    private void method_931(RectangleBody var1, RectangleBody var2) {
         if(this.field_719) {
-            this.field_715.method_46(var1.method_279());
-            this.field_715.method_46(var2.method_279());
+            this.field_715.method_46(var1.getBody());
+            this.field_715.method_46(var2.getBody());
         } else {
-            if(!var1.method_279().method_904()) {
-                this.field_715.method_46(var1.method_279());
+            if(!var1.getBody().getStaticBody()) {
+                this.field_715.method_46(var1.getBody());
             }
 
-            if(!var2.method_279().method_904()) {
-                this.field_715.method_46(var2.method_279());
+            if(!var2.getBody().getStaticBody()) {
+                this.field_715.method_46(var2.getBody());
             }
         }
 

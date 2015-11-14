@@ -1,13 +1,13 @@
 package com.a.b.a.a.b.d.d;
 
-import com.a.b.class_42;
+import com.a.b.RectangleBody;
 import com.a.c.a.class_129;
 import com.codeforces.commons.geometry.Point2D;
 import java.util.HashSet;
 import java.util.Set;
 
 // $FF: renamed from: com.a.b.a.a.b.d.d.a
-public class class_46 extends class_42 {
+public class class_46 extends RectangleBody {
     // $FF: renamed from: a int
     private final int field_181;
     // $FF: renamed from: b int
@@ -20,9 +20,9 @@ public class class_46 extends class_42 {
         this.field_183 = new HashSet();
         this.field_181 = 600;
         this.field_182 = 600;
-        this.method_279().method_871(var1);
-        this.method_279().method_873(var3);
-        this.method_279().method_905(true);
+        this.getBody().setX(var1);
+        this.getBody().setY(var3);
+        this.getBody().setStaticBody(true);
     }
 
     public class_46(Point2D var1) {

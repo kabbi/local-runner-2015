@@ -1,12 +1,8 @@
 package com.a.b;
 
-import com.a.b.class_3;
-import com.a.b.class_42;
-import com.a.b.class_58;
-
 // $FF: renamed from: com.a.b.g
 public abstract class class_34 {
-    public boolean beforeCollision(class_3 var1, class_42 var2, class_42 var3) {
+    public boolean beforeCollision(class_3 var1, RectangleBody var2, RectangleBody var3) {
         return true;
     }
 

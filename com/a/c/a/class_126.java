@@ -1,11 +1,10 @@
 package com.a.c.a;
 
-import com.a.c.a.class_125;
 import com.codeforces.commons.math.Math;
 import com.codeforces.commons.text.StringUtil;
 
 // $FF: renamed from: com.a.c.a.a
-public class class_126 extends class_125 {
+public class class_126 extends Form {
     // $FF: renamed from: a double
     private double field_556;
     // $FF: renamed from: b double
@@ -41,7 +40,7 @@ public class class_126 extends class_125 {
     }
 
     // $FF: renamed from: d () com.a.c.a.c
-    public class_125 method_818() {
+    public Form method_818() {
         return new class_126(this);
     }
 
@@ -50,7 +49,7 @@ public class class_126 extends class_125 {
     }
 
     // $FF: renamed from: a (com.a.c.a.c, double) boolean
-    public boolean method_819(class_125 var1, double var2) {
+    public boolean method_819(Form var1, double var2) {
         if(var1 != null && this.getClass() == var1.getClass()) {
             class_126 var4 = (class_126)var1;
             return Math.abs(this.field_556 - var4.field_556) < var2 && Math.abs(this.field_558 - var4.field_558) < var2;

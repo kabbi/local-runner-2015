@@ -7,11 +7,11 @@ import com.a.a.b.a.class_15;
 import com.a.a.b.b.class_71;
 import com.a.a.b.d.class_154;
 import com.a.c.class_10;
-import com.a.c.class_159;
-import com.a.c.class_162;
+import com.a.c.Body;
+import com.a.c.maybeCollisionInfo;
 import com.a.c.class_8;
 import com.a.c.class_9;
-import com.a.c.b.a.class_188;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.locks.Lock;
@@ -39,22 +39,22 @@ public class class_186 implements class_10 {
     }
 
     // $FF: renamed from: a (com.a.c.c) com.a.c.c
-    public class_159 method_44(class_159 var1) {
+    public Body method_44(Body var1) {
         this.field_790.lock();
 
-        class_159 var3;
+        Body var3;
         try {
-            class_106 var2 = this.method_998(var1.method_867());
+            class_106 var2 = this.method_998(var1.getId());
             if(var2 == null) {
                 var2 = class_188.method_1001(var1);
                 this.field_794.method_726(var2);
                 this.field_791.put(Long.valueOf(var2.method_665()), var2);
-                this.field_792.put(Long.valueOf(var1.method_867()), Long.valueOf(var2.method_665()));
-                this.field_793.put(Long.valueOf(var2.method_665()), Long.valueOf(var1.method_867()));
+                this.field_792.put(Long.valueOf(var1.getId()), Long.valueOf(var2.method_665()));
+                this.field_793.put(Long.valueOf(var2.method_665()), Long.valueOf(var1.getId()));
                 class_188.method_1003(var2, var1, this);
             }
 
-            var3 = this.method_1000(var1.method_867());
+            var3 = this.method_1000(var1.getId());
         } finally {
             this.field_790.unlock();
         }
@@ -63,13 +63,13 @@ public class class_186 implements class_10 {
     }
 
     // $FF: renamed from: b (com.a.c.c) void
-    public void method_45(class_159 var1) {
+    public void method_45(Body var1) {
         this.field_790.lock();
 
         try {
-            class_106 var2 = this.method_998(var1.method_867());
+            class_106 var2 = this.method_998(var1.getId());
             if(var2 == null) {
-                throw new IllegalArgumentException("No body with ID " + var1.method_867() + '.');
+                throw new IllegalArgumentException("No body with ID " + var1.getId() + '.');
             }
 
             class_188.method_1003(var2, var1, this);
@@ -80,11 +80,11 @@ public class class_186 implements class_10 {
     }
 
     // $FF: renamed from: c (com.a.c.c) void
-    public void method_46(class_159 var1) {
+    public void method_46(Body var1) {
         this.field_790.lock();
 
         try {
-            class_106 var2 = this.method_998(var1.method_867());
+            class_106 var2 = this.method_998(var1.getId());
             if(var2 != null) {
                 class_188.method_1003(var2, var1, this);
             }
@@ -95,26 +95,26 @@ public class class_186 implements class_10 {
     }
 
     // $FF: renamed from: d (com.a.c.c) com.a.c.c
-    public class_159 method_47(class_159 var1) {
+    public Body method_47(Body var1) {
         this.field_790.lock();
 
-        class_159 var5;
+        Body var5;
         try {
-            Long var2 = this.method_996(var1.method_867());
+            Long var2 = this.method_996(var1.getId());
             class_106 var3;
             if(var2 == null) {
                 return null;
             }
 
             var3 = (class_106)this.field_791.remove(var2);
-            class_159 var4;
+            Body var4;
             if(var3 == null) {
                 return null;
             }
 
             var4 = class_188.method_1002(var3, this);
             this.field_794.method_727(var3);
-            this.field_792.remove(var1.method_867());
+            this.field_792.remove(var1.getId());
             this.field_793.remove(var2);
             var5 = var4;
         } finally {
@@ -156,19 +156,19 @@ public class class_186 implements class_10 {
 
                     // $FF: renamed from: a (com.a.a.b.b.f) boolean
                     public boolean method_39(class_71 var1) {
-                        return var3.method_43(new class_162(class_186.this.method_999(var1.method_386().method_665()), class_186.this.method_999(var1.method_387().method_665()), var1.method_388().copy(), var1.method_389().copy()));
+                        return var3.method_43(new maybeCollisionInfo(class_186.this.method_999(var1.method_386().method_665()), class_186.this.method_999(var1.method_387().method_665()), var1.method_388().copy(), var1.method_389().copy()));
                     }
 
                     // $FF: renamed from: b (com.a.a.b.b.f) void
                     public void method_40(class_71 var1) {
-                        var3.method_41(new class_162(class_186.this.method_999(var1.method_386().method_665()), class_186.this.method_999(var1.method_387().method_665()), var1.method_388().copy(), var1.method_389().copy()));
+                        var3.method_41(new maybeCollisionInfo(class_186.this.method_999(var1.method_386().method_665()), class_186.this.method_999(var1.method_387().method_665()), var1.method_388().copy(), var1.method_389().copy()));
                     }
                 }, var2);
             } else {
                 this.field_794.method_743(new class_154() {
                     // $FF: renamed from: b (com.a.a.b.b.f) void
                     public void method_40(class_71 var1x) {
-                        var1.method_41(new class_162(class_186.this.method_999(var1x.method_386().method_665()), class_186.this.method_999(var1x.method_387().method_665()), var1x.method_388().copy(), var1x.method_389().copy()));
+                        var1.method_41(new maybeCollisionInfo(class_186.this.method_999(var1x.method_386().method_665()), class_186.this.method_999(var1x.method_387().method_665()), var1x.method_388().copy(), var1x.method_389().copy()));
                     }
                 }, var2);
             }
@@ -205,13 +205,13 @@ public class class_186 implements class_10 {
     }
 
     // $FF: renamed from: d (long) com.a.c.c
-    class_159 method_999(long var1) {
+    Body method_999(long var1) {
         class_106 var3 = (class_106)this.field_791.get(Long.valueOf(var1));
         return var3 == null?null:class_188.method_1002(var3, this);
     }
 
     // $FF: renamed from: e (long) com.a.c.c
-    class_159 method_1000(long var1) {
+    Body method_1000(long var1) {
         Long var3 = this.method_996(var1);
         return var3 == null?null:this.method_999(var3.longValue());
     }

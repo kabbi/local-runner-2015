@@ -1,11 +1,10 @@
 package com.a.c.a;
 
-import com.a.c.a.class_125;
 import com.codeforces.commons.math.Math;
 import com.codeforces.commons.text.StringUtil;
 
 // $FF: renamed from: com.a.c.a.e
-public class class_128 extends class_125 {
+public class class_128 extends Form {
     // $FF: renamed from: a double
     private double field_563;
     // $FF: renamed from: b double
@@ -22,17 +21,17 @@ public class class_128 extends class_125 {
     }
 
     // $FF: renamed from: a () double
-    public double method_827() {
+    public double getCarWidth() {
         return this.field_563;
     }
 
     // $FF: renamed from: b () double
-    public double method_828() {
+    public double getCarHeight() {
         return this.field_564;
     }
 
     // $FF: renamed from: d () com.a.c.a.c
-    public class_125 method_818() {
+    public Form method_818() {
         return new class_128(this);
     }
 
@@ -41,7 +40,7 @@ public class class_128 extends class_125 {
     }
 
     // $FF: renamed from: a (com.a.c.a.c, double) boolean
-    public boolean method_819(class_125 var1, double var2) {
+    public boolean method_819(Form var1, double var2) {
         if(var1 != null && this.getClass() == var1.getClass()) {
             class_128 var4 = (class_128)var1;
             return Math.abs(this.field_563 - var4.field_563) < var2 && Math.abs(this.field_564 - var4.field_564) < var2;
