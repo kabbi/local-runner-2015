@@ -2,7 +2,7 @@ package com.a.b.a.a.d;
 
 import com.a.a.a.a.class_120;
 import com.a.a.a.a.class_123;
-import com.a.b.a.a.a.class_18;
+import com.a.b.a.a.a.GameProperties;
 import com.a.b.a.a.b.d.b.a.a.class_57;
 import com.a.b.a.a.b.d.b.a.b.class_54;
 import com.a.b.a.a.b.d.b.b.class_52;
@@ -90,7 +90,7 @@ public class class_96 implements class_5 {
     // $FF: renamed from: d java.awt.Color
     private static final Color field_340 = new Color(255, 153, 32, 255);
     // $FF: renamed from: e com.a.b.a.a.a.b
-    private final class_18 field_341;
+    private final GameProperties field_341;
     // $FF: renamed from: f int
     private final int field_342;
     // $FF: renamed from: g java.util.concurrent.atomic.AtomicLong
@@ -138,13 +138,13 @@ public class class_96 implements class_5 {
     // $FF: renamed from: B java.util.concurrent.ConcurrentMap
     private final ConcurrentMap field_364 = new ConcurrentHashMap();
 
-    public class_96(final class_18 var1) {
+    public class_96(final GameProperties var1) {
         this.field_341 = var1;
-        this.field_342 = var1.method_107();
-        this.field_346 = this.field_345 * (double)var1.method_75() / (double)var1.method_74();
+        this.field_342 = var1.getPsychoLevel();
+        this.field_346 = this.field_345 * (double)var1.getScreenHeight() / (double)var1.getScreenWidth();
         this.field_355 = method_520(var1);
-        this.method_522(var1.method_74(), var1.method_75());
-        this.field_354 = new LinkedBlockingQueue(var1.method_92()?1:32767);
+        this.method_522(var1.getScreenWidth(), var1.getScreenHeight());
+        this.field_354 = new LinkedBlockingQueue(var1.shouldRenderSync()?1:32767);
         (new Thread(new Runnable() {
             public void run() {
                 long var1x = System.currentTimeMillis();
@@ -184,7 +184,7 @@ public class class_96 implements class_5 {
 
             // $FF: renamed from: a () com.a.b.a.a.d.a$f
             private class_96.class_216 method_518() throws InterruptedException {
-                return var1.method_90()?(class_96.class_216)class_96.this.field_354.poll(20L, TimeUnit.MINUTES):(class_96.class_216)class_96.this.field_354.poll(30L, TimeUnit.SECONDS);
+                return var1.isDebug()?(class_96.class_216)class_96.this.field_354.poll(20L, TimeUnit.MINUTES):(class_96.class_216)class_96.this.field_354.poll(30L, TimeUnit.SECONDS);
             }
 
             // $FF: renamed from: a (long, long) long
@@ -200,8 +200,8 @@ public class class_96 implements class_5 {
     }
 
     // $FF: renamed from: a (com.a.b.a.a.a.b) com.a.b.a.a.d.a$e
-    private static class_96.class_219 method_520(class_18 var0) {
-        File var1 = var0.method_89();
+    private static class_96.class_219 method_520(GameProperties var0) {
+        File var1 = var0.getPluginsDirectory();
         if(FileUtil.isDirectory(var1)) {
             ArrayList var2 = new ArrayList();
 
@@ -306,7 +306,7 @@ public class class_96 implements class_5 {
 
                             try {
                                 class_96.this.field_345 = 5120.0D;
-                                class_96.this.field_346 = class_96.this.field_345 * (double)class_96.this.field_341.method_75() / (double)class_96.this.field_341.method_74();
+                                class_96.this.field_346 = class_96.this.field_345 * (double)class_96.this.field_341.getScreenHeight() / (double)class_96.this.field_341.getScreenWidth();
                             } finally {
                                 class_96.this.field_349.unlock();
                             }
@@ -1515,7 +1515,7 @@ public class class_96 implements class_5 {
 
     // $FF: renamed from: a (double, double) com.a.b.a.a.d.a$c
     private class_96.class_218 method_570(double var1, double var3) {
-        return new class_96.class_218(var1 * (double)this.field_341.method_74() / 1280.0D, var3 * (double)this.field_341.method_75() / 800.0D, null);
+        return new class_96.class_218(var1 * (double)this.field_341.getScreenWidth() / 1280.0D, var3 * (double)this.field_341.getScreenHeight() / 800.0D, null);
     }
 
     // $FF: renamed from: b (double, double) com.a.b.a.a.d.a$c

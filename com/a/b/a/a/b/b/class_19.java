@@ -1,6 +1,6 @@
 package com.a.b.a.a.b.b;
 
-import com.a.a.a.a.class_121;
+import com.a.a.a.a.RandomUtils;
 import com.a.b.class_2;
 import com.a.b.class_3;
 import com.a.b.class_42;
@@ -35,7 +35,7 @@ public class class_19 implements class_2 {
         }
 
         int var6 = NumberUtil.toInt(Math.floor(0.25D * (double)this.field_80.length));
-        if(var3 < var6 && class_121.method_794() < 0.0015D) {
+        if(var3 < var6 && RandomUtils.randomDouble() < 0.0015D) {
             this.field_81.run();
         }
 

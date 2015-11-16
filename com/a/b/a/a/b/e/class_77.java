@@ -1,8 +1,8 @@
 package com.a.b.a.a.b.e;
 
-import com.a.a.a.a.class_121;
+import com.a.a.a.a.RandomUtils;
 import com.a.b.class_42;
-import com.a.b.a.a.a.class_18;
+import com.a.b.a.a.a.GameProperties;
 import com.a.b.a.a.b.class_171;
 import com.a.b.a.a.b.a.class_124;
 import com.a.b.a.a.b.d.a.class_47;
@@ -35,7 +35,6 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 import java.util.Map.Entry;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
@@ -56,7 +55,7 @@ public final class class_77 {
     }
 
     // $FF: renamed from: a (int, int, int, int, int, double, java.util.List, com.a.b.a.a.a.b, java.util.List, com.a.b.a.a.b.n) com.a.b.a.a.c.v
-    public static World method_461(int var0, int var1, int var2, int var3, int var4, double var5, List var7, class_18 var8, List var9, class_171 var10) {
+    public static World method_461(int var0, int var1, int var2, int var3, int var4, double var5, List var7, GameProperties var8, List var9, class_171 var10) {
         ArrayList var11 = new ArrayList(4);
         ArrayList var12 = new ArrayList();
         ArrayList var13 = new ArrayList();
@@ -66,7 +65,7 @@ public final class class_77 {
         while(var15.hasNext()) {
             class_42 var16 = (class_42)var15.next();
             if(var16 instanceof class_43) {
-                var11.add(class_79.method_476((class_43)var16, var5, var10));
+                var11.add(class_79.method_476((class_43) var16, var5, var10));
             } else if(var16 instanceof class_48) {
                 var12.add(class_75.method_459((class_48)var16, var5));
             } else if(var16 instanceof class_47) {
@@ -78,11 +77,11 @@ public final class class_77 {
             }
         }
 
-        class_121.method_797(var11);
-        class_121.method_797(var12);
-        class_121.method_797(var13);
-        class_121.method_797(var14);
-        class_86.class_206 var21 = var8.method_79();
+        RandomUtils.randomShuffle(var11);
+        RandomUtils.randomShuffle(var12);
+        RandomUtils.randomShuffle(var13);
+        RandomUtils.randomShuffle(var14);
+        MapUtils.Map var21 = var8.method_79();
         IntPair[] var22 = var21.method_414();
         int var17 = var22.length;
         int[][] var18 = new int[var17][2];
@@ -95,7 +94,7 @@ public final class class_77 {
             var18[var19][1] = (Integer) var20.getSecond();
         }
 
-        return new World(var0, var1, var2, var3, var4, class_72.method_454(var7, var10), (Car[])var11.toArray(new Car[var11.size()]), (Projectile[])var12.toArray(new Projectile[var12.size()]), (Bonus[])var13.toArray(new Bonus[var13.size()]), (OilSlick[])var14.toArray(new OilSlick[var14.size()]), var21.method_412(), var21.method_413(), var18, var21.method_415());
+        return new World(var0, var1, var2, var3, var4, class_72.method_454(var7, var10), (Car[])var11.toArray(new Car[var11.size()]), (Projectile[])var12.toArray(new Projectile[var12.size()]), (Bonus[])var13.toArray(new Bonus[var13.size()]), (OilSlick[])var14.toArray(new OilSlick[var14.size()]), var21.method_412(), var21.getTilesXY(), var18, var21.getStartingDirection());
     }
 
     // $FF: renamed from: a (com.a.b.a.a.c.v, java.lang.Long, double, boolean, java.util.List, java.util.List, java.util.List) com.a.b.a.a.c.h
@@ -170,7 +169,7 @@ public final class class_77 {
 
     // $FF: renamed from: a (com.google.gson.Gson, com.google.gson.JsonObject, com.a.b.a.a.c.h) void
     private static void method_464(Gson var0, JsonObject var1, class_138 var2) {
-        Map var3 = ReflectionUtil.getFieldsByNameMap(class_138.class);
+        java.util.Map var3 = ReflectionUtil.getFieldsByNameMap(class_138.class);
         Iterator var4 = var3.entrySet().iterator();
 
         while(var4.hasNext()) {
@@ -185,8 +184,8 @@ public final class class_77 {
 
     // $FF: renamed from: b (com.google.gson.Gson, com.google.gson.JsonObject, com.a.b.a.a.c.h) void
     private static void method_465(Gson var0, JsonObject var1, class_138 var2) {
-        Map var3 = method_471(var2);
-        Map var4 = ReflectionUtil.getFieldsByNameMap(Player.class);
+        java.util.Map var3 = method_471(var2);
+        java.util.Map var4 = ReflectionUtil.getFieldsByNameMap(Player.class);
         Iterator var5 = var1.getAsJsonArray("players").iterator();
 
         while(true) {
@@ -216,8 +215,8 @@ public final class class_77 {
 
     // $FF: renamed from: c (com.google.gson.Gson, com.google.gson.JsonObject, com.a.b.a.a.c.h) void
     private static void method_466(Gson var0, JsonObject var1, class_138 var2) {
-        Map var3 = method_473(var2.getCarsUnsafe());
-        Map var4 = ReflectionUtil.getFieldsByNameMap(Car.class);
+        java.util.Map var3 = method_473(var2.getCarsUnsafe());
+        java.util.Map var4 = ReflectionUtil.getFieldsByNameMap(Car.class);
         Iterator var5 = var1.getAsJsonArray("cars").iterator();
 
         while(true) {
@@ -247,8 +246,8 @@ public final class class_77 {
 
     // $FF: renamed from: d (com.google.gson.Gson, com.google.gson.JsonObject, com.a.b.a.a.c.h) void
     private static void method_467(Gson var0, JsonObject var1, class_138 var2) {
-        Map var3 = method_473(var2.getProjectilesUnsafe());
-        Map var4 = ReflectionUtil.getFieldsByNameMap(Projectile.class);
+        java.util.Map var3 = method_473(var2.getProjectilesUnsafe());
+        java.util.Map var4 = ReflectionUtil.getFieldsByNameMap(Projectile.class);
         Iterator var5 = var1.getAsJsonArray("projectiles").iterator();
 
         while(true) {
@@ -278,8 +277,8 @@ public final class class_77 {
 
     // $FF: renamed from: e (com.google.gson.Gson, com.google.gson.JsonObject, com.a.b.a.a.c.h) void
     private static void method_468(Gson var0, JsonObject var1, class_138 var2) {
-        Map var3 = method_473(var2.getBonusesUnsafe());
-        Map var4 = ReflectionUtil.getFieldsByNameMap(Bonus.class);
+        java.util.Map var3 = method_473(var2.getBonusesUnsafe());
+        java.util.Map var4 = ReflectionUtil.getFieldsByNameMap(Bonus.class);
         Iterator var5 = var1.getAsJsonArray("bonuses").iterator();
 
         while(true) {
@@ -309,8 +308,8 @@ public final class class_77 {
 
     // $FF: renamed from: f (com.google.gson.Gson, com.google.gson.JsonObject, com.a.b.a.a.c.h) void
     private static void method_469(Gson var0, JsonObject var1, class_138 var2) {
-        Map var3 = method_473(var2.getOilSlicksUnsafe());
-        Map var4 = ReflectionUtil.getFieldsByNameMap(OilSlick.class);
+        java.util.Map var3 = method_473(var2.getOilSlicksUnsafe());
+        java.util.Map var4 = ReflectionUtil.getFieldsByNameMap(OilSlick.class);
         Iterator var5 = var1.getAsJsonArray("oilSlicks").iterator();
 
         while(true) {
@@ -349,7 +348,7 @@ public final class class_77 {
     }
 
     // $FF: renamed from: a (com.a.b.a.a.c.h) java.util.Map
-    public static Map method_471(class_138 var0) {
+    public static java.util.Map method_471(class_138 var0) {
         Player[] var1 = var0.getPlayersUnsafe();
         int var2 = var1.length;
         HashMap var3 = new HashMap();
@@ -363,7 +362,7 @@ public final class class_77 {
     }
 
     // $FF: renamed from: b (com.a.b.a.a.c.h) java.util.Map
-    public static Map method_472(class_138 var0) {
+    public static java.util.Map method_472(class_138 var0) {
         HashMap var1 = new HashMap();
         Car[] var2 = var0.getCarsUnsafe();
         int var3 = var2.length;
@@ -402,7 +401,7 @@ public final class class_77 {
     }
 
     // $FF: renamed from: a (com.a.b.a.a.c.u[]) java.util.Map
-    private static Map method_473(Unit[] var0) {
+    private static java.util.Map method_473(Unit[] var0) {
         int var1 = var0.length;
         HashMap var2 = new HashMap(var1);
 

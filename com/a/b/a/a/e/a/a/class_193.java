@@ -1,8 +1,7 @@
 package com.a.b.a.a.e.a.a;
 
-import com.a.b.a.a.a.class_18;
+import com.a.b.a.a.a.GameProperties;
 import com.a.b.a.a.e.a.class_177;
-import com.a.b.a.a.e.a.a.class_14;
 import com.codeforces.commons.io.IoUtil;
 import com.codeforces.commons.math.Math;
 import com.codeforces.commons.math.NumberUtil;
@@ -47,8 +46,8 @@ public abstract class class_193 implements class_14 {
     // $FF: renamed from: k java.io.OutputStream
     private OutputStream field_822;
 
-    protected class_193(class_18 var1, File var2) {
-        if(var1.method_90()) {
+    protected class_193(GameProperties var1, File var2) {
+        if(var1.isDebug()) {
             this.field_815 = NumberUtil.toInt(TimeUnit.MINUTES.toMillis(20L));
         } else {
             this.field_815 = NumberUtil.toInt(Math.max(TimeUnit.SECONDS.toMillis(10L), 10000L));

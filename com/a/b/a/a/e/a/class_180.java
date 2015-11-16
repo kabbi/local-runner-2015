@@ -1,6 +1,6 @@
 package com.a.b.a.a.e.a;
 
-import com.a.b.a.a.a.class_18;
+import com.a.b.a.a.a.GameProperties;
 import com.a.b.a.a.c.Car;
 import com.a.b.a.a.c.World;
 import com.a.b.a.a.c.class_146;
@@ -29,7 +29,7 @@ public class class_180 implements class_11 {
     // $FF: renamed from: b java.util.concurrent.atomic.AtomicInteger
     private static final AtomicInteger field_756 = new AtomicInteger();
     // $FF: renamed from: c com.a.b.a.a.a.b
-    private final class_18 field_757;
+    private final GameProperties field_757;
     // $FF: renamed from: d java.lang.String
     private final String field_758;
     // $FF: renamed from: e boolean
@@ -46,14 +46,14 @@ public class class_180 implements class_11 {
     private final AtomicBoolean field_764 = new AtomicBoolean(true);
 
     // $FF: renamed from: a (com.a.b.a.a.a.b, int, java.lang.String, int) com.a.b.a.a.e.a.d
-    public static class_180 method_975(class_18 var0, int var1, String var2, int var3) {
+    public static class_180 method_975(GameProperties var0, int var1, String var2, int var3) {
         method_977(var1, var3);
         Preconditions.checkArgument((new File(var2)).isFile(), "Argument \'playerDefinition\' is expected to be a file.");
         return new class_180(var0, var1, var2, var3, false);
     }
 
     // $FF: renamed from: b (com.a.b.a.a.a.b, int, java.lang.String, int) com.a.b.a.a.e.a.d
-    public static class_180 method_976(class_18 var0, int var1, String var2, int var3) {
+    public static class_180 method_976(GameProperties var0, int var1, String var2, int var3) {
         method_977(var1, var3);
         Preconditions.checkArgument("#LocalTestPlayer".equals(var2), "Argument \'playerDefinition\' is not \'#LocalTestPlayer\'.");
         return new class_180(var0, var1, var2, var3, true);
@@ -65,7 +65,7 @@ public class class_180 implements class_11 {
         Preconditions.checkArgument(var1 >= 1 && var1 <= 9, "Unexpected argument \'teamSize\': " + var1 + '.');
     }
 
-    private class_180(class_18 var1, int var2, String var3, int var4, boolean var5) {
+    private class_180(GameProperties var1, int var2, String var3, int var4, boolean var5) {
         this.field_760 = var2;
         this.field_757 = var1;
         this.field_758 = var3;
@@ -80,27 +80,27 @@ public class class_180 implements class_11 {
 
     // $FF: renamed from: c () void
     public void method_979() {
-        int var1 = this.field_757.method_99() + field_756.getAndIncrement();
+        int var1 = this.field_757.getBaseAdapterPort() + field_756.getAndIncrement();
         String var2 = Integer.toString(var1);
         String var3;
-        if(this.field_757.method_90()) {
+        if(this.field_757.isDebug()) {
             var3 = StringUtils.repeat("0", 16);
         } else {
             var3 = RandomStringUtils.randomAlphanumeric(16);
         }
 
-        File var4 = this.field_757.method_100(this.field_760);
+        File var4 = this.field_757.getTcpDumpFileForPlayer(this.field_760);
         this.field_763 = new class_194(this.field_757, var4);
         this.field_763.method_56(var1);
         if(!this.field_759) {
             long var5 = TimeUnit.MILLISECONDS.toSeconds(15L * (long)this.field_761 * (long)this.field_757.method_82() + 5000L + TimeUnit.SECONDS.toMillis(1L) - 1L);
             StringBuilder var7 = new StringBuilder();
-            String var8 = this.field_757.method_97();
+            String var8 = this.field_757.getSystemUserLogin();
             if(!StringUtils.isBlank(var8)) {
                 var7.append(" -l ").append(var8);
             }
 
-            String var9 = this.field_757.method_98();
+            String var9 = this.field_757.getSystemUserPassword();
             if(!StringUtils.isBlank(var9)) {
                 var7.append(" -p ").append(var9);
             }
@@ -114,7 +114,7 @@ public class class_180 implements class_11 {
             var11.put("jruby-home.double-backslashed", StringUtil.replace(var10, "/", "\\\\"));
 
             try {
-                File var12 = this.field_757.method_102();
+                File var12 = this.field_757.getCacheDirectory();
                 this.field_762 = class_189.method_1009(this.field_758, var11, var12, new String[]{"127.0.0.1", var2, var3});
             } catch (IOException var13) {
                 throw new class_177(String.format("Failed to start process for player \'%s\'.", new Object[]{this.field_758}), var13);
@@ -181,7 +181,7 @@ public class class_180 implements class_11 {
         (new Thread(new Runnable() {
             public void run() {
                 if(class_180.this.field_762 != null) {
-                    if(class_180.this.field_757.method_90()) {
+                    if(class_180.this.field_757.isDebug()) {
                         class_180.this.field_762.method_1007(TimeUnit.MINUTES.toMillis(20L));
                     } else {
                         class_180.this.field_762.method_1007(TimeUnit.SECONDS.toMillis(5L));

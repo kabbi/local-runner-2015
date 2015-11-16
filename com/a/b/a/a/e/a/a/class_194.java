@@ -1,6 +1,6 @@
 package com.a.b.a.a.e.a.a;
 
-import com.a.b.a.a.a.class_18;
+import com.a.b.a.a.a.GameProperties;
 import com.a.b.a.a.c.Unit;
 import com.a.b.a.a.c.CircularUnit;
 import com.a.b.a.a.c.OilSlick;
@@ -57,7 +57,7 @@ public class class_194 extends class_193 {
     // $FF: renamed from: f int
     private int field_828;
 
-    public class_194(class_18 var1, File var2) {
+    public class_194(GameProperties var1, File var2) {
         super(var1, var2);
     }
 

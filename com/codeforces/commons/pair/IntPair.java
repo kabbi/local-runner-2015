@@ -1,17 +1,14 @@
 package com.codeforces.commons.pair;
 
-import com.codeforces.commons.pair.Pair;
-import com.codeforces.commons.pair.SimplePair;
-
-public class IntPair extends Pair {
+public class IntPair extends Pair<Integer, Integer> {
     public IntPair() {
     }
 
-    public IntPair(Integer var1, Integer var2) {
-        super(var1, var2);
+    public IntPair(Integer first, Integer second) {
+        super(first, second);
     }
 
-    public IntPair(SimplePair var1) {
-        super(var1);
+    public IntPair(SimplePair<Integer, Integer> pair) {
+        super(pair);
     }
 }

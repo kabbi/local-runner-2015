@@ -4,7 +4,7 @@ import com.a.b.class_2;
 import com.a.b.class_3;
 import com.a.b.class_42;
 import com.a.b.a.a.a.class_16;
-import com.a.b.a.a.a.class_18;
+import com.a.b.a.a.a.GameProperties;
 import com.a.b.a.a.b.d.c.class_43;
 import com.codeforces.commons.holder.Readable;
 import com.codeforces.commons.holder.Writable;
@@ -29,7 +29,7 @@ public class class_26 implements class_2 {
     // $FF: renamed from: f java.util.concurrent.atomic.AtomicInteger
     private final AtomicInteger field_97 = new AtomicInteger();
 
-    public class_26(class_18 var1, Readable var2, Writable var3) {
+    public class_26(GameProperties var1, Readable var2, Writable var3) {
         this.field_92 = var1.method_79().method_414();
         this.field_93 = this.field_92.length;
         this.field_94 = NumberUtil.toInt(Math.floor(500.0D / (double)(this.field_93 - 1)));

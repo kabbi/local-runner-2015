@@ -3,7 +3,7 @@ package com.a.b.a.a.b.b;
 import com.a.b.class_2;
 import com.a.b.class_3;
 import com.a.b.class_42;
-import com.a.b.a.a.a.class_18;
+import com.a.b.a.a.a.GameProperties;
 import com.codeforces.commons.geometry.Vector2D;
 import com.codeforces.commons.math.Math;
 import java.util.Iterator;
@@ -13,8 +13,8 @@ public class class_25 implements class_2 {
     // $FF: renamed from: a boolean
     private final boolean field_91;
 
-    public class_25(class_18 var1) {
-        this.field_91 = var1.method_104();
+    public class_25(GameProperties var1) {
+        this.field_91 = var1.shouldLogMaxSpeed();
     }
 
     // $FF: renamed from: a (com.a.b.h, int) void

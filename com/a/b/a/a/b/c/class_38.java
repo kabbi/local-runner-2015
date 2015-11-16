@@ -1,6 +1,6 @@
 package com.a.b.a.a.b.c;
 
-import com.a.a.a.a.class_121;
+import com.a.a.a.a.RandomUtils;
 import com.a.b.class_34;
 import com.a.b.class_58;
 import com.a.b.a.a.b.d.c.class_43;
@@ -21,7 +21,7 @@ public class class_38 extends class_34 {
             var3.method_348(var3.method_347() - var5);
             var4.method_893(0.001D);
             var4.method_895(0.0017453292519943296D);
-            var4.method_881(var4.method_880() + (class_121.method_793()?0.0023271056693257726D:-0.0023271056693257726D) * var4.method_876().getLength());
+            var4.method_881(var4.method_880() + (RandomUtils.randomBoolean()?0.0023271056693257726D:-0.0023271056693257726D) * var4.method_876().getLength());
             return false;
         } else {
             return false;

@@ -167,10 +167,10 @@ public final class StringUtil {
         }
     }
 
-    public static String toString(Class var0, Object var1, boolean var2, String... var3) {
-        StringUtil.ToStringOptions var4 = new StringUtil.ToStringOptions();
-        var4.skipNulls = var2;
-        return toString(var0, var1, var4, var3);
+    public static String toString(Class aClass, Object object, boolean skipNulls, String... fields) {
+        StringUtil.ToStringOptions options = new StringUtil.ToStringOptions();
+        options.skipNulls = skipNulls;
+        return toString(aClass, object, options, fields);
     }
 
     public static String toString(Class var0, Object var1, StringUtil.ToStringOptions var2, String... var3) {

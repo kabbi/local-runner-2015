@@ -1,9 +1,8 @@
 package com.a.b.a.a.d;
 
-import com.a.b.a.a.a.class_18;
+import com.a.b.a.a.a.GameProperties;
 import com.a.b.a.a.b.e.class_81;
 import com.a.b.a.a.c.class_138;
-import com.a.b.a.a.d.class_5;
 import com.codeforces.commons.io.FileUtil;
 import com.codeforces.commons.io.http.HttpMethod;
 import com.codeforces.commons.io.http.HttpRequest;
@@ -33,7 +32,7 @@ public class class_101 implements class_5 {
     // $FF: renamed from: d java.lang.String
     private final String field_376;
     // $FF: renamed from: e com.a.b.a.a.a.b
-    private final class_18 field_377;
+    private final GameProperties field_377;
     // $FF: renamed from: f com.a.b.a.a.b.e.d
     private final class_81 field_378;
     // $FF: renamed from: g int
@@ -45,7 +44,7 @@ public class class_101 implements class_5 {
     // $FF: renamed from: j java.lang.StringBuilder
     private StringBuilder field_382 = new StringBuilder();
 
-    public class_101(String var1, class_18 var2) {
+    public class_101(String var1, GameProperties var2) {
         this.field_376 = var1;
         this.field_377 = var2;
         this.field_378 = new class_81(var2);

@@ -25,139 +25,137 @@ import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.mutable.MutableInt;
 
 // $FF: renamed from: com.a.b.a.a.b.e.i
-public final class class_86 {
+public final class MapUtils {
     // $FF: renamed from: a java.util.regex.Pattern
-    private static final Pattern field_316 = Pattern.compile("[3-9]|[1-9][0-9]");
+    private static final Pattern LOOSE_MAP_DIMENSION_PATTERN = Pattern.compile("[3-9]|[1-9][0-9]");
     // $FF: renamed from: b java.util.regex.Pattern
-    private static final Pattern field_317 = Pattern.compile("[8-9]|1[01-6]");
+    private static final Pattern MAP_DIMENSION_PATTERN = Pattern.compile("[8-9]|1[01-6]");
     // $FF: renamed from: c java.util.regex.Pattern
     private static final Pattern field_318 = Pattern.compile("[1-9]?[0-9]");
     // $FF: renamed from: d java.util.Set
-    private static final Set field_319;
+    private static final Set field_319 = Collections.unmodifiableSet(EnumSet.of(TileType.HORIZONTAL, TileType.LEFT_TOP_CORNER, TileType.LEFT_BOTTOM_CORNER, TileType.RIGHT_HEADED_T, TileType.TOP_HEADED_T, TileType.BOTTOM_HEADED_T, TileType.CROSSROADS));
     // $FF: renamed from: e java.util.Set
-    private static final Set field_320;
+    private static final Set field_320 = Collections.unmodifiableSet(EnumSet.of(TileType.HORIZONTAL, TileType.RIGHT_TOP_CORNER, TileType.RIGHT_BOTTOM_CORNER, TileType.LEFT_HEADED_T, TileType.TOP_HEADED_T, TileType.BOTTOM_HEADED_T, TileType.CROSSROADS));
     // $FF: renamed from: f java.util.Set
-    private static final Set field_321;
+    private static final Set field_321 = Collections.unmodifiableSet(EnumSet.of(TileType.VERTICAL, TileType.LEFT_TOP_CORNER, TileType.RIGHT_TOP_CORNER, TileType.LEFT_HEADED_T, TileType.RIGHT_HEADED_T, TileType.BOTTOM_HEADED_T, TileType.CROSSROADS));
     // $FF: renamed from: g java.util.Set
-    private static final Set field_322;
+    private static final Set field_322 = Collections.unmodifiableSet(EnumSet.of(TileType.VERTICAL, TileType.LEFT_BOTTOM_CORNER, TileType.RIGHT_BOTTOM_CORNER, TileType.LEFT_HEADED_T, TileType.RIGHT_HEADED_T, TileType.TOP_HEADED_T, TileType.CROSSROADS));
     // $FF: renamed from: h int
-    private static final int field_323;
+    private static final int field_323 = (5 + 25) * ((25 - 5) / 5 + 1) / 2; // what??
     // $FF: renamed from: i java.util.concurrent.ConcurrentMap
-    private static final ConcurrentMap field_324;
+    private static final ConcurrentMap<String, Map> mapCache = new ConcurrentHashMap<>();
 
     // $FF: renamed from: a (java.lang.String, boolean) com.a.b.a.a.b.e.i$a
-    public static class_86.class_206 method_502(String var0, boolean var1) {
-        var0 = FilenameUtils.getBaseName(var0);
-        class_86.class_206 var2 = (class_86.class_206)field_324.get(var0);
-        if(var2 == null) {
-            byte[] var3 = method_503(var0 + ".map");
-            String[] var4 = Patterns.LINE_BREAK_PATTERN.split(new String(var3, StandardCharsets.UTF_8));
-            MutableInt var5 = new MutableInt(0);
+    public static Map loadMap(String mapFilePath, boolean looseCheck) {
+        mapFilePath = FilenameUtils.getBaseName(mapFilePath);
+        Map map = mapCache.get(mapFilePath);
+        if(map == null) {
+            byte[] mapData = readMapContent(mapFilePath + ".map");
+            String[] mapLines = Patterns.LINE_BREAK_PATTERN.split(new String(mapData, StandardCharsets.UTF_8));
+            MutableInt currentLinePtr = new MutableInt(0);
             MutableInt var6 = new MutableInt(0);
-            TileType[][] var7 = method_504(var4, var5, var1);
-            if(var7.length > 0) {
-                method_505(var7, var4, var5, var7.length, var7[0].length);
-                method_506(var7, var7.length, var7[0].length);
+            TileType[][] mapTiles = parseMapDimensions(mapLines, currentLinePtr, looseCheck);
+            if(mapTiles.length > 0) {
+                parseMapTiles(mapTiles, mapLines, currentLinePtr, mapTiles.length, mapTiles[0].length);
+                method_506(mapTiles, mapTiles.length, mapTiles[0].length);
             }
 
-            IntPair[] var8 = method_508(var4, var5);
+            IntPair[] var8 = method_508(mapLines, currentLinePtr);
             if(var8.length > 0) {
-                method_509(var8, var4, var5, var7, var7.length, var7[0].length);
-                method_510(var8, var7, var7.length, var7[0].length, var6);
+                method_509(var8, mapLines, currentLinePtr, mapTiles, mapTiles.length, mapTiles[0].length);
+                method_510(var8, mapTiles, mapTiles.length, mapTiles[0].length, var6);
             }
 
-            Direction var9 = method_514(var4, var5, var7, var8);
-            var2 = new class_86.class_206(var0, var7, var8, var9, var6.intValue());
-            field_324.putIfAbsent(var0, var2);
+            Direction startingDirection = parseStartingDirection(mapLines, currentLinePtr, mapTiles, var8);
+            map = new Map(mapFilePath, mapTiles, var8, startingDirection, var6.intValue());
+            mapCache.putIfAbsent(mapFilePath, map);
         }
 
-        return var2;
+        return map;
     }
 
     // $FF: renamed from: a (java.lang.String) byte[]
-    private static byte[] method_503(String var0) {
-        byte[] var1 = ResourceUtil.getResourceOrNull(class_77.class, "/maps/" + var0);
-        if(var1 == null) {
+    private static byte[] readMapContent(String mapFilePath) {
+        byte[] data = ResourceUtil.getResourceOrNull(class_77.class, "/maps/" + mapFilePath);
+        if(data == null) {
             try {
-                File var2 = new File(var0);
-                if(!var2.isFile()) {
-                    throw new CantReadResourceException("Map file \'" + var0 + "\' is not found in current directory.");
+                File mapFile = new File(mapFilePath);
+                if(!mapFile.isFile()) {
+                    throw new CantReadResourceException("Map file \'" + mapFilePath + "\' is not found in current directory.");
                 }
 
-                if(var2.length() > 8388608L) {
-                    throw new CantReadResourceException(String.format("Size of the map file \'%s\' is greater than %d B.", var0, Long.valueOf(8388608L)));
+                if(mapFile.length() > 8388608L) {
+                    throw new CantReadResourceException(String.format("Size of the map file \'%s\' is greater than %d B.", mapFilePath, 8388608L));
                 }
 
-                var1 = FileUtils.readFileToByteArray(var2);
-            } catch (IOException var3) {
-                throw new CantReadResourceException("Can\'t read map file \'" + var0 + "\' from current directory.", var3);
+                data = FileUtils.readFileToByteArray(mapFile);
+            } catch (IOException e) {
+                throw new CantReadResourceException("Can\'t read map file \'" + mapFilePath + "\' from current directory.", e);
             }
         }
 
-        return var1;
+        return data;
     }
 
     // $FF: renamed from: a (java.lang.String[], org.apache.commons.lang3.mutable.MutableInt, boolean) com.a.b.a.a.c.t[][]
-    private static TileType[][] method_504(String[] var0, MutableInt var1, boolean var2) {
-        int var3 = var0.length;
-
-        TileType[][] var4;
-        for(var4 = null; var1.intValue() < var3 && var4 == null; var1.increment()) {
-            String var5 = var0[var1.intValue()];
-            if(StringUtil.isNotBlank(var5) && var5.indexOf(35) != 0) {
-                String[] var6 = Patterns.WHITESPACE_PATTERN.split(var5.trim());
-                if(var6.length < 2) {
+    private static TileType[][] parseMapDimensions(String[] mapLines, MutableInt currentLinePtr, boolean looseCheck) {
+        TileType[][] mapTiles;
+        for(mapTiles = null; currentLinePtr.intValue() < mapLines.length && mapTiles == null; currentLinePtr.increment()) {
+            String mapLine = mapLines[currentLinePtr.intValue()];
+            if(StringUtil.isNotBlank(mapLine) && mapLine.indexOf('#') != 0) {
+                String[] widthHeightStr = Patterns.WHITESPACE_PATTERN.split(mapLine.trim());
+                if(widthHeightStr.length < 2) {
                     throw new CantReadResourceException("Can\'t parse width and height of the map.");
                 }
 
-                Pattern var7 = var2?field_316:field_317;
-                String var8 = var6[0];
-                if(!var7.matcher(var8).matches()) {
-                    throw new IllegalArgumentException(String.format("Map width \'%s\' does not match pattern \'%s\'.", new Object[]{var8, var7.pattern()}));
+                Pattern dimensinPattern = looseCheck ? LOOSE_MAP_DIMENSION_PATTERN : MAP_DIMENSION_PATTERN;
+                String widthStr = widthHeightStr[0];
+                if(!dimensinPattern.matcher(widthStr).matches()) {
+                    throw new IllegalArgumentException(String.format("Map width \'%s\' does not match pattern \'%s\'.", new Object[]{widthStr, dimensinPattern.pattern()}));
                 }
 
-                int var9 = Integer.parseInt(var8);
-                String var10 = var6[1];
-                if(!var7.matcher(var10).matches()) {
-                    throw new IllegalArgumentException(String.format("Map height \'%s\' does not match pattern \'%s\'.", new Object[]{var10, var7.pattern()}));
+                int width = Integer.parseInt(widthStr);
+                String heightStr = widthHeightStr[1];
+                if(!dimensinPattern.matcher(heightStr).matches()) {
+                    throw new IllegalArgumentException(String.format("Map height \'%s\' does not match pattern \'%s\'.", new Object[]{heightStr, dimensinPattern.pattern()}));
                 }
 
-                int var11 = Integer.parseInt(var10);
-                var4 = new TileType[var9][var11];
+                int height = Integer.parseInt(heightStr);
+                mapTiles = new TileType[width][height];
             }
         }
 
-        if(var4 == null) {
+        if(mapTiles == null) {
             throw new CantReadResourceException("Can\'t read width and height of the map.");
         } else {
-            return var4;
+            return mapTiles;
         }
     }
 
     // $FF: renamed from: a (com.a.b.a.a.c.t[][], java.lang.String[], org.apache.commons.lang3.mutable.MutableInt, int, int) void
-    private static void method_505(TileType[][] var0, String[] var1, MutableInt var2, int var3, int var4) {
-        int var5 = var1.length;
+    private static void parseMapTiles(TileType[][] mapTiles, String[] mapLines, MutableInt currentLinePtr, int width, int height) {
+        int var5 = mapLines.length;
 
         int var6;
-        for(var6 = 0; var2.intValue() < var5 && var6 < var4; var2.increment()) {
-            String var7 = var1[var2.intValue()];
+        for(var6 = 0; currentLinePtr.intValue() < var5 && var6 < height; currentLinePtr.increment()) {
+            String var7 = mapLines[currentLinePtr.intValue()];
             if(StringUtil.isNotBlank(var7) && var7.indexOf(35) != 0) {
                 var7 = Patterns.WHITESPACE_PATTERN.matcher(var7).replaceAll("");
-                if(var7.length() != var3) {
-                    throw new IllegalArgumentException("Length of the map line is not " + var3 + '.');
+                if(var7.length() != width) {
+                    throw new IllegalArgumentException("Length of the map line is not " + width + '.');
                 }
 
-                for(int var8 = 0; var8 < var3; ++var8) {
+                for(int var8 = 0; var8 < width; ++var8) {
                     char var9 = var7.charAt(var8);
-                    var0[var8][var6] = method_515(var9);
+                    mapTiles[var8][var6] = tileTypeByChar(var9);
                 }
 
                 ++var6;
             }
         }
 
-        if(var6 < var4) {
-            throw new CantReadResourceException("Number of the map lines is not " + var4 + '.');
+        if(var6 < height) {
+            throw new CantReadResourceException("Number of the map lines is not " + height + '.');
         }
     }
 
@@ -249,7 +247,7 @@ public final class class_86 {
 
                 if(var8 > 0) {
                     IntPair var15 = var0[var8 - 1];
-                    if(NumberUtil.equals(var12, (Integer)var15.getFirst()) && NumberUtil.equals(var14, (Integer)var15.getSecond())) {
+                    if(NumberUtil.equals(var12, var15.getFirst()) && NumberUtil.equals(var14, var15.getSecond())) {
                         throw new IllegalArgumentException(String.format("Waypoint #%d (%d, %d) is the same as previous waypoint.", var8, var12, var14));
                     }
                 }
@@ -272,17 +270,17 @@ public final class class_86 {
         IntPair[] var6 = new IntPair[var5 + 1];
         System.arraycopy(var0, 0, var6, 0, var5);
         var6[var5] = var0[0];
-        class_86.class_211[] var7 = new class_86.class_211[var5];
+        MapUtils.class_211[] var7 = new MapUtils.class_211[var5];
 
         for(int var8 = 0; var8 < var5; ++var8) {
             IntPair var9 = var6[var8];
-            class_86.class_211 var10 = new class_86.class_211(var9);
+            MapUtils.class_211 var10 = new MapUtils.class_211(var9);
             if(var8 > 0) {
                 var10.field_267 = var7[var8 - 1].field_267;
             }
 
             Integer[][] var11 = new Integer[var2][var3];
-            var11[((Integer) var9.getFirst())][((Integer) var9.getSecond())] = 0;
+            var11[var9.getFirst()][var9.getSecond()] = 0;
             var7[var8] = method_511(var10, var6[var8 + 1], var1, var11, var2, var3);
             var4.add(var7[var8].field_268);
         }
@@ -290,16 +288,16 @@ public final class class_86 {
     }
 
     // $FF: renamed from: a (com.a.b.a.a.b.e.i$b, com.codeforces.commons.pair.IntPair, com.a.b.a.a.c.t[][], java.lang.Integer[][], int, int) com.a.b.a.a.b.e.i$b
-    private static class_86.class_211 method_511(class_86.class_211 var0, IntPair var1, TileType[][] var2, Integer[][] var3, int var4, int var5) {
+    private static MapUtils.class_211 method_511(MapUtils.class_211 var0, IntPair var1, TileType[][] var2, Integer[][] var3, int var4, int var5) {
         List var6 = method_512(var0.field_266, var2, var4, var5);
-        class_86.class_211 var7 = null;
+        MapUtils.class_211 var7 = null;
         Iterator var8 = var6.iterator();
 
         IntPair var9;
         while(var8.hasNext()) {
             var9 = (IntPair)var8.next();
             if(var9.equals(var1)) {
-                var7 = new class_86.class_211(var9);
+                var7 = new MapUtils.class_211(var9);
                 var7.field_267 = var0;
                 var7.field_268 = method_513(var0, var9);
                 return var7;
@@ -309,7 +307,7 @@ public final class class_86 {
         var8 = var6.iterator();
 
         while(true) {
-            class_86.class_211 var12;
+            MapUtils.class_211 var12;
             do {
                 do {
                     int var10;
@@ -323,21 +321,21 @@ public final class class_86 {
                         } while(var0.field_267 != null && var9.equals(var0.field_267.field_266));
 
                         var10 = method_513(var0, var9);
-                        Integer var11 = var3[((Integer) var9.getFirst())][((Integer) var9.getSecond())];
+                        Integer var11 = var3[var9.getFirst()][var9.getSecond()];
                         if(var11 == null) {
-                            var3[((Integer) var9.getFirst())][((Integer) var9.getSecond())] = var10;
+                            var3[var9.getFirst()][var9.getSecond()] = var10;
                             break;
                         }
 
                         if(var10 <= var11 + field_323) {
                             if(var10 < var11) {
-                                var3[((Integer) var9.getFirst())][((Integer) var9.getSecond())] = var10;
+                                var3[var9.getFirst()][var9.getSecond()] = var10;
                             }
                             break;
                         }
                     }
 
-                    var12 = new class_86.class_211(var9);
+                    var12 = new MapUtils.class_211(var9);
                     var12.field_267 = var0;
                     var12.field_268 = var10;
                     var12 = method_511(var12, var1, var2, var3, var4, var5);
@@ -350,8 +348,8 @@ public final class class_86 {
 
     // $FF: renamed from: a (com.codeforces.commons.pair.IntPair, com.a.b.a.a.c.t[][], int, int) java.util.List
     private static List method_512(IntPair var0, TileType[][] var1, int var2, int var3) {
-        int var4 = (Integer) var0.getFirst();
-        int var5 = (Integer) var0.getSecond();
+        int var4 = var0.getFirst();
+        int var5 = var0.getSecond();
         ArrayList var6 = new ArrayList(4);
         if(var5 > 0 && field_321.contains(var1[var4][var5 - 1])) {
             var6.add(new IntPair(var4, var5 - 1));
@@ -373,14 +371,14 @@ public final class class_86 {
     }
 
     // $FF: renamed from: a (com.a.b.a.a.b.e.i$b, com.codeforces.commons.pair.IntPair) int
-    private static int method_513(class_86.class_211 var0, IntPair var1) {
-        int var2 = (Integer) var1.getFirst() - (Integer) var0.field_266.getFirst();
-        int var3 = (Integer) var1.getSecond() - (Integer) var0.field_266.getSecond();
-        int var4 = (Integer) var0.field_266.getFirst() - var2;
-        int var5 = (Integer) var0.field_266.getSecond() - var3;
+    private static int method_513(MapUtils.class_211 var0, IntPair var1) {
+        int var2 = var1.getFirst() - var0.field_266.getFirst();
+        int var3 = var1.getSecond() - var0.field_266.getSecond();
+        int var4 = var0.field_266.getFirst() - var2;
+        int var5 = var0.field_266.getSecond() - var3;
         int var6 = 60;
 
-        for(class_86.class_211 var7 = var0.field_267; var7 != null && var7.field_266.equals(var4, var5); var7 = var7.field_267) {
+        for(MapUtils.class_211 var7 = var0.field_267; var7 != null && var7.field_266.equals(var4, var5); var7 = var7.field_267) {
             var6 -= 5;
             if(var6 <= 30) {
                 break;
@@ -394,12 +392,12 @@ public final class class_86 {
     }
 
     // $FF: renamed from: a (java.lang.String[], org.apache.commons.lang3.mutable.MutableInt, com.a.b.a.a.c.t[][], com.codeforces.commons.pair.IntPair[]) com.a.b.a.a.c.i
-    private static Direction method_514(String[] var0, MutableInt var1, TileType[][] var2, IntPair[] var3) {
-        int var4 = var0.length;
+    private static Direction parseStartingDirection(String[] mapLines, MutableInt var1, TileType[][] var2, IntPair[] var3) {
+        int var4 = mapLines.length;
 
         Direction var5;
         for(var5 = null; var1.intValue() < var4 && var5 == null; var1.increment()) {
-            String var6 = var0[var1.intValue()];
+            String var6 = mapLines[var1.intValue()];
             if(StringUtil.isNotBlank(var6) && var6.indexOf(35) != 0) {
                 try {
                     var5 = Direction.valueOf(var6.trim().toUpperCase());
@@ -413,7 +411,7 @@ public final class class_86 {
             throw new CantReadResourceException("Can\'t read starting direction.");
         } else {
             IntPair var9 = var3[0];
-            TileType var7 = var2[((Integer) var9.getFirst())][((Integer) var9.getSecond())];
+            TileType var7 = var2[var9.getFirst()][var9.getSecond()];
             switch(var7.ordinal()) {
             case 1:
                 if(var5 != Direction.UP && var5 != Direction.DOWN) {
@@ -434,8 +432,8 @@ public final class class_86 {
     }
 
     // $FF: renamed from: a (char) com.a.b.a.a.c.t
-    private static TileType method_515(char var0) {
-        switch(var0) {
+    private static TileType tileTypeByChar(char c) {
+        switch(c) {
         case '═':
             return TileType.HORIZONTAL;
         case '║':
@@ -461,27 +459,15 @@ public final class class_86 {
         case '█':
             return TileType.EMPTY;
         default:
-            throw new IllegalArgumentException("Unexpected tile character \'" + var0 + "\'.");
+            throw new IllegalArgumentException("Unexpected tile character \'" + c + "\'.");
         }
-    }
-
-    static {
-        field_319 = Collections.unmodifiableSet(EnumSet.of(TileType.HORIZONTAL, TileType.LEFT_TOP_CORNER, TileType.LEFT_BOTTOM_CORNER, TileType.RIGHT_HEADED_T, TileType.TOP_HEADED_T, TileType.BOTTOM_HEADED_T, TileType.CROSSROADS));
-        field_320 = Collections.unmodifiableSet(EnumSet.of(TileType.HORIZONTAL, TileType.RIGHT_TOP_CORNER, TileType.RIGHT_BOTTOM_CORNER, TileType.LEFT_HEADED_T, TileType.TOP_HEADED_T, TileType.BOTTOM_HEADED_T, TileType.CROSSROADS));
-        field_321 = Collections.unmodifiableSet(EnumSet.of(TileType.VERTICAL, TileType.LEFT_TOP_CORNER, TileType.RIGHT_TOP_CORNER, TileType.LEFT_HEADED_T, TileType.RIGHT_HEADED_T, TileType.BOTTOM_HEADED_T, TileType.CROSSROADS));
-        field_322 = Collections.unmodifiableSet(EnumSet.of(TileType.VERTICAL, TileType.LEFT_BOTTOM_CORNER, TileType.RIGHT_BOTTOM_CORNER, TileType.LEFT_HEADED_T, TileType.RIGHT_HEADED_T, TileType.TOP_HEADED_T, TileType.CROSSROADS));
-        field_324 = new ConcurrentHashMap();
-        byte var0 = 5;
-        byte var1 = 25;
-        int var2 = (var1 - var0) / 5 + 1;
-        field_323 = (var0 + var1) * var2 / 2;
     }
 
     private static final class class_211 {
         // $FF: renamed from: a com.codeforces.commons.pair.IntPair
         final IntPair field_266;
         // $FF: renamed from: b com.a.b.a.a.b.e.i$b
-        class_86.class_211 field_267;
+        MapUtils.class_211 field_267;
         // $FF: renamed from: c int
         int field_268;
 
@@ -494,23 +480,23 @@ public final class class_86 {
         }
     }
 
-    public static final class class_206 {
+    public static final class Map {
         // $FF: renamed from: a java.lang.String
         private final String field_261;
         // $FF: renamed from: b com.a.b.a.a.c.t[][]
-        private final TileType[][] field_262;
+        private final TileType[][] tilesXY;
         // $FF: renamed from: c com.codeforces.commons.pair.IntPair[]
         private final IntPair[] field_263;
         // $FF: renamed from: d com.a.b.a.a.c.i
-        private final Direction field_264;
+        private final Direction startingDirection;
         // $FF: renamed from: e int
         private final int field_265;
 
-        public class_206(String var1, TileType[][] var2, IntPair[] var3, Direction var4, int var5) {
+        public Map(String var1, TileType[][] var2, IntPair[] var3, Direction var4, int var5) {
             this.field_261 = var1;
-            this.field_262 = var2;
+            this.tilesXY = var2;
             this.field_263 = var3;
-            this.field_264 = var4;
+            this.startingDirection = var4;
             this.field_265 = var5;
         }
 
@@ -520,8 +506,8 @@ public final class class_86 {
         }
 
         // $FF: renamed from: b () com.a.b.a.a.c.t[][]
-        public TileType[][] method_413() {
-            return this.field_262;
+        public TileType[][] getTilesXY() {
+            return this.tilesXY;
         }
 
         // $FF: renamed from: c () com.codeforces.commons.pair.IntPair[]
@@ -530,8 +516,8 @@ public final class class_86 {
         }
 
         // $FF: renamed from: d () com.a.b.a.a.c.i
-        public Direction method_415() {
-            return this.field_264;
+        public Direction getStartingDirection() {
+            return this.startingDirection;
         }
 
         // $FF: renamed from: e () int

@@ -1,6 +1,6 @@
 package com.a.b.a.a.b;
 
-import com.a.a.a.a.class_121;
+import com.a.a.a.a.RandomUtils;
 import com.a.b.a.a.e.a.class_11;
 import com.a.b.a.a.e.a.class_179;
 import com.codeforces.commons.io.IoUtil;
@@ -19,7 +19,7 @@ public class class_171 {
     @Name("name")
     private final String field_693;
     // $FF: renamed from: d long
-    private final long field_694 = class_121.method_792();
+    private final long field_694 = RandomUtils.randomLong();
     // $FF: renamed from: e com.a.b.a.a.e.a.f
     private final class_11 field_695;
     // $FF: renamed from: f boolean

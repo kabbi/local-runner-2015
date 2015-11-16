@@ -42,9 +42,9 @@ public final class class_79 {
     }
 
     // $FF: renamed from: a (com.a.b.a.a.b.e.i$a, int, int, int, int) com.codeforces.commons.geometry.Point2D
-    public static Point2D method_477(class_86.class_206 var0, int var1, int var2, int var3, int var4) {
+    public static Point2D method_477(MapUtils.Map var0, int var1, int var2, int var3, int var4) {
         method_484(var1, var2, var3, var4);
-        Direction var5 = var0.method_415();
+        Direction var5 = var0.getStartingDirection();
         IntPair var6 = var0.method_414()[0];
         double var7 = 16.0D;
         double var9 = 80.0D + var7 + 70.0D;
@@ -61,14 +61,14 @@ public final class class_79 {
         case 4:
             return new Point2D(800.0D * (double)((Integer) var6.getFirst() + 1) - var9 - var11, 800.0D * ((double) (Integer) var6.getSecond() + 0.5D));
         default:
-            throw new IllegalArgumentException("Unsupported starting direction: " + var0.method_415() + '.');
+            throw new IllegalArgumentException("Unsupported starting direction: " + var0.getStartingDirection() + '.');
         }
     }
 
     // $FF: renamed from: b (com.a.b.a.a.b.e.i$a, int, int, int, int) double
-    public static double method_478(class_86.class_206 var0, int var1, int var2, int var3, int var4) {
+    public static double method_478(MapUtils.Map var0, int var1, int var2, int var3, int var4) {
         method_484(var1, var2, var3, var4);
-        switch(var0.method_415().ordinal()) {
+        switch(var0.getStartingDirection().ordinal()) {
         case 1:
             return 3.141592653589793D;
         case 2:
@@ -78,7 +78,7 @@ public final class class_79 {
         case 4:
             return 1.5707963267948966D;
         default:
-            throw new IllegalArgumentException("Unsupported starting direction: " + var0.method_415() + '.');
+            throw new IllegalArgumentException("Unsupported starting direction: " + var0.getStartingDirection() + '.');
         }
     }
 

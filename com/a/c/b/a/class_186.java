@@ -1,6 +1,6 @@
 package com.a.c.b.a;
 
-import com.a.a.a.a.class_121;
+import com.a.a.a.a.RandomUtils;
 import com.a.a.b.class_106;
 import com.a.a.b.class_110;
 import com.a.a.b.a.class_15;
@@ -11,7 +11,7 @@ import com.a.c.class_159;
 import com.a.c.class_162;
 import com.a.c.class_8;
 import com.a.c.class_9;
-import com.a.c.b.a.class_188;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.locks.Lock;
@@ -143,7 +143,7 @@ public class class_186 implements class_10 {
         try {
             String var2;
             do {
-                var2 = class_121.method_795();
+                var2 = RandomUtils.randomHexString();
             } while(this.field_794.method_744(var2));
 
             if(var1 instanceof class_9) {

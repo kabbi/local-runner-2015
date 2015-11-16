@@ -1,15 +1,15 @@
 package com.a.b;
 
-import com.a.b.a.a.a.class_18;
+import com.a.b.a.a.a.GameProperties;
 
 // $FF: renamed from: com.a.b.a
-public interface class_1 {
+public interface GameSimulator {
     // $FF: renamed from: a (com.a.b.a.a.a.b) void
-    void method_13(class_18 var1);
+    void init(GameProperties var1);
 
     // $FF: renamed from: a () void
-    void method_14();
+    void start();
 
     // $FF: renamed from: b () void
-    void method_15();
+    void shutdown();
 }

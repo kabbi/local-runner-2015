@@ -1,6 +1,6 @@
 package com.a.b.a.a.b.e;
 
-import com.a.b.a.a.a.class_18;
+import com.a.b.a.a.a.GameProperties;
 import com.a.b.a.a.b.class_171;
 import com.a.b.a.a.c.Player;
 import com.a.b.a.a.d.class_5;
@@ -27,7 +27,7 @@ public final class class_72 {
     }
 
     // $FF: renamed from: a (com.a.b.a.a.a.b, int, java.lang.String, java.lang.String, int, java.util.List) com.a.b.a.a.b.n
-    public static class_171 method_450(class_18 var0, int var1, String var2, String var3, int var4, List var5) {
+    public static class_171 method_450(GameProperties var0, int var1, String var2, String var3, int var4, List var5) {
         method_452(var2, var3);
 
         try {

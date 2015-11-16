@@ -3,7 +3,7 @@ package com.a.b.a.a.b.b;
 import com.a.b.class_2;
 import com.a.b.class_3;
 import com.a.b.class_42;
-import com.a.b.a.a.a.class_18;
+import com.a.b.a.a.a.GameProperties;
 import com.a.b.a.a.b.a.class_124;
 import com.a.b.a.a.b.d.c.class_43;
 import com.a.b.a.a.b.e.class_79;
@@ -26,9 +26,9 @@ public class class_22 implements class_2 {
     // $FF: renamed from: c com.codeforces.commons.holder.Readable
     private final Readable field_85;
     // $FF: renamed from: d com.a.b.a.a.a.b
-    private final class_18 field_86;
+    private final GameProperties field_86;
 
-    public class_22(Readable var1, class_18 var2) {
+    public class_22(Readable var1, GameProperties var2) {
         this.field_85 = var1;
         this.field_86 = var2;
     }
@@ -62,7 +62,7 @@ public class class_22 implements class_2 {
             double var7 = Math.abs(var6.method_876().dotProduct((new Vector2D(1.0D, 0.0D)).rotate(var6.method_874() + 1.5707963267948966D)));
             if(var7 >= 15.0D) {
                 int var9 = this.field_84.incrementAndGet();
-                if(this.field_86.method_103()) {
+                if(this.field_86.shouldLogDrifting()) {
                     field_83.debug(String.format("Car {id=%d} drifting %d at tick %d (driftingSpeed=%.2f).", var4.method_278(), var9, this.field_85.get(), var7));
                 }
 

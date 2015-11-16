@@ -224,13 +224,13 @@ public class class_104 {
         }
 
         // $FF: synthetic method
-        public void setSecond(Object var1) {
-            this.method_242((Double) var1);
+        public void setSecond(Object second) {
+            this.method_242((Double) second);
         }
 
         // $FF: synthetic method
-        public void setFirst(Object var1) {
-            this.method_241((Double) var1);
+        public void setFirst(Object first) {
+            this.method_241((Double) first);
         }
     }
 }

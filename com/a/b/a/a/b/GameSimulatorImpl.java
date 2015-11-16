@@ -1,12 +1,12 @@
 package com.a.b.a.a.b;
 
-import com.a.a.a.a.class_121;
-import com.a.b.class_1;
+import com.a.a.a.a.RandomUtils;
+import com.a.b.GameSimulator;
 import com.a.b.class_2;
 import com.a.b.class_3;
 import com.a.b.class_42;
 import com.a.b.a.a.a.class_16;
-import com.a.b.a.a.a.class_18;
+import com.a.b.a.a.a.GameProperties;
 import com.a.b.a.a.b.b.class_19;
 import com.a.b.a.a.b.b.class_20;
 import com.a.b.a.a.b.b.class_21;
@@ -39,7 +39,7 @@ import com.a.b.a.a.b.e.class_77;
 import com.a.b.a.a.b.e.class_79;
 import com.a.b.a.a.b.e.class_84;
 import com.a.b.a.a.b.e.class_85;
-import com.a.b.a.a.b.e.class_86;
+import com.a.b.a.a.b.e.MapUtils;
 import com.a.b.a.a.c.Car;
 import com.a.b.a.a.c.World;
 import com.a.b.a.a.c.class_138;
@@ -83,7 +83,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Map.Entry;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
@@ -106,16 +105,16 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 // $FF: renamed from: com.a.b.a.a.b.a
-public class class_176 implements class_1 {
+public class GameSimulatorImpl implements GameSimulator {
     // $FF: renamed from: a org.slf4j.Logger
-    private static final Logger field_720 = LoggerFactory.getLogger(class_176.class);
+    private static final Logger logger = LoggerFactory.getLogger(GameSimulatorImpl.class);
     // $FF: renamed from: b com.a.b.h
     @Inject
     private class_3 field_721;
     // $FF: renamed from: c com.a.b.a.a.a.b
-    private class_18 field_722;
+    private GameProperties gameProperties;
     // $FF: renamed from: d com.a.b.a.a.b.e.i$a
-    private class_86.class_206 field_723;
+    private MapUtils.Map field_723;
     // $FF: renamed from: e com.codeforces.commons.pair.IntPair[]
     private IntPair[] field_724;
     // $FF: renamed from: f java.util.concurrent.atomic.AtomicBoolean
@@ -137,7 +136,7 @@ public class class_176 implements class_1 {
     // $FF: renamed from: n java.util.List
     private final List field_733;
     // $FF: renamed from: o java.util.Map
-    private final Map field_734;
+    private final java.util.Map field_734;
     // $FF: renamed from: p java.util.List
     private final List field_735;
     // $FF: renamed from: q java.util.List
@@ -147,16 +146,16 @@ public class class_176 implements class_1 {
     // $FF: renamed from: s java.util.concurrent.ExecutorService
     private ExecutorService field_738;
     // $FF: renamed from: t long
-    private long field_739;
+    private long startTime;
     // $FF: renamed from: u boolean
-    private boolean field_740;
+    private boolean hasReplayFile;
     // $FF: renamed from: v java.io.BufferedReader
-    private BufferedReader field_741;
+    private BufferedReader replayFileReader;
     // $FF: renamed from: w com.a.b.a.a.c.h
     private class_138 field_742;
 
-    public class_176() {
-        this.field_722 = class_18.field_7;
+    public GameSimulatorImpl() {
+        this.gameProperties = GameProperties.instance;
         this.field_725 = new AtomicBoolean(false);
         this.field_726 = new AtomicReference(null);
         this.field_733 = new ArrayList();
@@ -167,30 +166,30 @@ public class class_176 implements class_1 {
     }
 
     // $FF: renamed from: a (com.a.b.a.a.a.b) void
-    public void method_13(class_18 var1) {
-        field_720.info("Game has been started.");
-        this.field_739 = System.currentTimeMillis();
-        this.field_722 = var1;
-        this.field_740 = var1.method_85() != null;
-        if(this.field_740) {
+    public void init(GameProperties gameProperties) {
+        logger.info("Game has been started.");
+        this.startTime = System.currentTimeMillis();
+        this.gameProperties = gameProperties;
+        this.hasReplayFile = gameProperties.getReplayFile() != null;
+        if(this.hasReplayFile) {
             try {
-                this.field_741 = new BufferedReader(new InputStreamReader(new BufferedInputStream(new FileInputStream(var1.method_85())), StandardCharsets.UTF_8));
-            } catch (IOException var3) {
-                this.method_965(String.format("Can\'t open log file: %s", ExceptionUtils.getStackTrace(var3)));
+                this.replayFileReader = new BufferedReader(new InputStreamReader(new BufferedInputStream(new FileInputStream(gameProperties.getReplayFile())), StandardCharsets.UTF_8));
+            } catch (IOException e) {
+                this.method_965(String.format("Can\'t open log file: %s", ExceptionUtils.getStackTrace(e)));
                 return;
             }
 
             if((this.field_742 = this.method_966()) != null) {
-                this.field_722.method_77(this.field_742.getMapName());
+                this.gameProperties.method_77(this.field_742.getMapName());
             }
         }
 
         this.method_953();
-        this.field_729 = var1.method_82();
+        this.field_729 = gameProperties.method_82();
         this.field_732 = this.field_729 - 1;
         this.method_954();
         this.method_955();
-        if(!this.field_740) {
+        if(!this.hasReplayFile) {
             this.method_956();
             this.method_957();
             this.method_958();
@@ -199,14 +198,14 @@ public class class_176 implements class_1 {
             this.method_962();
         }
 
-        field_720.info("Game has been initialized.");
+        logger.info("Game has been initialized.");
     }
 
     // $FF: renamed from: a () void
-    public void method_14() {
-        for(this.field_730 = 0; (this.field_740 || this.field_730 <= this.field_732) && !this.field_725.get() && (this.field_740 || !this.method_964()); ++this.field_730) {
+    public void start() {
+        for(this.field_730 = 0; (this.hasReplayFile || this.field_730 <= this.field_732) && !this.field_725.get() && (this.hasReplayFile || !this.method_964()); ++this.field_730) {
             this.method_944(false);
-            if(this.field_740) {
+            if(this.hasReplayFile) {
                 this.field_742 = this.method_966();
                 if(this.field_742 == null || this.field_742.isLastTick()) {
                     break;
@@ -225,22 +224,21 @@ public class class_176 implements class_1 {
     }
 
     // $FF: renamed from: b () void
-    public void method_15() {
-        field_720.info("Game has been finished in " + (System.currentTimeMillis() - this.field_739) + " ms.");
+    public void shutdown() {
+        logger.info("Game has been finished in " + (System.currentTimeMillis() - this.startTime) + " ms.");
         Iterator var1;
-        if(this.field_722.method_104()) {
+        if(this.gameProperties.shouldLogMaxSpeed()) {
             var1 = this.field_734.values().iterator();
 
             while(var1.hasNext()) {
                 List var2 = (List)var1.next();
-                Iterator var3 = var2.iterator();
 
-                while(var3.hasNext()) {
-                    class_43 var4 = (class_43)var3.next();
-                    double var5 = this.field_730 > 180? var4.method_291() / (double)(this.field_730 - 180):0.0D;
-                    field_720.info(String.format("Average speed of %s is %.2f per tick.", var4, var5));
-                    field_720.info(String.format("Max speed of %s is %.2f per tick (tick=%d).", var4, var4.method_281(), var4.method_282()));
-                    field_720.info(String.format("Max angular speed of %s is %.3f/%.1f° per tick (tick=%d).", var4, var4.method_284(), var4.method_284() * 57.29577951308232D, var4.method_285()));
+                for (Object aVar2 : var2) {
+                    class_43 var4 = (class_43) aVar2;
+                    double var5 = this.field_730 > 180 ? var4.method_291() / (double) (this.field_730 - 180) : 0.0D;
+                    logger.info(String.format("Average speed of %s is %.2f per tick.", var4, var5));
+                    logger.info(String.format("Max speed of %s is %.2f per tick (tick=%d).", var4, var4.method_281(), var4.method_282()));
+                    logger.info(String.format("Max angular speed of %s is %.3f/%.1f° per tick (tick=%d).", var4, var4.method_284(), var4.method_284() * 57.29577951308232D, var4.method_285()));
                 }
             }
         }
@@ -249,15 +247,15 @@ public class class_176 implements class_1 {
 
         while(var1.hasNext()) {
             class_171 var7 = (class_171)var1.next();
-            field_720.info("Player \'" + var7.method_918() + "\' scored " + var7.method_928() + " point(s).");
+            logger.info("Player \'" + var7.method_918() + "\' scored " + var7.method_928() + " point(s).");
         }
 
-        if(!this.field_740) {
+        if(!this.hasReplayFile) {
             this.method_935();
         }
 
         this.method_936();
-        if(!this.field_740) {
+        if(!this.hasReplayFile) {
             this.method_937();
             this.method_938();
             this.method_939();
@@ -286,7 +284,7 @@ public class class_176 implements class_1 {
             try {
                 var2.close();
             } catch (IOException var4) {
-                field_720.error(String.format("Can\'t close renderer \'%s\'.", new Object[]{var2.getClass().getSimpleName()}), var4);
+                logger.error(String.format("Can\'t close renderer \'%s\'.", new Object[]{var2.getClass().getSimpleName()}), var4);
                 this.method_965(String.format("Can\'t close renderer \'%s\': %s", var2.getClass().getSimpleName(), ExceptionUtils.getStackTrace(var4)));
             }
         }
@@ -295,7 +293,7 @@ public class class_176 implements class_1 {
 
     // $FF: renamed from: e () void
     private void method_937() {
-        File var1 = this.field_722.method_87();
+        File var1 = this.gameProperties.getStrategyDescriptionFile();
         if(var1 != null) {
             try {
                 StringBuilder var2 = new StringBuilder();
@@ -320,7 +318,7 @@ public class class_176 implements class_1 {
 
                 FileUtils.writeByteArrayToFile(var1, var2.toString().getBytes(StandardCharsets.UTF_8));
             } catch (IOException var8) {
-                field_720.error(String.format("Can\'t write strategy descriptions to file \'%s\'.", new Object[]{var1.getPath()}), var8);
+                logger.error(String.format("Can\'t write strategy descriptions to file \'%s\'.", new Object[]{var1.getPath()}), var8);
             }
 
         }
@@ -328,19 +326,19 @@ public class class_176 implements class_1 {
 
     // $FF: renamed from: f () void
     private void method_938() {
-        File var1 = this.field_722.method_88();
+        File var1 = this.gameProperties.getAttributesFile();
         if(var1 != null) {
             try {
                 HashMap var2 = new HashMap();
-                var2.put("map", this.field_722.method_76());
-                if(this.field_722.method_105()) {
-                    var2.put("swap-car-types", Boolean.toString(this.field_722.method_105()));
+                var2.put("map", this.gameProperties.getMapFilePath());
+                if(this.gameProperties.shouldSwapCarTypes()) {
+                    var2.put("swap-car-types", Boolean.toString(this.gameProperties.shouldSwapCarTypes()));
                 }
 
                 byte[] var3 = (new GsonBuilder()).create().toJson(var2).getBytes(StandardCharsets.UTF_8);
                 FileUtils.writeByteArrayToFile(var1, var3);
             } catch (IOException var4) {
-                field_720.error(String.format("Can\'t write attributes to file \'%s\'.", new Object[]{var1.getPath()}), var4);
+                logger.error(String.format("Can\'t write attributes to file \'%s\'.", new Object[]{var1.getPath()}), var4);
             }
 
         }
@@ -348,21 +346,21 @@ public class class_176 implements class_1 {
 
     // $FF: renamed from: g () void
     private void method_939() {
-        File var1 = this.field_722.method_86();
+        File var1 = this.gameProperties.getResultsFile();
         if(var1 != null) {
             try {
                 StringBuilder var2 = new StringBuilder();
                 if(this.field_725.get()) {
-                    field_720.error("Game has failed with the message: " + this.field_726.get());
+                    logger.error("Game has failed with the message: " + this.field_726.get());
                     var2.append("FAILED\n").append((String)this.field_726.get()).append('\n');
                 } else {
-                    var2.append("OK\nSEED ").append(this.field_722.method_101()).append('\n');
-                    Map var3 = this.method_943();
+                    var2.append("OK\nSEED ").append(this.gameProperties.getSeed()).append('\n');
+                    java.util.Map var3 = this.method_943();
 
                     for(Iterator var4 = this.field_734.keySet().iterator(); var4.hasNext(); var2.append('\n')) {
                         class_171 var5 = (class_171)var4.next();
                         var2.append(var3.get(var5.method_928())).append(' ').append(var5.method_928()).append(var5.method_922()?" CRASHED":" OK");
-                        if(!this.field_722.method_93()) {
+                        if(!this.gameProperties.isLocalTestGame()) {
                             String var6 = this.method_940(var5);
                             if(!StringUtil.isBlank(var6)) {
                                 var2.append(' ').append(Base64.encodeBase64URLSafeString(ZipUtil.compress(var6.getBytes(StandardCharsets.UTF_8), 9)));
@@ -373,7 +371,7 @@ public class class_176 implements class_1 {
 
                 FileUtils.writeByteArrayToFile(var1, var2.toString().getBytes(StandardCharsets.UTF_8));
             } catch (IOException var7) {
-                field_720.error(String.format("Can\'t write results to file \'%s\'.", new Object[]{var1.getPath()}), var7);
+                logger.error(String.format("Can\'t write results to file \'%s\'.", new Object[]{var1.getPath()}), var7);
             }
 
         }
@@ -391,7 +389,7 @@ public class class_176 implements class_1 {
             if(var3 != null) {
                 method_941(var2, "Вывод runner\'а в stdout:", var3, "runexe.output");
                 method_941(var2, "Вывод runner\'а в stderr:", var3, "runexe.error");
-                if(this.field_722.method_94()) {
+                if(this.gameProperties.isVerificationGame()) {
                     method_941(var2, "Вывод стратегии в stdout:", var3, "process.output");
                     method_941(var2, "Вывод стратегии в stderr:", var3, "process.error");
                 }
@@ -435,7 +433,7 @@ public class class_176 implements class_1 {
                     return "";
                 }
             } catch (IOException var3) {
-                field_720.error("Can\'t read file \'" + var0.getAbsolutePath() + "\'.", var3);
+                logger.error("Can\'t read file \'" + var0.getAbsolutePath() + "\'.", var3);
                 return "";
             }
 
@@ -444,7 +442,7 @@ public class class_176 implements class_1 {
     }
 
     // $FF: renamed from: h () java.util.Map
-    private Map method_943() {
+    private java.util.Map method_943() {
         HashMap var1 = new HashMap();
         ArrayList var2 = new ArrayList(this.field_734.keySet());
         Collections.sort(var2, class_72.method_455());
@@ -464,7 +462,7 @@ public class class_176 implements class_1 {
         double var5 = 1.0D / (double)this.field_721.method_24();
         class_138 var7;
         if(this.field_742 == null) {
-            var7 = class_77.method_462(class_77.method_461(this.field_730, this.field_729, this.field_732, this.field_727, this.field_728, var5, var2, this.field_722, var3, null), this.field_722.method_101(), var5, var1, var4, var2, var3);
+            var7 = class_77.method_462(class_77.method_461(this.field_730, this.field_729, this.field_732, this.field_727, this.field_728, var5, var2, this.gameProperties, var3, null), this.gameProperties.getSeed(), var5, var1, var4, var2, var3);
         } else {
             var7 = this.field_742;
         }
@@ -477,7 +475,7 @@ public class class_176 implements class_1 {
             try {
                 var9.method_32(var7);
             } catch (IOException var11) {
-                field_720.error(String.format("Can\'t render world using renderer \'%s\' [tick=%d].", new Object[]{var9.getClass().getSimpleName(), Integer.valueOf(this.field_730)}), var11);
+                logger.error(String.format("Can\'t render world using renderer \'%s\' [tick=%d].", new Object[]{var9.getClass().getSimpleName(), Integer.valueOf(this.field_730)}), var11);
                 this.method_965(String.format("Can\'t render world using renderer \'%s\': %s [tick=%d]", var9.getClass().getSimpleName(), ExceptionUtils.getStackTrace(var11), Integer.valueOf(this.field_730)));
             }
         }
@@ -510,7 +508,7 @@ public class class_176 implements class_1 {
                                 continue label94;
                             }
 
-                            final World var19 = class_77.method_461(this.field_730, this.field_729, this.field_732, this.field_727, this.field_728, 1.0D / (double)this.field_721.method_24(), var1, this.field_722, var2, var7);
+                            final World var19 = class_77.method_461(this.field_730, this.field_729, this.field_732, this.field_727, this.field_728, 1.0D / (double)this.field_721.method_24(), var1, this.gameProperties, var2, var7);
                             final Car[] var20 = new Car[var9];
 
                             for(int var21 = 0; var21 < var9; ++var21) {
@@ -543,7 +541,7 @@ public class class_176 implements class_1 {
                                         if(var16 != null) {
                                             class_43 var17 = (class_43)var8.get(var15);
                                             if(!class_79.method_481(var17) && !var17.method_345()) {
-                                                var4.add(new class_176.class_213(var17, var16, null));
+                                                var4.add(new GameSimulatorImpl.class_213(var17, var16, null));
                                             }
                                         }
 
@@ -565,19 +563,19 @@ public class class_176 implements class_1 {
                 }
             }
 
-            class_121.method_797(var4);
+            RandomUtils.randomShuffle(var4);
             var5 = var4.iterator();
 
-            class_176.class_213 var18;
+            GameSimulatorImpl.class_213 var18;
             while(var5.hasNext()) {
-                var18 = (class_176.class_213)var5.next();
+                var18 = (GameSimulatorImpl.class_213)var5.next();
                 this.method_949(var18.method_751(), var18.method_752());
             }
 
             var5 = var4.iterator();
 
             while(var5.hasNext()) {
-                var18 = (class_176.class_213)var5.next();
+                var18 = (GameSimulatorImpl.class_213)var5.next();
                 this.method_950(var18.method_751(), var18.method_752());
             }
 
@@ -590,33 +588,33 @@ public class class_176 implements class_1 {
         long var4 = System.currentTimeMillis();
 
         try {
-            if(this.field_722.method_90()) {
+            if(this.gameProperties.isDebug()) {
                 var3.set(var2.get(20L, TimeUnit.MINUTES));
             } else {
                 var3.set(var2.get(5000L, TimeUnit.MILLISECONDS));
             }
         } catch (InterruptedException var10) {
-            field_720.error(String.format("Strategy adapter \'%s\' of %s has been interrupted at a tick %d.", new Object[]{var1.method_920().getClass().getSimpleName(), var1, Integer.valueOf(this.field_730)}), var10);
+            logger.error(String.format("Strategy adapter \'%s\' of %s has been interrupted at a tick %d.", new Object[]{var1.method_920().getClass().getSimpleName(), var1, Integer.valueOf(this.field_730)}), var10);
             var2.cancel(true);
             var1.method_924("Ожидание отклика от стратегии было прервано.");
             return false;
         } catch (ExecutionException var11) {
-            field_720.warn(String.format("Strategy adapter \'%s\' of %s has failed at a tick %d.", new Object[]{var1.method_920().getClass().getSimpleName(), var1, Integer.valueOf(this.field_730)}), var11);
+            logger.warn(String.format("Strategy adapter \'%s\' of %s has failed at a tick %d.", new Object[]{var1.method_920().getClass().getSimpleName(), var1, Integer.valueOf(this.field_730)}), var11);
             var2.cancel(true);
             var1.method_924("Процесс стратегии непредвиденно завершился на тике " + this.field_730 + '.');
             return false;
         } catch (TimeoutException var12) {
-            field_720.warn(String.format("Strategy adapter \'%s\' of %s has timed out at a tick %d.", new Object[]{var1.method_920().getClass().getSimpleName(), var1, Integer.valueOf(this.field_730)}), var12);
+            logger.warn(String.format("Strategy adapter \'%s\' of %s has timed out at a tick %d.", new Object[]{var1.method_920().getClass().getSimpleName(), var1, Integer.valueOf(this.field_730)}), var12);
             var2.cancel(true);
             var1.method_924("Процесс стратегии превысил ограничение по времени на тик.");
             return false;
         }
 
-        if(!this.field_722.method_90()) {
+        if(!this.gameProperties.isDebug()) {
             long var6 = System.currentTimeMillis() - var4;
             long var8 = var1.method_925();
             if(var8 < var6) {
-                field_720.warn(String.format("Strategy adapter \'%s\' of %s has consumed all available game time at a tick %d.", var1.method_920().getClass().getSimpleName(), var1, Integer.valueOf(this.field_730)));
+                logger.warn(String.format("Strategy adapter \'%s\' of %s has consumed all available game time at a tick %d.", var1.method_920().getClass().getSimpleName(), var1, Integer.valueOf(this.field_730)));
                 var1.method_924("Процесс стратегии превысил ограничение по времени на игру.");
                 return false;
             }
@@ -723,7 +721,7 @@ public class class_176 implements class_1 {
             }
 
         } else {
-            field_720.warn(String.format("Received unexpected \'enginePower\' value (%s) for %s.", var3, var1));
+            logger.warn(String.format("Received unexpected \'enginePower\' value (%s) for %s.", var3, var1));
         }
     }
 
@@ -738,18 +736,18 @@ public class class_176 implements class_1 {
             var0.method_279().method_883(var4);
             var0.method_279().method_881(var0.method_279().method_880() + var6);
         } else {
-            field_720.warn(String.format("Received unexpected \'wheelTurn\' value (%s) for %s.", var2, var0));
+            logger.warn(String.format("Received unexpected \'wheelTurn\' value (%s) for %s.", var2, var0));
         }
     }
 
     // $FF: renamed from: l () void
     private void method_953() {
-        String var1 = this.field_722.method_76();
-        field_720.debug("Started to load \'" + var1 + "\' map.");
-        this.field_723 = this.field_722.method_78(var1);
-        this.field_727 = this.field_722.method_80();
-        this.field_728 = this.field_722.method_81();
-        TileType[][] var2 = this.field_723.method_413();
+        String var1 = this.gameProperties.getMapFilePath();
+        logger.debug("Started to load \'" + var1 + "\' map.");
+        this.field_723 = this.gameProperties.method_78(var1);
+        this.field_727 = this.gameProperties.method_80();
+        this.field_728 = this.gameProperties.method_81();
+        TileType[][] var2 = this.field_723.getTilesXY();
         ArrayList var3 = new ArrayList();
 
         for(int var4 = 0; var4 < this.field_727; ++var4) {
@@ -762,46 +760,46 @@ public class class_176 implements class_1 {
         }
 
         this.field_724 = (IntPair[])var3.toArray(new IntPair[var3.size()]);
-        field_720.debug("Finished to load \'" + var1 + "\' map.");
+        logger.debug("Finished to load \'" + var1 + "\' map.");
     }
 
     // $FF: renamed from: m () void
     private void method_954() {
-        field_720.debug("Started to add renderers.");
-        if(this.field_722.method_91()) {
-            field_720.debug("Adding " + class_96.class.getSimpleName() + '.');
-            this.field_733.add(new class_96(this.field_722));
+        logger.debug("Started to add renderers.");
+        if(this.gameProperties.shouldRenderToScreen()) {
+            logger.debug("Adding " + class_96.class.getSimpleName() + '.');
+            this.field_733.add(new class_96(this.gameProperties));
         }
 
-        File var1 = this.field_722.method_95();
+        File var1 = this.gameProperties.getSomeTextFile();
         if(var1 != null) {
             try {
-                field_720.debug("Adding " + class_97.class.getSimpleName() + '.');
-                this.field_733.add(new class_97(var1, this.field_722));
+                logger.debug("Adding " + class_97.class.getSimpleName() + '.');
+                this.field_733.add(new class_97(var1, this.gameProperties));
             } catch (IOException var5) {
-                field_720.error(String.format("Can\'t create renderer \'%s\'.", class_97.class.getSimpleName()), var5);
+                logger.error(String.format("Can\'t create renderer \'%s\'.", class_97.class.getSimpleName()), var5);
                 this.method_965(String.format("Can\'t create renderer \'%s\': %s", class_97.class.getSimpleName(), ExceptionUtils.getStackTrace(var5)));
             }
         }
 
-        String var2 = this.field_722.method_96();
+        String var2 = this.gameProperties.shouldWriteToRemoteStorage();
         if(StringUtils.isNotBlank(var2)) {
             try {
-                field_720.debug("Adding " + class_101.class.getSimpleName() + '.');
-                this.field_733.add(new class_101(var2, this.field_722));
+                logger.debug("Adding " + class_101.class.getSimpleName() + '.');
+                this.field_733.add(new class_101(var2, this.gameProperties));
             } catch (RuntimeException var4) {
-                field_720.error(String.format("Can\'t create renderer \'%s\'.", new Object[]{class_101.class.getSimpleName()}), var4);
+                logger.error(String.format("Can\'t create renderer \'%s\'.", new Object[]{class_101.class.getSimpleName()}), var4);
                 this.method_965(String.format("Can\'t create renderer \'%s\': %s", class_101.class.getSimpleName(), ExceptionUtils.getStackTrace(var4)));
             }
         }
 
-        field_720.debug("Finished to add renderers.");
+        logger.debug("Finished to add renderers.");
     }
 
     // $FF: renamed from: n () void
     private void method_955() {
-        field_720.debug("Started to create static objects.");
-        TileType[][] var1 = this.field_723.method_413();
+        logger.debug("Started to create static objects.");
+        TileType[][] var1 = this.field_723.getTilesXY();
 
         for(int var2 = 0; var2 < this.field_727; ++var2) {
             for(int var3 = 0; var3 < this.field_728; ++var3) {
@@ -879,13 +877,13 @@ public class class_176 implements class_1 {
             }
         }
 
-        field_720.debug("Finished to create static objects.");
+        logger.debug("Finished to create static objects.");
     }
 
     // $FF: renamed from: o () void
     private void method_956() {
-        field_720.debug("Started to add players.");
-        List var1 = this.field_722.method_73();
+        logger.debug("Started to add players.");
+        List var1 = this.gameProperties.getPositionalArguments();
         int var2 = var1.size();
         if(var2 != 2 && var2 != 4) {
             throw new IllegalArgumentException("Unexpected player count: " + var2 + '.');
@@ -901,14 +899,14 @@ public class class_176 implements class_1 {
                 public Thread newThread(Runnable var1) {
                     Thread var2 = new Thread(var1);
                     var2.setDaemon(true);
-                    var2.setName(String.format("%s#StrategyThread-%d", class_176.class.getSimpleName(), this.field_689.incrementAndGet()));
+                    var2.setName(String.format("%s#StrategyThread-%d", GameSimulatorImpl.class.getSimpleName(), this.field_689.incrementAndGet()));
                     return var2;
                 }
             });
 
             for(int var3 = 0; var3 < var2; ++var3) {
-                int var4 = this.field_722.method_84(var3);
-                class_171 var5 = class_72.method_450(this.field_722, var3, this.field_722.method_83(var3), (String)var1.get(var3), var4, this.field_733);
+                int var4 = this.gameProperties.getTeamSizeForPlayer(var3);
+                class_171 var5 = class_72.method_450(this.gameProperties, var3, this.gameProperties.getPlayerName(var3), (String)var1.get(var3), var4, this.field_733);
                 var5.method_926((long)(var4 * (this.field_729 + 1)) * 50L + 5000L);
                 if(var5.method_921()) {
                     if(this.field_735.size() >= 1) {
@@ -921,18 +919,18 @@ public class class_176 implements class_1 {
                 this.field_734.put(var5, new ArrayList());
             }
 
-            field_720.debug("Finished to add players.");
+            logger.debug("Finished to add players.");
         }
     }
 
     // $FF: renamed from: p () void
     private void method_957() {
-        field_720.debug("Sending game contexts.");
+        logger.debug("Sending game contexts.");
         Iterator var1 = this.field_734.keySet().iterator();
 
         while(var1.hasNext()) {
             final class_171 var2 = (class_171)var1.next();
-            final Game var3 = class_84.method_499(var2.method_919(), this.field_729, this.field_722);
+            final Game var3 = class_84.method_499(var2.method_919(), this.field_729, this.gameProperties);
             Future var4 = this.field_738.submit(new Callable() {
                 // $FF: renamed from: a () java.lang.Integer
                 public Integer method_914() throws Exception {
@@ -951,7 +949,7 @@ public class class_176 implements class_1 {
             if(this.method_946(var2, var4, var5)) {
                 Integer var6 = (Integer)var5.get();
                 if(!var2.method_922() && !class_16.method_71(var6)) {
-                    field_720.warn(String.format("Strategy adapter \'%s\' returned unsupported protocol version %d.", var2.method_920().getClass().getSimpleName(), var6));
+                    logger.warn(String.format("Strategy adapter \'%s\' returned unsupported protocol version %d.", var2.method_920().getClass().getSimpleName(), var6));
                     var2.method_924("Процесс стратегии использует устаревшую версию протокола.");
                 }
             }
@@ -961,15 +959,15 @@ public class class_176 implements class_1 {
 
     // $FF: renamed from: q () void
     private void method_958() {
-        field_720.debug("Adding player units.");
+        logger.debug("Adding player units.");
         int var1 = this.field_734.size();
         int var2 = 0;
 
         for(Iterator var3 = this.field_734.entrySet().iterator(); var3.hasNext(); ++var2) {
             Entry var4 = (Entry)var3.next();
             class_171 var5 = (class_171)var4.getKey();
-            int var6 = this.field_722.method_84(var2);
-            class_143[] var7 = method_963(var6, this.field_722.method_105());
+            int var6 = this.gameProperties.getTeamSizeForPlayer(var2);
+            class_143[] var7 = method_963(var6, this.gameProperties.shouldSwapCarTypes());
             if(var7 == null || var7.length != var6) {
                 throw new RuntimeException(String.format("Got %d car types, while %d expected.", ArrayUtils.getLength(var7), var6));
             }
@@ -998,7 +996,7 @@ public class class_176 implements class_1 {
 
     // $FF: renamed from: r () void
     private void method_959() {
-        field_720.debug("Adding bonuses.");
+        logger.debug("Adding bonuses.");
         int var1 = NumberUtil.toInt(Math.floor(0.25D * (double)this.field_724.length));
 
         for(int var2 = 0; var2 < var1; ++var2) {
@@ -1009,14 +1007,14 @@ public class class_176 implements class_1 {
 
     // $FF: renamed from: s () void
     private void method_960() {
-        BonusType var1 = class_16.field_4[class_121.method_791(0, class_16.field_4.length - 1)];
+        BonusType var1 = class_16.field_4[RandomUtils.randomInteger(0, class_16.field_4.length - 1)];
         double var2 = 570.0D;
         double var4 = 70.0D / Math.SQRT_2;
 
         for(int var6 = 0; var6 < 100; ++var6) {
-            int var7 = class_121.method_791(0, this.field_724.length - 1);
-            double var8 = class_121.method_794() * var2 + 80.0D + 35.0D;
-            double var10 = class_121.method_794() * var2 + 80.0D + 35.0D;
+            int var7 = RandomUtils.randomInteger(0, this.field_724.length - 1);
+            double var8 = RandomUtils.randomDouble() * var2 + 80.0D + 35.0D;
+            double var10 = RandomUtils.randomDouble() * var2 + 80.0D + 35.0D;
             IntPair var12 = this.field_724[var7];
             Preconditions.checkNotNull(var12.getFirst());
             Preconditions.checkNotNull(var12.getSecond());
@@ -1052,11 +1050,11 @@ public class class_176 implements class_1 {
 
     // $FF: renamed from: t () void
     private void method_961() {
-        field_720.debug("Adding collision listeners.");
+        logger.debug("Adding collision listeners.");
         Readable var1 = new Readable() {
             // $FF: renamed from: a () java.lang.Integer
             public Integer method_915() {
-                return class_176.this.field_730;
+                return GameSimulatorImpl.this.field_730;
             }
 
             // $FF: synthetic method
@@ -1075,24 +1073,24 @@ public class class_176 implements class_1 {
 
     // $FF: renamed from: u () void
     private void method_962() {
-        field_720.debug("Adding game events.");
-        this.field_736.add(new class_25(this.field_722));
-        this.field_737.add(new class_25(this.field_722));
+        logger.debug("Adding game events.");
+        this.field_736.add(new class_25(this.gameProperties));
+        this.field_737.add(new class_25(this.gameProperties));
         this.field_737.add(new class_22(new Readable() {
             // $FF: renamed from: a () java.lang.Integer
             public Integer method_912() {
-                return class_176.this.field_730;
+                return GameSimulatorImpl.this.field_730;
             }
 
             // $FF: synthetic method
             public Object get() {
                 return this.method_912();
             }
-        }, this.field_722));
-        this.field_737.add(new class_26(this.field_722, new Readable() {
+        }, this.gameProperties));
+        this.field_737.add(new class_26(this.gameProperties, new Readable() {
             // $FF: renamed from: a () java.lang.Integer
             public Integer method_913() {
-                return class_176.this.field_730;
+                return GameSimulatorImpl.this.field_730;
             }
 
             // $FF: synthetic method
@@ -1103,11 +1101,11 @@ public class class_176 implements class_1 {
             // $FF: renamed from: a (java.lang.Integer) java.lang.Integer
             public Integer method_911(Integer var1) {
                 Preconditions.checkNotNull(var1);
-                if(class_176.this.field_731 != null && var1 < class_176.this.field_731) {
+                if(GameSimulatorImpl.this.field_731 != null && var1 < GameSimulatorImpl.this.field_731) {
                     throw new IllegalArgumentException("Argument \'value\' is less than \'lastFinishTrackTick\'.");
                 } else {
-                    class_176.this.field_732 = Math.min(class_176.this.field_729 - 1, var1 + Math.max(NumberUtil.toInt(0.5D * (double)class_176.this.field_723.method_416()), 1));
-                    return class_176.this.field_731 = var1;
+                    GameSimulatorImpl.this.field_732 = Math.min(GameSimulatorImpl.this.field_729 - 1, var1 + Math.max(NumberUtil.toInt(0.5D * (double)GameSimulatorImpl.this.field_723.method_416()), 1));
+                    return GameSimulatorImpl.this.field_731 = var1;
                 }
             }
 
@@ -1119,7 +1117,7 @@ public class class_176 implements class_1 {
         this.field_737.add(new class_24());
         this.field_737.add(new class_19(this.field_724, new Runnable() {
             public void run() {
-                class_176.this.method_960();
+                GameSimulatorImpl.this.method_960();
             }
         }));
         this.field_737.add(new class_21());
@@ -1175,7 +1173,7 @@ public class class_176 implements class_1 {
     // $FF: renamed from: w () com.a.b.a.a.c.h
     private class_138 method_966() {
         try {
-            return class_77.method_463(this.field_741.readLine(), this.field_742, this.field_721.method_19());
+            return class_77.method_463(this.replayFileReader.readLine(), this.field_742, this.field_721.method_19());
         } catch (IOException var2) {
             this.method_965(String.format("Can\'t read world from log file: %s", ExceptionUtils.getStackTrace(var2)));
             return null;
