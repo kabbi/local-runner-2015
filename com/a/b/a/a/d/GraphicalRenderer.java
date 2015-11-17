@@ -22,10 +22,10 @@ import com.a.b.a.a.c.Player;
 import com.a.b.a.a.c.Game;
 import com.a.b.a.a.c.class_151;
 import com.a.b.a.a.e.a.class_179;
-import com.a.c.a.class_126;
-import com.a.c.a.class_127;
-import com.a.c.a.class_128;
-import com.a.c.a.class_129;
+import com.a.c.a.ArcPhysicalForm;
+import com.a.c.a.LinearPhysicalForm;
+import com.a.c.a.RectangularPhysicalForm;
+import com.a.c.a.CircularPhysicalForm;
 import com.codeforces.commons.concurrent.AtomicUtil;
 import com.codeforces.commons.geometry.Point2D;
 import com.codeforces.commons.geometry.Vector2D;
@@ -650,7 +650,7 @@ public class GraphicalRenderer implements Renderer {
         for(int var12 = 0; var12 < var11; ++var12) {
             Car var13 = var10[var12];
             var4.setColor(method_591(var13.getPlayerId()));
-            double var14 = class_85.method_500(new class_128(var13.getWidth(), var13.getHeight())) * 1.5D;
+            double var14 = class_85.method_500(new RectangularPhysicalForm(var13.getWidth(), var13.getHeight())) * 1.5D;
             GraphicalRenderer.class_218 var16 = method_574(var13.getX() - var14, var13.getY() - var14, 0.0D, 0.0D, var19, var7, var18, var3);
             GraphicalRenderer.class_218 var17 = method_572(2.0D * var14, 2.0D * var14, var19, var7, var18, var3);
             var4.fillOval(var16.method_855(), var16.method_856(), var17.method_855(), var17.method_856());
@@ -664,11 +664,11 @@ public class GraphicalRenderer implements Renderer {
         double var7 = (double)var1.getHeight() * 800.0D;
         if(var2 instanceof class_52) {
             class_52 var14 = (class_52)var2;
-            class_127 var12 = (class_127)var14.method_279().getForm();
+            LinearPhysicalForm var12 = (LinearPhysicalForm)var14.method_279().getForm();
             method_530(var0, var12, var5, var7, var3, var4);
         } else if(var2 instanceof class_54) {
             class_54 var13 = (class_54)var2;
-            class_126 var11 = (class_126)var13.method_279().getForm();
+            ArcPhysicalForm var11 = (ArcPhysicalForm)var13.method_279().getForm();
             method_531(var0, var13, var11, var5, var7, var3, var4);
         } else {
             if(var2 instanceof class_57) {
@@ -678,7 +678,7 @@ public class GraphicalRenderer implements Renderer {
                     return;
                 }
 
-                class_129 var10 = (class_129)var9.method_279().getForm();
+                CircularPhysicalForm var10 = (CircularPhysicalForm)var9.method_279().getForm();
                 method_532(var0, var9, var10, var5, var7, var3, var4);
             }
 
@@ -686,30 +686,30 @@ public class GraphicalRenderer implements Renderer {
     }
 
     // $FF: renamed from: a (java.awt.Graphics, com.a.c.a.d, double, double, int, int) void
-    private static void method_530(Graphics var0, class_127 var1, double var2, double var4, int var6, int var7) {
-        GraphicalRenderer.class_218 var8 = method_574(var1.method_823(), var1.method_824(), 0.0D, 0.0D, var2, var4, var6, var7);
-        GraphicalRenderer.class_218 var9 = method_574(var1.method_825(), var1.method_826(), 0.0D, 0.0D, var2, var4, var6, var7);
+    private static void method_530(Graphics var0, LinearPhysicalForm var1, double var2, double var4, int var6, int var7) {
+        GraphicalRenderer.class_218 var8 = method_574(var1.getX1(), var1.getY1(), 0.0D, 0.0D, var2, var4, var6, var7);
+        GraphicalRenderer.class_218 var9 = method_574(var1.getX2(), var1.getY2(), 0.0D, 0.0D, var2, var4, var6, var7);
         var0.drawLine(var8.method_855(), var8.method_856(), var9.method_855(), var9.method_856());
     }
 
     // $FF: renamed from: a (java.awt.Graphics, com.a.b.a.a.b.d.b.a.b.a, com.a.c.a.a, double, double, int, int) void
-    private static void method_531(Graphics var0, class_54 var1, class_126 var2, double var3, double var5, int var7, int var8) {
+    private static void method_531(Graphics var0, class_54 var1, ArcPhysicalForm var2, double var3, double var5, int var7, int var8) {
         double var9 = var1.method_279().getX();
         double var11 = var1.method_279().getY();
-        double var13 = -var1.method_279().getAngle() - var2.method_821();
-        double var15 = -var2.method_822();
-        Vector2D var17 = (new Vector2D(var2.method_820(), 0.0D)).rotate(-var13);
-        Vector2D var18 = (new Vector2D(var2.method_820(), 0.0D)).rotate(-var13 - var15);
+        double var13 = -var1.method_279().getAngle() - var2.getAngle();
+        double var15 = -var2.getSector();
+        Vector2D var17 = (new Vector2D(var2.getRadius(), 0.0D)).rotate(-var13);
+        Vector2D var18 = (new Vector2D(var2.getRadius(), 0.0D)).rotate(-var13 - var15);
         GraphicalRenderer.class_218 var19 = method_574(var9 + var17.getX(), var11 + var17.getY(), 0.0D, 0.0D, var3, var5, var7, var8);
         GraphicalRenderer.class_218 var20 = method_574(var9 + var18.getX(), var11 + var18.getY(), 0.0D, 0.0D, var3, var5, var7, var8);
         var0.drawLine(var19.method_855(), var19.method_856(), var20.method_855(), var20.method_856());
     }
 
     // $FF: renamed from: a (java.awt.Graphics, com.a.b.a.a.b.d.b.a.a.b, com.a.c.a.b, double, double, int, int) void
-    private static void method_532(Graphics var0, class_57 var1, class_129 var2, double var3, double var5, int var7, int var8) {
+    private static void method_532(Graphics var0, class_57 var1, CircularPhysicalForm var2, double var3, double var5, int var7, int var8) {
         double var9 = var1.method_279().getX();
         double var11 = var1.method_279().getY();
-        double var13 = var2.method_829();
+        double var13 = var2.getRadius();
         GraphicalRenderer.class_218 var15 = method_574(var9 - var13, var11 - var13, 0.0D, 0.0D, var3, var5, var7, var8);
         GraphicalRenderer.class_218 var16 = method_572(2.0D * var13, 2.0D * var13, var3, var5, var7, var8);
         var0.drawOval(var15.method_855(), var15.method_856(), var16.method_855(), var16.method_856());
@@ -825,18 +825,18 @@ public class GraphicalRenderer implements Renderer {
     private void method_535(Graphics var1, Object var2) {
         if(var2 instanceof class_52) {
             class_52 var6 = (class_52)var2;
-            class_127 var8 = (class_127)var6.method_279().getForm();
-            this.method_577(var1, var8.method_823(), var8.method_824(), var8.method_825(), var8.method_826());
+            LinearPhysicalForm var8 = (LinearPhysicalForm)var6.method_279().getForm();
+            this.method_577(var1, var8.getX1(), var8.getY1(), var8.getX2(), var8.getY2());
         } else if(var2 instanceof class_54) {
             class_54 var5 = (class_54)var2;
-            class_126 var7 = (class_126)var5.method_279().getForm();
-            this.method_583(var1, var5.method_279().getX(), var5.method_279().getY(), var7.method_820(), -var5.method_279().getAngle() - var7.method_821(), -var7.method_822());
+            ArcPhysicalForm var7 = (ArcPhysicalForm)var5.method_279().getForm();
+            this.method_583(var1, var5.method_279().getX(), var5.method_279().getY(), var7.getRadius(), -var5.method_279().getAngle() - var7.getAngle(), -var7.getSector());
         } else {
             if(var2 instanceof class_57) {
                 class_57 var3 = (class_57)var2;
                 if(var3.method_360() == null) {
-                    class_129 var4 = (class_129)var3.method_279().getForm();
-                    this.method_581(var1, var3.method_279().getX(), var3.method_279().getY(), var4.method_829());
+                    CircularPhysicalForm var4 = (CircularPhysicalForm)var3.method_279().getForm();
+                    this.method_581(var1, var3.method_279().getX(), var3.method_279().getY(), var4.getRadius());
                 } else {
                     this.method_535(var1, var3.method_360());
                 }

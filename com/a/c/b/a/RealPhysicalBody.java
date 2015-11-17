@@ -5,7 +5,7 @@ import com.a.a.b.e.MovementFrictionProvider;
 import com.a.a.b.e.ConstantMovementFrictionProvider;
 import com.a.a.b.e.BidirectionalMovementFrictionProvider;
 import com.a.c.PhysicalBody;
-import com.a.c.a.class_125;
+import com.a.c.a.PhysicalForm;
 import com.codeforces.commons.geometry.Vector2D;
 import com.codeforces.commons.reflection.Name;
 
@@ -15,13 +15,13 @@ final class RealPhysicalBody extends PhysicalBody {
     @Name("body")
     private final Body body;
 
-    RealPhysicalBody(long var1, Body var3, String var4, double var5, class_125 var7, boolean var8) {
-        super(var1);
-        this.body = var3;
-        this.setName(var4);
-        this.setMass(var5);
-        this.setForm(var7 == null ? null : var7.method_818());
-        this.method_905(var8);
+    RealPhysicalBody(long id, Body body, String name, double mass, PhysicalForm form, boolean stationary) {
+        super(id);
+        this.body = body;
+        this.setName(name);
+        this.setMass(mass);
+        this.setForm(form == null ? null : form.copy());
+        this.setStationary(stationary);
     }
 
     // $FF: renamed from: c () double
@@ -127,46 +127,46 @@ final class RealPhysicalBody extends PhysicalBody {
 
     // $FF: renamed from: n () double
     public double getMovementFrictionFactor() {
-        MovementFrictionProvider var1 = this.body.getMovementFrictionProvider();
-        if(var1 instanceof ConstantMovementFrictionProvider) {
-            return ((ConstantMovementFrictionProvider)var1).getMovementFrictionFactor();
-        } else if(var1 instanceof BidirectionalMovementFrictionProvider) {
-            return ((BidirectionalMovementFrictionProvider)var1).getLengthwiseMovementFrictionFactor();
+        MovementFrictionProvider movementFrictionProvider = this.body.getMovementFrictionProvider();
+        if(movementFrictionProvider instanceof ConstantMovementFrictionProvider) {
+            return ((ConstantMovementFrictionProvider)movementFrictionProvider).getMovementFrictionFactor();
+        } else if(movementFrictionProvider instanceof BidirectionalMovementFrictionProvider) {
+            return ((BidirectionalMovementFrictionProvider)movementFrictionProvider).getLengthwiseMovementFrictionFactor();
         } else {
-            throw new IllegalArgumentException(String.format("Unsupported movement friction provider: %s.", new Object[]{var1}));
+            throw new IllegalArgumentException(String.format("Unsupported movement friction provider: %s.", new Object[]{movementFrictionProvider}));
         }
     }
 
     // $FF: renamed from: h (double) void
     public void setMovementFrictionFactor(double factor) {
-        Double var3 = this.getCrosswiseMovementFrictionFactor();
-        if(var3 == null) {
+        Double crosswiseMovementFrictionFactor = this.getCrosswiseMovementFrictionFactor();
+        if(crosswiseMovementFrictionFactor == null) {
             this.body.setMovementFrictionFactor(factor);
         } else {
-            this.body.setMovementFrictionProvider(new BidirectionalMovementFrictionProvider(factor, var3.doubleValue()));
+            this.body.setMovementFrictionProvider(new BidirectionalMovementFrictionProvider(factor, crosswiseMovementFrictionFactor.doubleValue()));
         }
 
     }
 
     // $FF: renamed from: o () java.lang.Double
     public Double getCrosswiseMovementFrictionFactor() {
-        MovementFrictionProvider var1 = this.body.getMovementFrictionProvider();
-        if(var1 instanceof ConstantMovementFrictionProvider) {
+        MovementFrictionProvider movementFrictionProvider = this.body.getMovementFrictionProvider();
+        if(movementFrictionProvider instanceof ConstantMovementFrictionProvider) {
             return null;
-        } else if(var1 instanceof BidirectionalMovementFrictionProvider) {
-            return ((BidirectionalMovementFrictionProvider) var1).getCrosswiseMovementFrictionFactor();
+        } else if(movementFrictionProvider instanceof BidirectionalMovementFrictionProvider) {
+            return ((BidirectionalMovementFrictionProvider) movementFrictionProvider).getCrosswiseMovementFrictionFactor();
         } else {
-            throw new IllegalArgumentException(String.format("Unsupported movement friction provider: %s.", new Object[]{var1}));
+            throw new IllegalArgumentException(String.format("Unsupported movement friction provider: %s.", new Object[]{movementFrictionProvider}));
         }
     }
 
     // $FF: renamed from: a (java.lang.Double) void
     public void setSomeOtherMovementFrictionFactor(Double factor) {
-        double var2 = this.getMovementFrictionFactor();
+        double movementFrictionFactor = this.getMovementFrictionFactor();
         if(factor == null) {
-            this.body.setMovementFrictionFactor(var2);
+            this.body.setMovementFrictionFactor(movementFrictionFactor);
         } else {
-            this.body.setMovementFrictionProvider(new BidirectionalMovementFrictionProvider(var2, factor.doubleValue()));
+            this.body.setMovementFrictionProvider(new BidirectionalMovementFrictionProvider(movementFrictionFactor, factor.doubleValue()));
         }
 
     }

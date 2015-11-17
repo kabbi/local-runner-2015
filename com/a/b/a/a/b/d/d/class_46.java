@@ -1,7 +1,7 @@
 package com.a.b.a.a.b.d.d;
 
 import com.a.b.class_42;
-import com.a.c.a.class_129;
+import com.a.c.a.CircularPhysicalForm;
 import com.codeforces.commons.geometry.Point2D;
 import java.util.HashSet;
 import java.util.Set;
@@ -16,13 +16,13 @@ public class class_46 extends class_42 {
     private final Set field_183;
 
     public class_46(double var1, double var3) {
-        super(new class_129(150.0D));
+        super(new CircularPhysicalForm(150.0D));
         this.field_183 = new HashSet();
         this.field_181 = 600;
         this.field_182 = 600;
         this.method_279().setX(var1);
         this.method_279().setY(var3);
-        this.method_279().method_905(true);
+        this.method_279().setStationary(true);
     }
 
     public class_46(Point2D var1) {

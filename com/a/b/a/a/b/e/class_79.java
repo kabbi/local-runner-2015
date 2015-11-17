@@ -4,8 +4,8 @@ import com.a.b.a.a.b.class_171;
 import com.a.b.a.a.b.d.c.class_43;
 import com.a.b.a.a.c.Car;
 import com.a.b.a.a.c.Direction;
-import com.a.c.a.class_125;
-import com.a.c.a.class_128;
+import com.a.c.a.PhysicalForm;
+import com.a.c.a.RectangularPhysicalForm;
 import com.codeforces.commons.geometry.Point2D;
 import com.codeforces.commons.geometry.Vector2D;
 import com.codeforces.commons.math.Math;
@@ -17,18 +17,18 @@ import com.google.common.base.Preconditions;
 public final class class_79 {
     // $FF: renamed from: a (com.a.b.a.a.b.d.c.b, double, com.a.b.a.a.b.n) com.a.b.a.a.c.c
     public static Car method_476(class_43 var0, double var1, class_171 var3) {
-        class_125 var4 = var0.method_279().getForm();
-        if(!(var4 instanceof class_128)) {
+        PhysicalForm var4 = var0.method_279().getForm();
+        if(!(var4 instanceof RectangularPhysicalForm)) {
             throw new IllegalArgumentException("Unsupported car form: " + var4 + '.');
         } else {
-            class_128 var5 = (class_128)var4;
+            RectangularPhysicalForm var5 = (RectangularPhysicalForm)var4;
             IntPair var6 = var0.method_312();
             Preconditions.checkNotNull(var6.getFirst());
             Preconditions.checkNotNull(var6.getSecond());
             return new Car(var0.method_278(), var0.method_279().getMass(), var0.method_279().getX(),
                     var0.method_279().getY(), var0.method_279().getVelocity().getX() * var1,
                     var0.method_279().getVelocity().getY() * var1, var0.method_279().getAngle(),
-                    var0.method_279().getAngularVelocity() * var1, var5.method_827(), var5.method_828(),
+                    var0.method_279().getAngularVelocity() * var1, var5.getWidth(), var5.getHeight(),
                     var0.method_297().method_917(), var0.method_298(),
                     var0.method_297().equals(var3), var0.method_299(),
                     var0.method_316(), var0.method_318(), var0.method_320(),

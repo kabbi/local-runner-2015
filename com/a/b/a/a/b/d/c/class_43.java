@@ -3,7 +3,7 @@ package com.a.b.a.a.b.d.c;
 import com.a.b.class_42;
 import com.a.b.a.a.b.class_171;
 import com.a.b.a.a.c.CarType;
-import com.a.c.a.class_128;
+import com.a.c.a.RectangularPhysicalForm;
 import com.codeforces.commons.math.Math;
 import com.codeforces.commons.pair.IntPair;
 import com.codeforces.commons.reflection.Name;
@@ -63,7 +63,7 @@ public abstract class class_43 extends class_42 {
     private Integer field_180;
 
     protected class_43(class_171 var1, int var2, CarType var3, double var4, double var6, double var8, double var10, double var12, double var14, IntPair var16) {
-        super(new class_128(210.0D, 140.0D));
+        super(new RectangularPhysicalForm(210.0D, 140.0D));
         if(!Double.isNaN(var10) && !Double.isInfinite(var10) && var10 > 0.0D) {
             this.field_157 = var1;
             this.field_158 = var2;

@@ -1,6 +1,6 @@
 package com.a.c;
 
-import com.a.c.a.class_125;
+import com.a.c.a.PhysicalForm;
 import com.codeforces.commons.geometry.Vector2D;
 import com.codeforces.commons.reflection.Name;
 import com.codeforces.commons.text.StringUtil;
@@ -20,16 +20,16 @@ public abstract class PhysicalBody {
     private double mass;
     // $FF: renamed from: d com.a.c.a.c
     @Name("form")
-    private class_125 form;
+    private PhysicalForm form;
     // $FF: renamed from: e boolean
     @Name("staticBody")
-    private boolean field_654;
+    private boolean stationary;
     // $FF: renamed from: f java.util.Set
     @Name("excludedBodyIds")
     private Set excludedBodyIds;
 
-    protected PhysicalBody(long var1) {
-        this.id = var1;
+    protected PhysicalBody(long id) {
+        this.id = id;
     }
 
     // $FF: renamed from: a () long
@@ -148,23 +148,23 @@ public abstract class PhysicalBody {
     }
 
     // $FF: renamed from: t () com.a.c.a.c
-    public class_125 getForm() {
+    public PhysicalForm getForm() {
         return this.form;
     }
 
     // $FF: renamed from: a (com.a.c.a.c) void
-    public void setForm(class_125 form) {
+    public void setForm(PhysicalForm form) {
         this.form = form;
     }
 
     // $FF: renamed from: u () boolean
-    public boolean method_904() {
-        return this.field_654;
+    public boolean isStationary() {
+        return this.stationary;
     }
 
     // $FF: renamed from: a (boolean) void
-    public void method_905(boolean var1) {
-        this.field_654 = var1;
+    public void setStationary(boolean var1) {
+        this.stationary = var1;
     }
 
     // $FF: renamed from: v () java.util.Set

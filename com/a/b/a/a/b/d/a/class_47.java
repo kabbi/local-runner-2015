@@ -2,7 +2,7 @@ package com.a.b.a.a.b.d.a;
 
 import com.a.b.class_42;
 import com.a.b.a.a.c.BonusType;
-import com.a.c.a.class_128;
+import com.a.c.a.RectangularPhysicalForm;
 
 // $FF: renamed from: com.a.b.a.a.b.d.a.a
 public class class_47 extends class_42 {
@@ -14,7 +14,7 @@ public class class_47 extends class_42 {
     private int field_186;
 
     public class_47(BonusType var1, double var2, double var4) {
-        super(new class_128(70.0D, 70.0D));
+        super(new RectangularPhysicalForm(70.0D, 70.0D));
         this.field_184 = var1;
         this.field_185 = Integer.MAX_VALUE;
         this.field_186 = Integer.MAX_VALUE;

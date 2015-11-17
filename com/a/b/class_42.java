@@ -2,7 +2,7 @@ package com.a.b;
 
 import com.a.c.PhysicalBody;
 import com.a.c.AstralPhysicalBody;
-import com.a.c.a.class_125;
+import com.a.c.a.PhysicalForm;
 import com.codeforces.commons.geometry.Vector2D;
 import com.codeforces.commons.math.Math;
 import com.codeforces.commons.reflection.Name;
@@ -36,7 +36,7 @@ public abstract class class_42 {
     // $FF: renamed from: k com.codeforces.commons.geometry.Vector2D
     private Vector2D field_156 = new Vector2D(0.0D, 0.0D);
 
-    protected class_42(class_125 var1) {
+    protected class_42(PhysicalForm var1) {
         this.id = field_146.incrementAndGet();
         this.body = new AstralPhysicalBody(this.id);
         this.body.setName(this.getClass().getSimpleName() + '#' + this.id);

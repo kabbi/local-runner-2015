@@ -7,80 +7,80 @@ import com.codeforces.commons.reflection.Name;
 public final class AstralPhysicalBody extends PhysicalBody {
     // $FF: renamed from: a double
     @Name("x")
-    private double field_657;
+    private double x;
     // $FF: renamed from: b double
     @Name("y")
-    private double field_658;
+    private double y;
     // $FF: renamed from: c double
     @Name("angle")
-    private double field_659;
+    private double angle;
     // $FF: renamed from: d com.codeforces.commons.geometry.Vector2D
     @Name("speed")
-    private Vector2D field_660 = new Vector2D(0.0D, 0.0D);
+    private Vector2D speed = new Vector2D(0.0D, 0.0D);
     // $FF: renamed from: e com.codeforces.commons.geometry.Vector2D
     @Name("medianSpeed")
-    private Vector2D field_661 = new Vector2D(0.0D, 0.0D);
+    private Vector2D medianSpeed = new Vector2D(0.0D, 0.0D);
     // $FF: renamed from: f double
     @Name("angularSpeed")
-    private double field_662;
+    private double angularSpeed;
     // $FF: renamed from: g double
     @Name("angularSpeed")
-    private double field_663;
+    private double medianAngularSpeed;
     // $FF: renamed from: h com.codeforces.commons.geometry.Vector2D
     @Name("force")
-    private Vector2D field_664 = new Vector2D(0.0D, 0.0D);
+    private Vector2D force = new Vector2D(0.0D, 0.0D);
     // $FF: renamed from: i double
     @Name("torque")
-    private double field_665;
+    private double torque;
     // $FF: renamed from: j double
     @Name("movementAirFrictionFactor")
-    private double field_666;
+    private double movementAirFrictionFactor;
     // $FF: renamed from: k double
     @Name("rotationAirFrictionFactor")
-    private double field_667;
+    private double rotationAirFrictionFactor;
     // $FF: renamed from: l double
     @Name("movementFrictionFactor")
-    private double field_668;
+    private double movementFrictionFactor;
     // $FF: renamed from: m java.lang.Double
     @Name("crosswiseMovementFrictionFactor")
-    private Double field_669;
+    private Double crosswiseMovementFrictionFactor;
     // $FF: renamed from: n double
     @Name("rotationFrictionFactor")
-    private double field_670;
+    private double rotationFrictionFactor;
     // $FF: renamed from: o double
     @Name("momentumTransferFactor")
-    private double field_671 = 1.0D;
+    private double momentumTransferFactor = 1.0D;
     // $FF: renamed from: p double
     @Name("surfaceFriction")
-    private double field_672;
+    private double surfaceFriction;
 
-    public AstralPhysicalBody(long var1) {
-        super(var1);
+    public AstralPhysicalBody(long id) {
+        super(id);
     }
 
     // $FF: renamed from: c () double
     public double getX() {
-        return this.field_657;
+        return this.x;
     }
 
     // $FF: renamed from: a (double) void
     public void setX(double x) {
-        this.field_657 = x;
+        this.x = x;
     }
 
     // $FF: renamed from: d () double
     public double getY() {
-        return this.field_658;
+        return this.y;
     }
 
     // $FF: renamed from: b (double) void
     public void setY(double y) {
-        this.field_658 = y;
+        this.y = y;
     }
 
     // $FF: renamed from: e () double
     public double getAngle() {
-        return this.field_659;
+        return this.angle;
     }
 
     // $FF: renamed from: c (double) void
@@ -93,126 +93,126 @@ public final class AstralPhysicalBody extends PhysicalBody {
             angle += 6.283185307179586D;
         }
 
-        this.field_659 = angle;
+        this.angle = angle;
     }
 
     // $FF: renamed from: f () com.codeforces.commons.geometry.Vector2D
     public Vector2D getVelocity() {
-        return this.field_660;
+        return this.speed;
     }
 
     // $FF: renamed from: a (com.codeforces.commons.geometry.Vector2D) void
     public void setVelocity(Vector2D vector) {
-        this.field_660 = vector;
+        this.speed = vector;
     }
 
     // $FF: renamed from: g () com.codeforces.commons.geometry.Vector2D
     public Vector2D getMedianVelocity() {
-        return this.field_661;
+        return this.medianSpeed;
     }
 
     // $FF: renamed from: b (com.codeforces.commons.geometry.Vector2D) void
     public void setMedianVelocity(Vector2D vector) {
-        this.field_661 = vector;
+        this.medianSpeed = vector;
     }
 
     // $FF: renamed from: h () double
     public double getAngularVelocity() {
-        return this.field_662;
+        return this.angularSpeed;
     }
 
     // $FF: renamed from: d (double) void
     public void setAngularVelocity(double velocity) {
-        this.field_662 = velocity;
+        this.angularSpeed = velocity;
     }
 
     // $FF: renamed from: i () double
     public double getMedianAngularVelocity() {
-        return this.field_663;
+        return this.medianAngularSpeed;
     }
 
     // $FF: renamed from: e (double) void
     public void setMedianAngularVelocity(double velocity) {
-        this.field_663 = velocity;
+        this.medianAngularSpeed = velocity;
     }
 
     // $FF: renamed from: j () com.codeforces.commons.geometry.Vector2D
     public Vector2D getForce() {
-        return this.field_664;
+        return this.force;
     }
 
     // $FF: renamed from: k () double
     public double getTorque() {
-        return this.field_665;
+        return this.torque;
     }
 
     // $FF: renamed from: l () double
     public double getMovementAirFrictionFactor() {
-        return this.field_666;
+        return this.movementAirFrictionFactor;
     }
 
     // $FF: renamed from: f (double) void
     public void setMovementAirFrictionFactor(double factor) {
-        this.field_666 = factor;
+        this.movementAirFrictionFactor = factor;
     }
 
     // $FF: renamed from: m () double
     public double getRotationAirFrictionFactor() {
-        return this.field_667;
+        return this.rotationAirFrictionFactor;
     }
 
     // $FF: renamed from: g (double) void
     public void setRotationAirFrictionFactor(double factor) {
-        this.field_667 = factor;
+        this.rotationAirFrictionFactor = factor;
     }
 
     // $FF: renamed from: n () double
     public double getMovementFrictionFactor() {
-        return this.field_668;
+        return this.movementFrictionFactor;
     }
 
     // $FF: renamed from: h (double) void
     public void setMovementFrictionFactor(double factor) {
-        this.field_668 = factor;
+        this.movementFrictionFactor = factor;
     }
 
     // $FF: renamed from: o () java.lang.Double
     public Double getCrosswiseMovementFrictionFactor() {
-        return this.field_669;
+        return this.crosswiseMovementFrictionFactor;
     }
 
     // $FF: renamed from: a (java.lang.Double) void
     public void setSomeOtherMovementFrictionFactor(Double factor) {
-        this.field_669 = factor;
+        this.crosswiseMovementFrictionFactor = factor;
     }
 
     // $FF: renamed from: p () double
     public double getRotationFrictionFactor() {
-        return this.field_670;
+        return this.rotationFrictionFactor;
     }
 
     // $FF: renamed from: i (double) void
     public void setRotationFrictionFactor(double factor) {
-        this.field_670 = factor;
+        this.rotationFrictionFactor = factor;
     }
 
     // $FF: renamed from: q () double
     public double getMomentumTransferFactor() {
-        return this.field_671;
+        return this.momentumTransferFactor;
     }
 
     // $FF: renamed from: j (double) void
     public void setMomentumTransferFactor(double factor) {
-        this.field_671 = factor;
+        this.momentumTransferFactor = factor;
     }
 
     // $FF: renamed from: r () double
     public double getSurfaceFrictionFactor() {
-        return this.field_672;
+        return this.surfaceFriction;
     }
 
     // $FF: renamed from: k (double) void
     public void setSurfaceFrictionFactor(double factor) {
-        this.field_672 = factor;
+        this.surfaceFriction = factor;
     }
 }
