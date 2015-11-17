@@ -8,7 +8,7 @@ import com.a.b.a.a.b.a.class_124;
 import com.a.b.a.a.b.d.c.class_43;
 import com.a.b.a.a.b.e.class_79;
 import com.a.b.a.a.c.EffectType;
-import com.a.c.class_159;
+import com.a.c.PhysicalBody;
 import com.codeforces.commons.geometry.Vector2D;
 import com.codeforces.commons.holder.Readable;
 import com.codeforces.commons.math.Math;
@@ -58,8 +58,8 @@ public class class_22 implements class_2 {
                 } while(var5.method_334() > 0);
             } while(var5.method_342() != null && var5.method_342() + EffectType.DRIFTING.getDuration() >= var2);
 
-            class_159 var6 = var5.method_279();
-            double var7 = Math.abs(var6.method_876().dotProduct((new Vector2D(1.0D, 0.0D)).rotate(var6.method_874() + 1.5707963267948966D)));
+            PhysicalBody var6 = var5.method_279();
+            double var7 = Math.abs(var6.getVelocity().dotProduct((new Vector2D(1.0D, 0.0D)).rotate(var6.getAngle() + 1.5707963267948966D)));
             if(var7 >= 15.0D) {
                 int var9 = this.field_84.incrementAndGet();
                 if(this.field_86.shouldLogDrifting()) {

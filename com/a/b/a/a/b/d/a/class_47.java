@@ -18,11 +18,11 @@ public class class_47 extends class_42 {
         this.field_184 = var1;
         this.field_185 = Integer.MAX_VALUE;
         this.field_186 = Integer.MAX_VALUE;
-        this.method_279().method_871(var2);
-        this.method_279().method_873(var4);
-        this.method_279().method_901(100.0D);
-        this.method_279().method_897(1.0D);
-        this.method_279().method_899(1.0D);
+        this.method_279().setX(var2);
+        this.method_279().setY(var4);
+        this.method_279().setMass(100.0D);
+        this.method_279().setMomentumTransferFactor(1.0D);
+        this.method_279().setSurfaceFrictionFactor(1.0D);
     }
 
     // $FF: renamed from: k () com.a.b.a.a.c.b

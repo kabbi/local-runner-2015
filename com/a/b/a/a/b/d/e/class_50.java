@@ -17,8 +17,8 @@ public class class_50 extends class_48 {
 
     // $FF: renamed from: a (com.a.b.f, int) double
     public double method_358(class_58 var1, int var2) {
-        Vector2D var3 = var1.method_362().method_279().method_876();
-        Vector2D var4 = var1.method_363().method_279().method_876();
+        Vector2D var3 = var1.method_362().method_279().getVelocity();
+        Vector2D var4 = var1.method_363().method_279().getVelocity();
         double var5 = var1.method_365().copyNegate().dotProduct(var3);
         double var7 = var1.method_365().dotProduct(var4);
         return Math.max(var5 + var7, 0.0D) / 60.0D * 0.25D;

@@ -41,6 +41,6 @@ public class class_35 extends class_34 {
 
     // $FF: renamed from: a (com.a.b.a.a.b.d.e.a) boolean
     private static boolean method_276(class_48 var0) {
-        return var0.method_279().method_876().getSquaredLength() <= Math.sqr(15.0D);
+        return var0.method_279().getVelocity().getSquaredLength() <= Math.sqr(15.0D);
     }
 }

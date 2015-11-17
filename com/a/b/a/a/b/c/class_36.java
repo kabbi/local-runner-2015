@@ -43,7 +43,7 @@ public class class_36 extends class_34 {
             break;
         case TIRE:
             var1.method_361().method_20(new class_124(EffectType.CAR_AND_TIRE_IMPACT, ((Integer)this.field_143.get()).intValue(), var1.method_364().getX(), var1.method_364().getY(), var1.method_365().copyNegate().getAngle()));
-            if(var2.method_279().method_876().getSquaredLength() <= Math.sqr(15.0D) || NumberUtil.equals((Integer)this.field_143.get(), var2.method_355())) {
+            if(var2.method_279().getVelocity().getSquaredLength() <= Math.sqr(15.0D) || NumberUtil.equals((Integer)this.field_143.get(), var2.method_355())) {
                 var1.method_361().method_18(var2);
             }
             break;

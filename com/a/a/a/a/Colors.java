@@ -3,7 +3,7 @@ package com.a.a.a.a;
 import java.awt.Color;
 
 // $FF: renamed from: com.a.a.a.a.a
-public class class_120 {
+public class Colors {
     // $FF: renamed from: a java.awt.Color
     private static final Color field_494 = new Color(255, 3, 3);
     // $FF: renamed from: b java.awt.Color
@@ -41,7 +41,7 @@ public class class_120 {
     // $FF: renamed from: r java.awt.Color
     private static final Color field_511 = new Color(208, 66, 243);
     // $FF: renamed from: s java.awt.Color[]
-    private static final Color[] field_512;
+    private static final Color[] field_512 = new Color[]{field_494, field_495, field_496, field_497, field_498, field_499, field_500, field_501, field_502, field_503, field_504, field_505};
 
     // $FF: renamed from: a () java.awt.Color
     public static Color method_783() {
@@ -66,9 +66,5 @@ public class class_120 {
     // $FF: renamed from: a (java.awt.Color, int) java.awt.Color
     public static Color method_787(Color var0, int var1) {
         return new Color(var0.getRed(), var0.getGreen(), var0.getBlue(), var1);
-    }
-
-    static {
-        field_512 = new Color[]{field_494, field_495, field_496, field_497, field_498, field_499, field_500, field_501, field_502, field_503, field_504, field_505};
     }
 }

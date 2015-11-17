@@ -4,7 +4,7 @@ import com.a.b.class_2;
 import com.a.b.class_3;
 import com.a.b.class_42;
 import com.a.b.a.a.b.d.e.class_48;
-import com.a.c.class_159;
+import com.a.c.PhysicalBody;
 import java.util.Iterator;
 
 // $FF: renamed from: com.a.b.a.a.b.b.e
@@ -29,7 +29,7 @@ public class class_23 implements class_2 {
 
         while(true) {
             class_48 var5;
-            class_159 var6;
+            PhysicalBody var6;
             do {
                 class_42 var4;
                 do {
@@ -42,7 +42,7 @@ public class class_23 implements class_2 {
 
                 var5 = (class_48)var4;
                 var6 = var5.method_279();
-            } while(var6.method_870() >= this.field_87 && var6.method_872() >= this.field_88 && var6.method_870() < this.field_89 && var6.method_872() < this.field_90);
+            } while(var6.getX() >= this.field_87 && var6.getY() >= this.field_88 && var6.getX() < this.field_89 && var6.getY() < this.field_90);
 
             var1.method_18(var5);
         }

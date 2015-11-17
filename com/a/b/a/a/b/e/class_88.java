@@ -9,15 +9,15 @@ import com.a.c.a.class_129;
 public final class class_88 {
     // $FF: renamed from: a (com.a.b.a.a.b.d.d.a) com.a.b.a.a.c.n
     public static OilSlick method_516(class_46 var0) {
-        class_125 var1 = var0.method_279().method_902();
+        class_125 var1 = var0.method_279().getForm();
         if(!(var1 instanceof class_129)) {
             throw new IllegalArgumentException("Unsupported oil slick form: " + var1 + '.');
         } else {
             class_129 var2 = (class_129)var1;
-            return new OilSlick(var0.method_278(), var0.method_279().method_900(),
-                    var0.method_279().method_870(), var0.method_279().method_872(),
-                    var0.method_279().method_876().getX(), var0.method_279().method_876().getY(),
-                    var0.method_279().method_874(), var0.method_279().method_880(), var2.method_829(), var0.method_347());
+            return new OilSlick(var0.method_278(), var0.method_279().getMass(),
+                    var0.method_279().getX(), var0.method_279().getY(),
+                    var0.method_279().getVelocity().getX(), var0.method_279().getVelocity().getY(),
+                    var0.method_279().getAngle(), var0.method_279().getAngularVelocity(), var2.method_829(), var0.method_347());
         }
     }
 }

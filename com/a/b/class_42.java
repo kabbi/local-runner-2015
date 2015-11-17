@@ -1,7 +1,7 @@
 package com.a.b;
 
-import com.a.c.class_159;
-import com.a.c.class_161;
+import com.a.c.PhysicalBody;
+import com.a.c.AstralPhysicalBody;
 import com.a.c.a.class_125;
 import com.codeforces.commons.geometry.Vector2D;
 import com.codeforces.commons.math.Math;
@@ -18,7 +18,7 @@ public abstract class class_42 {
     private final long id;
     // $FF: renamed from: c com.a.c.c
     @Name("body")
-    private class_159 field_148;
+    private PhysicalBody body;
     // $FF: renamed from: d double
     private double field_149;
     // $FF: renamed from: e int
@@ -38,9 +38,9 @@ public abstract class class_42 {
 
     protected class_42(class_125 var1) {
         this.id = field_146.incrementAndGet();
-        this.field_148 = new class_161(this.id);
-        this.field_148.method_869(this.getClass().getSimpleName() + '#' + this.id);
-        this.field_148.method_903(var1);
+        this.body = new AstralPhysicalBody(this.id);
+        this.body.setName(this.getClass().getSimpleName() + '#' + this.id);
+        this.body.setForm(var1);
     }
 
     // $FF: renamed from: a () long
@@ -49,13 +49,13 @@ public abstract class class_42 {
     }
 
     // $FF: renamed from: b () com.a.c.c
-    public class_159 method_279() {
-        return this.field_148;
+    public PhysicalBody method_279() {
+        return this.body;
     }
 
     // $FF: renamed from: a (com.a.c.c) void
-    public void method_280(class_159 var1) {
-        this.field_148 = var1;
+    public void method_280(PhysicalBody var1) {
+        this.body = var1;
     }
 
     // $FF: renamed from: c () double
@@ -70,7 +70,7 @@ public abstract class class_42 {
 
     // $FF: renamed from: a (int) void
     public void method_283(int var1) {
-        double var2 = this.field_148.method_876().getSquaredLength();
+        double var2 = this.body.getVelocity().getSquaredLength();
         if(this.field_149 < var2) {
             this.field_149 = var2;
             this.field_150 = var1;
@@ -90,7 +90,7 @@ public abstract class class_42 {
 
     // $FF: renamed from: b (int) void
     public void method_286(int var1) {
-        double var2 = Math.abs(this.field_148.method_880());
+        double var2 = Math.abs(this.body.getAngularVelocity());
         if(this.field_151 < var2) {
             this.field_151 = var2;
             this.field_152 = var1;
@@ -140,12 +140,12 @@ public abstract class class_42 {
 
     // $FF: renamed from: a (double, double) double
     public double method_295(double var1, double var3) {
-        return Math.hypot(var1 - this.field_148.method_870(), var3 - this.field_148.method_872());
+        return Math.hypot(var1 - this.body.getX(), var3 - this.body.getY());
     }
 
     // $FF: renamed from: a (com.a.b.e) double
     public double method_296(class_42 var1) {
-        return this.method_295(var1.field_148.method_870(), var1.field_148.method_872());
+        return this.method_295(var1.body.getX(), var1.body.getY());
     }
 
     public final boolean equals(Object var1) {

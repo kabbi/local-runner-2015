@@ -16,6 +16,11 @@ public class class_122 {
         double var14 = var4 * var8;
         double var16 = var4 * var10;
         double var18 = -var6 * var10;
-        return new Point2D[]{new Point2D(var0.getX() - var12 + var16, var0.getY() - var14 + var18), new Point2D(var0.getX() + var12 + var16, var0.getY() + var14 + var18), new Point2D(var0.getX() + var12 - var16, var0.getY() + var14 - var18), new Point2D(var0.getX() - var12 - var16, var0.getY() - var14 - var18)};
+        return new Point2D[]{
+                new Point2D(var0.getX() - var12 + var16, var0.getY() - var14 + var18),
+                new Point2D(var0.getX() + var12 + var16, var0.getY() + var14 + var18),
+                new Point2D(var0.getX() + var12 - var16, var0.getY() + var14 - var18),
+                new Point2D(var0.getX() - var12 - var16, var0.getY() - var14 - var18)
+        };
     }
 }

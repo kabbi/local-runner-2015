@@ -1,11 +1,10 @@
 package com.a.c;
 
-import com.a.c.class_159;
 import com.codeforces.commons.geometry.Vector2D;
 import com.codeforces.commons.reflection.Name;
 
 // $FF: renamed from: com.a.c.f
-public final class class_161 extends class_159 {
+public final class AstralPhysicalBody extends PhysicalBody {
     // $FF: renamed from: a double
     @Name("x")
     private double field_657;
@@ -55,165 +54,165 @@ public final class class_161 extends class_159 {
     @Name("surfaceFriction")
     private double field_672;
 
-    public class_161(long var1) {
+    public AstralPhysicalBody(long var1) {
         super(var1);
     }
 
     // $FF: renamed from: c () double
-    public double method_870() {
+    public double getX() {
         return this.field_657;
     }
 
     // $FF: renamed from: a (double) void
-    public void method_871(double var1) {
-        this.field_657 = var1;
+    public void setX(double x) {
+        this.field_657 = x;
     }
 
     // $FF: renamed from: d () double
-    public double method_872() {
+    public double getY() {
         return this.field_658;
     }
 
     // $FF: renamed from: b (double) void
-    public void method_873(double var1) {
-        this.field_658 = var1;
+    public void setY(double y) {
+        this.field_658 = y;
     }
 
     // $FF: renamed from: e () double
-    public double method_874() {
+    public double getAngle() {
         return this.field_659;
     }
 
     // $FF: renamed from: c (double) void
-    public void method_875(double var1) {
-        while(var1 > 3.141592653589793D) {
-            var1 -= 6.283185307179586D;
+    public void setAngle(double angle) {
+        while(angle > 3.141592653589793D) {
+            angle -= 6.283185307179586D;
         }
 
-        while(var1 < -3.141592653589793D) {
-            var1 += 6.283185307179586D;
+        while(angle < -3.141592653589793D) {
+            angle += 6.283185307179586D;
         }
 
-        this.field_659 = var1;
+        this.field_659 = angle;
     }
 
     // $FF: renamed from: f () com.codeforces.commons.geometry.Vector2D
-    public Vector2D method_876() {
+    public Vector2D getVelocity() {
         return this.field_660;
     }
 
     // $FF: renamed from: a (com.codeforces.commons.geometry.Vector2D) void
-    public void method_877(Vector2D var1) {
-        this.field_660 = var1;
+    public void setVelocity(Vector2D vector) {
+        this.field_660 = vector;
     }
 
     // $FF: renamed from: g () com.codeforces.commons.geometry.Vector2D
-    public Vector2D method_878() {
+    public Vector2D getMedianVelocity() {
         return this.field_661;
     }
 
     // $FF: renamed from: b (com.codeforces.commons.geometry.Vector2D) void
-    public void method_879(Vector2D var1) {
-        this.field_661 = var1;
+    public void setMedianVelocity(Vector2D vector) {
+        this.field_661 = vector;
     }
 
     // $FF: renamed from: h () double
-    public double method_880() {
+    public double getAngularVelocity() {
         return this.field_662;
     }
 
     // $FF: renamed from: d (double) void
-    public void method_881(double var1) {
-        this.field_662 = var1;
+    public void setAngularVelocity(double velocity) {
+        this.field_662 = velocity;
     }
 
     // $FF: renamed from: i () double
-    public double method_882() {
+    public double getMedianAngularVelocity() {
         return this.field_663;
     }
 
     // $FF: renamed from: e (double) void
-    public void method_883(double var1) {
-        this.field_663 = var1;
+    public void setMedianAngularVelocity(double velocity) {
+        this.field_663 = velocity;
     }
 
     // $FF: renamed from: j () com.codeforces.commons.geometry.Vector2D
-    public Vector2D method_884() {
+    public Vector2D getForce() {
         return this.field_664;
     }
 
     // $FF: renamed from: k () double
-    public double method_885() {
+    public double getTorque() {
         return this.field_665;
     }
 
     // $FF: renamed from: l () double
-    public double method_886() {
+    public double getMovementAirFrictionFactor() {
         return this.field_666;
     }
 
     // $FF: renamed from: f (double) void
-    public void method_887(double var1) {
-        this.field_666 = var1;
+    public void setMovementAirFrictionFactor(double factor) {
+        this.field_666 = factor;
     }
 
     // $FF: renamed from: m () double
-    public double method_888() {
+    public double getRotationAirFrictionFactor() {
         return this.field_667;
     }
 
     // $FF: renamed from: g (double) void
-    public void method_889(double var1) {
-        this.field_667 = var1;
+    public void setRotationAirFrictionFactor(double factor) {
+        this.field_667 = factor;
     }
 
     // $FF: renamed from: n () double
-    public double method_890() {
+    public double getMovementFrictionFactor() {
         return this.field_668;
     }
 
     // $FF: renamed from: h (double) void
-    public void method_891(double var1) {
-        this.field_668 = var1;
+    public void setMovementFrictionFactor(double factor) {
+        this.field_668 = factor;
     }
 
     // $FF: renamed from: o () java.lang.Double
-    public Double method_892() {
+    public Double getCrosswiseMovementFrictionFactor() {
         return this.field_669;
     }
 
     // $FF: renamed from: a (java.lang.Double) void
-    public void method_893(Double var1) {
-        this.field_669 = var1;
+    public void setSomeOtherMovementFrictionFactor(Double factor) {
+        this.field_669 = factor;
     }
 
     // $FF: renamed from: p () double
-    public double method_894() {
+    public double getRotationFrictionFactor() {
         return this.field_670;
     }
 
     // $FF: renamed from: i (double) void
-    public void method_895(double var1) {
-        this.field_670 = var1;
+    public void setRotationFrictionFactor(double factor) {
+        this.field_670 = factor;
     }
 
     // $FF: renamed from: q () double
-    public double method_896() {
+    public double getMomentumTransferFactor() {
         return this.field_671;
     }
 
     // $FF: renamed from: j (double) void
-    public void method_897(double var1) {
-        this.field_671 = var1;
+    public void setMomentumTransferFactor(double factor) {
+        this.field_671 = factor;
     }
 
     // $FF: renamed from: r () double
-    public double method_898() {
+    public double getSurfaceFrictionFactor() {
         return this.field_672;
     }
 
     // $FF: renamed from: k (double) void
-    public void method_899(double var1) {
-        this.field_672 = var1;
+    public void setSurfaceFrictionFactor(double factor) {
+        this.field_672 = factor;
     }
 }

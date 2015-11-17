@@ -23,8 +23,8 @@ public class class_25 implements class_2 {
 
         while(var3.hasNext()) {
             class_42 var4 = (class_42)var3.next();
-            double var5 = var4.method_279().method_870();
-            double var7 = var4.method_279().method_872();
+            double var5 = var4.method_279().getX();
+            double var7 = var4.method_279().getY();
             if(var4.method_291() == null) {
                 var4.method_292(0.0D);
                 var4.method_294(new Vector2D(0.0D, 0.0D));

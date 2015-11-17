@@ -6,7 +6,7 @@ import com.a.b.class_42;
 import com.a.b.class_58;
 import com.a.b.a.a.b.a.class_124;
 import com.a.c.class_10;
-import com.a.c.class_159;
+import com.a.c.PhysicalBody;
 import com.a.c.class_162;
 import com.a.c.class_8;
 import com.a.c.class_9;
@@ -39,10 +39,10 @@ public class class_175 implements class_3 {
 
     // $FF: renamed from: a (com.a.b.e) com.a.b.e
     public class_42 method_17(class_42 var1) {
-        class_159 var2 = this.field_715.method_44(var1.method_279());
+        PhysicalBody var2 = this.field_715.method_44(var1.method_279());
         this.field_715.method_45(var2);
         this.field_716.put(var1.method_278(), var1);
-        this.field_717.put(var2.method_867(), var1);
+        this.field_717.put(var2.getId(), var1);
         var1.method_280(var2);
         return var1;
     }
@@ -51,7 +51,7 @@ public class class_175 implements class_3 {
     public void method_18(class_42 var1) {
         this.field_715.method_47(var1.method_279());
         this.field_716.remove(var1.method_278());
-        this.field_717.remove(var1.method_279().method_867());
+        this.field_717.remove(var1.method_279().getId());
     }
 
     // $FF: renamed from: a () java.util.List
@@ -152,8 +152,8 @@ public class class_175 implements class_3 {
             // $FF: renamed from: a (com.a.c.a) void
             public void method_41(class_162 var1x) {
                 if(var6.getDeclaringClass() != class_34.class) {
-                    class_42 var2x = var1x.method_907() == null?null:(class_42)class_175.this.field_717.get(var1x.method_907().method_867());
-                    class_42 var3x = var1x.method_908() == null?null:(class_42)class_175.this.field_717.get(var1x.method_908().method_867());
+                    class_42 var2x = var1x.method_907() == null?null:(class_42)class_175.this.field_717.get(var1x.method_907().getId());
+                    class_42 var3x = var1x.method_908() == null?null:(class_42)class_175.this.field_717.get(var1x.method_908().getId());
                     if(var1.isInstance(var2x) && var2.isInstance(var3x)) {
                         class_175.this.method_930(var2x, var3x);
                         var3.afterCollision(new class_58(class_175.this, var2x, var3x, var1x.method_909().copy(), var1x.method_910().copy()));
@@ -172,12 +172,12 @@ public class class_175 implements class_3 {
         } else {
             this.field_715.method_49(new class_9() {
                 // $FF: renamed from: a (com.a.c.c, com.a.c.c) boolean
-                public boolean method_42(class_159 var1x, class_159 var2x) {
+                public boolean method_42(PhysicalBody var1x, PhysicalBody var2x) {
                     if(var4.getDeclaringClass() == class_34.class) {
                         return true;
                     } else {
-                        class_42 var3x = var1x == null?null:(class_42)class_175.this.field_717.get(var1x.method_867());
-                        class_42 var4x = var2x == null?null:(class_42)class_175.this.field_717.get(var2x.method_867());
+                        class_42 var3x = var1x == null?null:(class_42)class_175.this.field_717.get(var1x.getId());
+                        class_42 var4x = var2x == null?null:(class_42)class_175.this.field_717.get(var2x.getId());
                         boolean var5x;
                         if(var1.isInstance(var3x) && var2.isInstance(var4x)) {
                             class_175.this.method_930(var3x, var4x);
@@ -200,8 +200,8 @@ public class class_175 implements class_3 {
                     if(var5.getDeclaringClass() == class_34.class) {
                         return true;
                     } else {
-                        class_42 var2x = var1x.method_907() == null?null:(class_42)class_175.this.field_717.get(var1x.method_907().method_867());
-                        class_42 var3x = var1x.method_908() == null?null:(class_42)class_175.this.field_717.get(var1x.method_908().method_867());
+                        class_42 var2x = var1x.method_907() == null?null:(class_42)class_175.this.field_717.get(var1x.method_907().getId());
+                        class_42 var3x = var1x.method_908() == null?null:(class_42)class_175.this.field_717.get(var1x.method_908().getId());
                         boolean var4x;
                         if(var1.isInstance(var2x) && var2.isInstance(var3x)) {
                             class_175.this.method_930(var2x, var3x);

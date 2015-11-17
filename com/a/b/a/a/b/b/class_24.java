@@ -25,8 +25,8 @@ public class class_24 implements class_2 {
                 if(var5.method_334() > 0) {
                     var5.method_336();
                     if(var5.method_334() <= 0) {
-                        var5.method_279().method_893(0.25D);
-                        var5.method_279().method_895(0.008726646259971648D);
+                        var5.method_279().setSomeOtherMovementFrictionFactor(0.25D);
+                        var5.method_279().setRotationFrictionFactor(0.008726646259971648D);
                     }
                 }
 

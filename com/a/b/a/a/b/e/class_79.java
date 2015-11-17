@@ -17,7 +17,7 @@ import com.google.common.base.Preconditions;
 public final class class_79 {
     // $FF: renamed from: a (com.a.b.a.a.b.d.c.b, double, com.a.b.a.a.b.n) com.a.b.a.a.c.c
     public static Car method_476(class_43 var0, double var1, class_171 var3) {
-        class_125 var4 = var0.method_279().method_902();
+        class_125 var4 = var0.method_279().getForm();
         if(!(var4 instanceof class_128)) {
             throw new IllegalArgumentException("Unsupported car form: " + var4 + '.');
         } else {
@@ -25,10 +25,10 @@ public final class class_79 {
             IntPair var6 = var0.method_312();
             Preconditions.checkNotNull(var6.getFirst());
             Preconditions.checkNotNull(var6.getSecond());
-            return new Car(var0.method_278(), var0.method_279().method_900(), var0.method_279().method_870(),
-                    var0.method_279().method_872(), var0.method_279().method_876().getX() * var1,
-                    var0.method_279().method_876().getY() * var1, var0.method_279().method_874(),
-                    var0.method_279().method_880() * var1, var5.method_827(), var5.method_828(),
+            return new Car(var0.method_278(), var0.method_279().getMass(), var0.method_279().getX(),
+                    var0.method_279().getY(), var0.method_279().getVelocity().getX() * var1,
+                    var0.method_279().getVelocity().getY() * var1, var0.method_279().getAngle(),
+                    var0.method_279().getAngularVelocity() * var1, var5.method_827(), var5.method_828(),
                     var0.method_297().method_917(), var0.method_298(),
                     var0.method_297().equals(var3), var0.method_299(),
                     var0.method_316(), var0.method_318(), var0.method_320(),
@@ -99,8 +99,8 @@ public final class class_79 {
                 var0.method_305(0.0D, false);
                 var0.method_332(0);
                 var0.method_338(0);
-                var0.method_279().method_879(new Vector2D(0.0D, 0.0D));
-                var0.method_279().method_883(0.0D);
+                var0.method_279().setMedianVelocity(new Vector2D(0.0D, 0.0D));
+                var0.method_279().setMedianAngularVelocity(0.0D);
                 var7 += 100;
             } else {
                 var0.method_338(var0.method_337() + NumberUtil.toInt(var2 * 300.0D * var4));

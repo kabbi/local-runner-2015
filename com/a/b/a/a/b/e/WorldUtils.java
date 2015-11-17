@@ -113,7 +113,7 @@ public final class WorldUtils {
             class_42 var12 = (class_42)var11.next();
             if(var12 instanceof class_43) {
                 class_43 var13 = (class_43)var12;
-                Vector2D var14 = (new Vector2D(1.0D, 0.0D)).rotate(var13.method_279().method_874());
+                Vector2D var14 = (new Vector2D(1.0D, 0.0D)).rotate(var13.method_279().getAngle());
                 double var15 = var13.method_293().dotProduct(var14);
                 var17.put(var13.method_278(), new class_142(var13.method_291() == null?0.0D: var13.method_291(), var13.method_337() > 0? var13.method_337() :null, var13.method_340()? true :null, var15));
             }

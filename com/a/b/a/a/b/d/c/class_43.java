@@ -78,17 +78,17 @@ public abstract class class_43 extends class_42 {
             this.field_168 = 1;
             this.field_169 = 1;
             this.field_170 = 1;
-            this.method_279().method_871(var4);
-            this.method_279().method_873(var6);
-            this.method_279().method_875(var8);
-            this.method_279().method_901(var10);
-            this.method_279().method_887(0.0075D);
-            this.method_279().method_889(0.0075D);
-            this.method_279().method_891(0.001D);
-            this.method_279().method_893(0.25D);
-            this.method_279().method_895(0.008726646259971648D);
-            this.method_279().method_897(0.5D);
-            this.method_279().method_899(0.25D);
+            this.method_279().setX(var4);
+            this.method_279().setY(var6);
+            this.method_279().setAngle(var8);
+            this.method_279().setMass(var10);
+            this.method_279().setMovementAirFrictionFactor(0.0075D);
+            this.method_279().setRotationAirFrictionFactor(0.0075D);
+            this.method_279().setMovementFrictionFactor(0.001D);
+            this.method_279().setSomeOtherMovementFrictionFactor(0.25D);
+            this.method_279().setRotationFrictionFactor(0.008726646259971648D);
+            this.method_279().setMomentumTransferFactor(0.5D);
+            this.method_279().setSurfaceFrictionFactor(0.25D);
         } else {
             throw new IllegalArgumentException("Argument \'mass\' is not a positive number.");
         }

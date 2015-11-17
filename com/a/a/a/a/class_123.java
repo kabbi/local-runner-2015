@@ -15,32 +15,32 @@ import java.util.Set;
 // $FF: renamed from: com.a.a.a.a.d
 public class class_123 {
     // $FF: renamed from: a java.util.Set
-    private static final Set field_516 = ImmutableSet.of(Boolean.TYPE, Character.TYPE, Byte.TYPE, Short.TYPE, Integer.TYPE, Long.TYPE, new Class[]{Float.TYPE, Double.TYPE});
+    private static final Set PRIMITIVE_TYPES = ImmutableSet.of(Boolean.TYPE, Character.TYPE, Byte.TYPE, Short.TYPE, Integer.TYPE, Long.TYPE, new Class[]{Float.TYPE, Double.TYPE});
     // $FF: renamed from: b java.util.Set
-    private static final Set field_517 = ImmutableSet.of(Boolean.class, Character.class, Byte.class, Short.class, Integer.class, Long.class, new Class[]{Float.class, Double.class});
+    private static final Set PRIMITIVE_CLASSES = ImmutableSet.of(Boolean.class, Character.class, Byte.class, Short.class, Integer.class, Long.class, new Class[]{Float.class, Double.class});
 
     // $FF: renamed from: a (java.lang.Object, java.lang.Class) java.lang.Object
-    public static Object method_799(Object var0, Class var1) throws IllegalAccessException, InvocationTargetException, InstantiationException {
+    public static Object method_799(Object var0, Class aClass) throws IllegalAccessException, InvocationTargetException, InstantiationException {
         if(var0 == null) {
-            if(field_516.contains(var1)) {
+            if(PRIMITIVE_TYPES.contains(aClass)) {
                 throw new IllegalArgumentException("Can\'t get null object as primitive class.");
             } else {
                 return null;
             }
         } else {
             Class var2 = var0.getClass();
-            boolean var3 = field_516.contains(var2);
-            boolean var4 = field_517.contains(var2);
-            if((var3 || var4 || var2 == String.class) && (var2 == var1 || var3 && Primitives.wrap(var2) == var1 || var4 && Primitives.unwrap(var2) == var1)) {
+            boolean var3 = PRIMITIVE_TYPES.contains(var2);
+            boolean var4 = PRIMITIVE_CLASSES.contains(var2);
+            if((var3 || var4 || var2 == String.class) && (var2 == aClass || var3 && Primitives.wrap(var2) == aClass || var4 && Primitives.unwrap(var2) == aClass)) {
                 return var0;
-            } else if(var2.isEnum() && var1.isEnum()) {
-                return method_800(var0, var1, var2);
-            } else if(var2.isArray() && var1.isArray()) {
-                return method_801(var0, var1);
+            } else if(var2.isEnum() && aClass.isEnum()) {
+                return method_800(var0, aClass, var2);
+            } else if(var2.isArray() && aClass.isArray()) {
+                return method_801(var0, aClass);
             } else {
-                Constructor[] var5 = var1.getConstructors();
+                Constructor[] var5 = aClass.getConstructors();
                 if(var5.length != 1) {
-                    throw new IllegalArgumentException("Too many constructors in target class \'" + var1 + "\'.");
+                    throw new IllegalArgumentException("Too many constructors in target class \'" + aClass + "\'.");
                 } else {
                     Constructor var6 = var5[0];
                     Class[] var7 = var6.getParameterTypes();
@@ -54,7 +54,7 @@ public class class_123 {
                         }
 
                         if(var10 != var8) {
-                            throw new IllegalArgumentException(String.format("Source object %s and target class %s aren\'t compatible.", new Object[]{var0, var1}));
+                            throw new IllegalArgumentException(String.format("Source object %s and target class %s aren\'t compatible.", new Object[]{var0, aClass}));
                         }
                     }
 
@@ -76,8 +76,8 @@ public class class_123 {
                         var15 = (Field)var14.get(0);
                         Class var16 = var15.getType();
                         Class var17 = var7[var13];
-                        boolean var18 = field_516.contains(var16);
-                        boolean var19 = field_517.contains(var16);
+                        boolean var18 = PRIMITIVE_TYPES.contains(var16);
+                        boolean var19 = PRIMITIVE_CLASSES.contains(var16);
                         if(!var18 && !var19 && var16 != String.class) {
                             if(var16.isEnum() && var17.isEnum()) {
                                 var11[var13] = method_800(var15.get(var0), var17, var16);
@@ -99,7 +99,7 @@ public class class_123 {
                         ++var13;
                     }
 
-                    throw new IllegalArgumentException(String.format("Field \'%s\' of source object and constructor parameter of target class \'%s\' aren\'t compatible.", new Object[]{var15.getName(), var1.getName()}));
+                    throw new IllegalArgumentException(String.format("Field \'%s\' of source object and constructor parameter of target class \'%s\' aren\'t compatible.", new Object[]{var15.getName(), aClass.getName()}));
                 }
             }
         }

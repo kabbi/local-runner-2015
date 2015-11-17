@@ -46,8 +46,8 @@ public class class_26 implements class_2 {
             if(var4 instanceof class_43) {
                 class_43 var5 = (class_43)var4;
                 if(!var5.method_345()) {
-                    double var6 = var5.method_279().method_870();
-                    double var8 = var5.method_279().method_872();
+                    double var6 = var5.method_279().getX();
+                    double var8 = var5.method_279().getY();
                     double var10 = 800.0D * (double) (Integer) var5.method_312().getFirst();
                     double var12 = 800.0D * (double) (Integer) var5.method_312().getSecond();
                     double var14 = var10 + 800.0D;

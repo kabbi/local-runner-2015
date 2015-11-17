@@ -54,7 +54,7 @@ import com.a.b.a.a.d.GraphicalRenderer;
 import com.a.b.a.a.d.class_97;
 import com.a.b.a.a.e.a.StrategyAdapter;
 import com.a.b.a.a.e.a.class_180;
-import com.a.c.class_159;
+import com.a.c.PhysicalBody;
 import com.codeforces.commons.compress.ZipUtil;
 import com.codeforces.commons.geometry.Point2D;
 import com.codeforces.commons.geometry.Vector2D;
@@ -550,8 +550,8 @@ public class GameSimulatorImpl implements GameSimulator {
                         var11.method_341(false);
                     } while(!class_79.method_481(var11) && !var11.method_345() && !var7.method_922());
 
-                    double var12 = var11.method_279().method_876().dotProduct((new Vector2D(1.0D, 0.0D)).rotate(var11.method_279().method_874())) * var11.method_307() * 0.0017453292519943296D;
-                    var11.method_279().method_883(var12);
+                    double var12 = var11.method_279().getVelocity().dotProduct((new Vector2D(1.0D, 0.0D)).rotate(var11.method_279().getAngle())) * var11.method_307() * 0.0017453292519943296D;
+                    var11.method_279().setMedianAngularVelocity(var12);
                 }
             }
 
@@ -642,19 +642,19 @@ public class GameSimulatorImpl implements GameSimulator {
     // $FF: renamed from: a (com.a.b.a.a.b.d.c.b, com.a.b.a.a.c.m) void
     private void method_949(class_43 var1, Move var2) {
         if(!class_79.method_481(var1) && !var1.method_345()) {
-            class_159 var3;
+            PhysicalBody var3;
             Point2D var4;
             if(var2.isThrowProjectile() && var1.method_322() == 0 && var1.method_316() > 0) {
                 var3 = var1.method_279();
-                var4 = new Point2D(var3.method_870(), var3.method_872());
+                var4 = new Point2D(var3.getX(), var3.getY());
                 switch(var1.method_299()) {
                 case BUGGY:
-                    this.field_721.method_17(new class_49(var1, var1.method_297(), this.tick, var4.copy(), var3.method_874()));
-                    this.field_721.method_17(new class_49(var1, var1.method_297(), this.tick, var4.copy(), var3.method_874() + 0.03490658503988659D));
-                    this.field_721.method_17(new class_49(var1, var1.method_297(), this.tick, var4.copy(), var3.method_874() - 0.03490658503988659D));
+                    this.field_721.method_17(new class_49(var1, var1.method_297(), this.tick, var4.copy(), var3.getAngle()));
+                    this.field_721.method_17(new class_49(var1, var1.method_297(), this.tick, var4.copy(), var3.getAngle() + 0.03490658503988659D));
+                    this.field_721.method_17(new class_49(var1, var1.method_297(), this.tick, var4.copy(), var3.getAngle() - 0.03490658503988659D));
                     break;
                 case JEEP:
-                    this.field_721.method_17(new class_50(var1, var1.method_297(), this.tick, var4.copy(), var3.method_874()));
+                    this.field_721.method_17(new class_50(var1, var1.method_297(), this.tick, var4.copy(), var3.getAngle()));
                     break;
                 default:
                     throw new IllegalArgumentException("Unsupported car type: " + var1.method_299() + '.');
@@ -672,7 +672,7 @@ public class GameSimulatorImpl implements GameSimulator {
 
             if(var2.isSpillOil() && var1.method_328() == 0 && var1.method_320() > 0) {
                 var3 = var1.method_279();
-                var4 = (new Point2D(var3.method_870(), var3.method_872())).add((new Vector2D(265.0D, 0.0D)).rotate(var3.method_874() + 3.141592653589793D));
+                var4 = (new Point2D(var3.getX(), var3.getY())).add((new Vector2D(265.0D, 0.0D)).rotate(var3.getAngle() + 3.141592653589793D));
                 this.field_721.method_17(new class_46(var4.copy()));
                 var1.method_329(120);
                 var1.method_321(var1.method_320() - 1);
@@ -703,12 +703,12 @@ public class GameSimulatorImpl implements GameSimulator {
 
             if(var2.isBrake()) {
                 var1.method_341(true);
-                var1.method_279().method_891(var1.method_334() > 0 ? 0.001D : 0.25D);
+                var1.method_279().setMovementFrictionFactor(var1.method_334() > 0 ? 0.001D : 0.25D);
             } else {
-                var1.method_279().method_891(0.001D);
+                var1.method_279().setMovementFrictionFactor(0.001D);
                 double var5 = var3 * (var3 >= 0.0D?var1.method_310():var1.method_311());
                 if(this.tick >= 180) {
-                    var1.method_279().method_884().add((new Vector2D(var5, 0.0D)).rotate(var1.method_279().method_874()));
+                    var1.method_279().getForce().add((new Vector2D(var5, 0.0D)).rotate(var1.method_279().getAngle()));
                 }
             }
 
@@ -723,10 +723,10 @@ public class GameSimulatorImpl implements GameSimulator {
         if(!Double.isNaN(var2) && !Double.isInfinite(var2)) {
             var0.method_309(var2);
             var2 = var0.method_307();
-            double var4 = var0.method_279().method_876().dotProduct((new Vector2D(1.0D, 0.0D)).rotate(var0.method_279().method_874())) * var2 * 0.0017453292519943296D;
-            double var6 = var4 - var0.method_279().method_882();
-            var0.method_279().method_883(var4);
-            var0.method_279().method_881(var0.method_279().method_880() + var6);
+            double var4 = var0.method_279().getVelocity().dotProduct((new Vector2D(1.0D, 0.0D)).rotate(var0.method_279().getAngle())) * var2 * 0.0017453292519943296D;
+            double var6 = var4 - var0.method_279().getMedianAngularVelocity();
+            var0.method_279().setMedianAngularVelocity(var4);
+            var0.method_279().setAngularVelocity(var0.method_279().getAngularVelocity() + var6);
         } else {
             logger.warn(String.format("Received unexpected \'wheelTurn\' value (%s) for %s.", var2, var0));
         }
@@ -1017,12 +1017,12 @@ public class GameSimulatorImpl implements GameSimulator {
             while(var18.hasNext()) {
                 class_42 var19 = (class_42)var18.next();
                 if(var19 instanceof class_47) {
-                    if(Math.abs(var13 - var19.method_279().method_870()) <= 70.0D && Math.abs(var15 - var19.method_279().method_872()) <= 70.0D) {
+                    if(Math.abs(var13 - var19.method_279().getX()) <= 70.0D && Math.abs(var15 - var19.method_279().getY()) <= 70.0D) {
                         var17 = true;
                         break;
                     }
                 } else if(var19 instanceof class_43) {
-                    if(class_85.method_500(var19.method_279().method_902()) + var4 >= var19.method_295(var13, var15)) {
+                    if(class_85.method_500(var19.method_279().getForm()) + var4 >= var19.method_295(var13, var15)) {
                         var17 = true;
                         break;
                     }

@@ -20,7 +20,7 @@ public class class_40 extends class_34 {
 
     public boolean beforeResolvingCollision(class_58 var1) {
         class_43 var2 = (class_43)var1.method_362();
-        double var3 = var1.method_365().copyNegate().dotProduct(var2.method_279().method_876());
+        double var3 = var1.method_365().copyNegate().dotProduct(var2.method_279().getVelocity());
         if(var3 > 0.0D) {
             double var5 = var3 * 0.003D;
             if(var5 > 0.01D) {

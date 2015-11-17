@@ -37,7 +37,7 @@ public class class_128 extends class_125 {
     }
 
     public String toString() {
-        return StringUtil.toString(this, false, new String[0]);
+        return StringUtil.toString(this, false);
     }
 
     // $FF: renamed from: a (com.a.c.a.c, double) boolean

@@ -34,13 +34,13 @@ public abstract class class_48 extends class_42 {
             this.field_188 = var3;
             this.field_189 = var4;
             this.field_190 = var5;
-            this.method_279().method_871(var6.getX());
-            this.method_279().method_873(var6.getY());
-            this.method_279().method_875(var8);
-            this.method_279().method_901(var10);
-            this.method_279().method_897(1.0D);
-            this.method_279().method_899(1.0D);
-            this.method_279().method_877(var7.copy());
+            this.method_279().setX(var6.getX());
+            this.method_279().setY(var6.getY());
+            this.method_279().setAngle(var8);
+            this.method_279().setMass(var10);
+            this.method_279().setMomentumTransferFactor(1.0D);
+            this.method_279().setSurfaceFrictionFactor(1.0D);
+            this.method_279().setVelocity(var7.copy());
         } else {
             throw new IllegalArgumentException("Argument \'mass\' is not a positive number.");
         }

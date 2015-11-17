@@ -99,17 +99,17 @@ public class class_124 {
 
     // $FF: renamed from: h () java.lang.Double
     public Double method_810() {
-        return this.field_530 != null && this.field_531 != null?Double.valueOf(this.field_530.method_279().method_870() + this.field_531):this.field_531;
+        return this.field_530 != null && this.field_531 != null?Double.valueOf(this.field_530.method_279().getX() + this.field_531):this.field_531;
     }
 
     // $FF: renamed from: i () java.lang.Double
     public Double method_811() {
-        return this.field_530 != null && this.field_532 != null?Double.valueOf(this.field_530.method_279().method_872() + this.field_532):this.field_532;
+        return this.field_530 != null && this.field_532 != null?Double.valueOf(this.field_530.method_279().getY() + this.field_532):this.field_532;
     }
 
     // $FF: renamed from: j () java.lang.Double
     public Double method_812() {
-        return this.field_530 != null && this.field_533 != null?Double.valueOf(this.field_530.method_279().method_874() + this.field_533):this.field_533;
+        return this.field_530 != null && this.field_533 != null?Double.valueOf(this.field_530.method_279().getAngle() + this.field_533):this.field_533;
     }
 
     // $FF: renamed from: k () java.util.Map

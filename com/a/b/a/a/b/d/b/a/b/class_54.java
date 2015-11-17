@@ -7,8 +7,8 @@ import com.a.c.a.class_126;
 public abstract class class_54 extends class_51 {
     protected class_54(double var1, double var3, double var5, double var7, double var9) {
         super(new class_126(var5, var7, var9));
-        this.method_279().method_871(var1);
-        this.method_279().method_873(var3);
-        this.method_279().method_902().method_817(false);
+        this.method_279().setX(var1);
+        this.method_279().setY(var3);
+        this.method_279().getForm().method_817(false);
     }
 }

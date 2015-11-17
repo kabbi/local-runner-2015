@@ -20,8 +20,8 @@ public class class_46 extends class_42 {
         this.field_183 = new HashSet();
         this.field_181 = 600;
         this.field_182 = 600;
-        this.method_279().method_871(var1);
-        this.method_279().method_873(var3);
+        this.method_279().setX(var1);
+        this.method_279().setY(var3);
         this.method_279().method_905(true);
     }
 

@@ -8,153 +8,153 @@ import java.util.Collections;
 import java.util.Set;
 
 // $FF: renamed from: com.a.c.c
-public abstract class class_159 {
+public abstract class PhysicalBody {
     // $FF: renamed from: a long
     @Name("id")
-    private final long field_650;
+    private final long id;
     // $FF: renamed from: b java.lang.String
     @Name("name")
-    private String field_651;
+    private String name;
     // $FF: renamed from: c double
     @Name("mass")
-    private double field_652;
+    private double mass;
     // $FF: renamed from: d com.a.c.a.c
     @Name("form")
-    private class_125 field_653;
+    private class_125 form;
     // $FF: renamed from: e boolean
     @Name("staticBody")
     private boolean field_654;
     // $FF: renamed from: f java.util.Set
     @Name("excludedBodyIds")
-    private Set field_655;
+    private Set excludedBodyIds;
 
-    protected class_159(long var1) {
-        this.field_650 = var1;
+    protected PhysicalBody(long var1) {
+        this.id = var1;
     }
 
     // $FF: renamed from: a () long
-    public final long method_867() {
-        return this.field_650;
+    public final long getId() {
+        return this.id;
     }
 
     // $FF: renamed from: b () java.lang.String
-    public final String method_868() {
-        return this.field_651;
+    public final String getName() {
+        return this.name;
     }
 
     // $FF: renamed from: a (java.lang.String) void
-    public final void method_869(String var1) {
-        this.field_651 = var1;
+    public final void setName(String name) {
+        this.name = name;
     }
 
     // $FF: renamed from: c () double
-    public abstract double method_870();
+    public abstract double getX();
 
     // $FF: renamed from: a (double) void
-    public abstract void method_871(double var1);
+    public abstract void setX(double x);
 
     // $FF: renamed from: d () double
-    public abstract double method_872();
+    public abstract double getY();
 
     // $FF: renamed from: b (double) void
-    public abstract void method_873(double var1);
+    public abstract void setY(double y);
 
     // $FF: renamed from: e () double
-    public abstract double method_874();
+    public abstract double getAngle();
 
     // $FF: renamed from: c (double) void
-    public abstract void method_875(double var1);
+    public abstract void setAngle(double angle);
 
     // $FF: renamed from: f () com.codeforces.commons.geometry.Vector2D
-    public abstract Vector2D method_876();
+    public abstract Vector2D getVelocity();
 
     // $FF: renamed from: a (com.codeforces.commons.geometry.Vector2D) void
-    public abstract void method_877(Vector2D var1);
+    public abstract void setVelocity(Vector2D vector);
 
     // $FF: renamed from: g () com.codeforces.commons.geometry.Vector2D
-    public abstract Vector2D method_878();
+    public abstract Vector2D getMedianVelocity();
 
     // $FF: renamed from: b (com.codeforces.commons.geometry.Vector2D) void
-    public abstract void method_879(Vector2D var1);
+    public abstract void setMedianVelocity(Vector2D vector);
 
     // $FF: renamed from: h () double
-    public abstract double method_880();
+    public abstract double getAngularVelocity();
 
     // $FF: renamed from: d (double) void
-    public abstract void method_881(double var1);
+    public abstract void setAngularVelocity(double velocity);
 
     // $FF: renamed from: i () double
-    public abstract double method_882();
+    public abstract double getMedianAngularVelocity();
 
     // $FF: renamed from: e (double) void
-    public abstract void method_883(double var1);
+    public abstract void setMedianAngularVelocity(double velocity);
 
     // $FF: renamed from: j () com.codeforces.commons.geometry.Vector2D
-    public abstract Vector2D method_884();
+    public abstract Vector2D getForce();
 
     // $FF: renamed from: k () double
-    public abstract double method_885();
+    public abstract double getTorque();
 
     // $FF: renamed from: l () double
-    public abstract double method_886();
+    public abstract double getMovementAirFrictionFactor();
 
     // $FF: renamed from: f (double) void
-    public abstract void method_887(double var1);
+    public abstract void setMovementAirFrictionFactor(double factor);
 
     // $FF: renamed from: m () double
-    public abstract double method_888();
+    public abstract double getRotationAirFrictionFactor();
 
     // $FF: renamed from: g (double) void
-    public abstract void method_889(double var1);
+    public abstract void setRotationAirFrictionFactor(double factor);
 
     // $FF: renamed from: n () double
-    public abstract double method_890();
+    public abstract double getMovementFrictionFactor();
 
     // $FF: renamed from: h (double) void
-    public abstract void method_891(double var1);
+    public abstract void setMovementFrictionFactor(double factor);
 
     // $FF: renamed from: o () java.lang.Double
-    public abstract Double method_892();
+    public abstract Double getCrosswiseMovementFrictionFactor();
 
     // $FF: renamed from: a (java.lang.Double) void
-    public abstract void method_893(Double var1);
+    public abstract void setSomeOtherMovementFrictionFactor(Double factor);
 
     // $FF: renamed from: p () double
-    public abstract double method_894();
+    public abstract double getRotationFrictionFactor();
 
     // $FF: renamed from: i (double) void
-    public abstract void method_895(double var1);
+    public abstract void setRotationFrictionFactor(double factor);
 
     // $FF: renamed from: q () double
-    public abstract double method_896();
+    public abstract double getMomentumTransferFactor();
 
     // $FF: renamed from: j (double) void
-    public abstract void method_897(double var1);
+    public abstract void setMomentumTransferFactor(double factor);
 
     // $FF: renamed from: r () double
-    public abstract double method_898();
+    public abstract double getSurfaceFrictionFactor();
 
     // $FF: renamed from: k (double) void
-    public abstract void method_899(double var1);
+    public abstract void setSurfaceFrictionFactor(double factor);
 
     // $FF: renamed from: s () double
-    public double method_900() {
-        return this.field_652;
+    public double getMass() {
+        return this.mass;
     }
 
     // $FF: renamed from: l (double) void
-    public void method_901(double var1) {
-        this.field_652 = var1;
+    public void setMass(double mass) {
+        this.mass = mass;
     }
 
     // $FF: renamed from: t () com.a.c.a.c
-    public class_125 method_902() {
-        return this.field_653;
+    public class_125 getForm() {
+        return this.form;
     }
 
     // $FF: renamed from: a (com.a.c.a.c) void
-    public void method_903(class_125 var1) {
-        this.field_653 = var1;
+    public void setForm(class_125 form) {
+        this.form = form;
     }
 
     // $FF: renamed from: u () boolean
@@ -168,11 +168,11 @@ public abstract class class_159 {
     }
 
     // $FF: renamed from: v () java.util.Set
-    public Set method_906() {
-        return this.field_655 == null?Collections.emptySet():Collections.unmodifiableSet(this.field_655);
+    public Set getExcludedBodyIds() {
+        return this.excludedBodyIds == null ? Collections.emptySet() : Collections.unmodifiableSet(this.excludedBodyIds);
     }
 
     public String toString() {
-        return StringUtil.toString(this, false, new String[]{"id", "name", "x", "y"});
+        return StringUtil.toString(this, false, "id", "name", "x", "y");
     }
 }

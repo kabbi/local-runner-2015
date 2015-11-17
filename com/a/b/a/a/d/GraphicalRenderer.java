@@ -1,6 +1,6 @@
 package com.a.b.a.a.d;
 
-import com.a.a.a.a.class_120;
+import com.a.a.a.a.Colors;
 import com.a.a.a.a.class_123;
 import com.a.b.a.a.a.GameProperties;
 import com.a.b.a.a.b.d.b.a.a.class_57;
@@ -530,7 +530,7 @@ public class GraphicalRenderer implements Renderer {
         Game var3 = class_84.method_499(0L, var2.getTickCount(), this.gameProperties);
         Graphics var4 = method_590(this.field_350.getGraphics());
         if(this.field_342 > 0) {
-            var4.setColor(class_120.method_787(Color.WHITE, 255 - this.field_342));
+            var4.setColor(Colors.method_787(Color.WHITE, 255 - this.field_342));
         } else {
             var4.setColor(Color.WHITE);
         }
@@ -664,11 +664,11 @@ public class GraphicalRenderer implements Renderer {
         double var7 = (double)var1.getHeight() * 800.0D;
         if(var2 instanceof class_52) {
             class_52 var14 = (class_52)var2;
-            class_127 var12 = (class_127)var14.method_279().method_902();
+            class_127 var12 = (class_127)var14.method_279().getForm();
             method_530(var0, var12, var5, var7, var3, var4);
         } else if(var2 instanceof class_54) {
             class_54 var13 = (class_54)var2;
-            class_126 var11 = (class_126)var13.method_279().method_902();
+            class_126 var11 = (class_126)var13.method_279().getForm();
             method_531(var0, var13, var11, var5, var7, var3, var4);
         } else {
             if(var2 instanceof class_57) {
@@ -678,7 +678,7 @@ public class GraphicalRenderer implements Renderer {
                     return;
                 }
 
-                class_129 var10 = (class_129)var9.method_279().method_902();
+                class_129 var10 = (class_129)var9.method_279().getForm();
                 method_532(var0, var9, var10, var5, var7, var3, var4);
             }
 
@@ -694,9 +694,9 @@ public class GraphicalRenderer implements Renderer {
 
     // $FF: renamed from: a (java.awt.Graphics, com.a.b.a.a.b.d.b.a.b.a, com.a.c.a.a, double, double, int, int) void
     private static void method_531(Graphics var0, class_54 var1, class_126 var2, double var3, double var5, int var7, int var8) {
-        double var9 = var1.method_279().method_870();
-        double var11 = var1.method_279().method_872();
-        double var13 = -var1.method_279().method_874() - var2.method_821();
+        double var9 = var1.method_279().getX();
+        double var11 = var1.method_279().getY();
+        double var13 = -var1.method_279().getAngle() - var2.method_821();
         double var15 = -var2.method_822();
         Vector2D var17 = (new Vector2D(var2.method_820(), 0.0D)).rotate(-var13);
         Vector2D var18 = (new Vector2D(var2.method_820(), 0.0D)).rotate(-var13 - var15);
@@ -707,8 +707,8 @@ public class GraphicalRenderer implements Renderer {
 
     // $FF: renamed from: a (java.awt.Graphics, com.a.b.a.a.b.d.b.a.a.b, com.a.c.a.b, double, double, int, int) void
     private static void method_532(Graphics var0, class_57 var1, class_129 var2, double var3, double var5, int var7, int var8) {
-        double var9 = var1.method_279().method_870();
-        double var11 = var1.method_279().method_872();
+        double var9 = var1.method_279().getX();
+        double var11 = var1.method_279().getY();
         double var13 = var2.method_829();
         GraphicalRenderer.class_218 var15 = method_574(var9 - var13, var11 - var13, 0.0D, 0.0D, var3, var5, var7, var8);
         GraphicalRenderer.class_218 var16 = method_572(2.0D * var13, 2.0D * var13, var3, var5, var7, var8);
@@ -825,18 +825,18 @@ public class GraphicalRenderer implements Renderer {
     private void method_535(Graphics var1, Object var2) {
         if(var2 instanceof class_52) {
             class_52 var6 = (class_52)var2;
-            class_127 var8 = (class_127)var6.method_279().method_902();
+            class_127 var8 = (class_127)var6.method_279().getForm();
             this.method_577(var1, var8.method_823(), var8.method_824(), var8.method_825(), var8.method_826());
         } else if(var2 instanceof class_54) {
             class_54 var5 = (class_54)var2;
-            class_126 var7 = (class_126)var5.method_279().method_902();
-            this.method_583(var1, var5.method_279().method_870(), var5.method_279().method_872(), var7.method_820(), -var5.method_279().method_874() - var7.method_821(), -var7.method_822());
+            class_126 var7 = (class_126)var5.method_279().getForm();
+            this.method_583(var1, var5.method_279().getX(), var5.method_279().getY(), var7.method_820(), -var5.method_279().getAngle() - var7.method_821(), -var7.method_822());
         } else {
             if(var2 instanceof class_57) {
                 class_57 var3 = (class_57)var2;
                 if(var3.method_360() == null) {
-                    class_129 var4 = (class_129)var3.method_279().method_902();
-                    this.method_581(var1, var3.method_279().method_870(), var3.method_279().method_872(), var4.method_829());
+                    class_129 var4 = (class_129)var3.method_279().getForm();
+                    this.method_581(var1, var3.method_279().getX(), var3.method_279().getY(), var4.method_829());
                 } else {
                     this.method_535(var1, var3.method_360());
                 }
@@ -948,11 +948,11 @@ public class GraphicalRenderer implements Renderer {
     private void method_540(DecoratedWorld var1, Graphics var2, Car var3, GraphicalRenderer.class_221 var4, Integer var5) {
         Color var6 = method_591(var3.getPlayerId());
         if(var4 != null && var5 != null) {
-            var6 = class_120.method_787(var6, var5.intValue());
+            var6 = Colors.method_787(var6, var5.intValue());
         }
 
         if(var3.isFinishedTrack() || class_79.method_482(var3)) {
-            var6 = class_120.method_787(var6, var6.getAlpha() / 2);
+            var6 = Colors.method_787(var6, var6.getAlpha() / 2);
         }
 
         var2.setColor(var6);
@@ -1177,7 +1177,7 @@ public class GraphicalRenderer implements Renderer {
 
     // $FF: renamed from: a (java.awt.Graphics, com.a.b.a.a.c.n) void
     private void method_553(Graphics var1, OilSlick var2) {
-        var1.setColor(class_120.method_787(Color.BLACK, NumberUtil.toInt(255.0D * ((double)var2.getRemainingLifetime() / 600.0D))));
+        var1.setColor(Colors.method_787(Color.BLACK, NumberUtil.toInt(255.0D * ((double) var2.getRemainingLifetime() / 600.0D))));
         this.method_579(var1, var2.getX(), var2.getY(), var2.getRadius());
     }
 
@@ -1356,7 +1356,7 @@ public class GraphicalRenderer implements Renderer {
                         var14 = Color.RED;
                     }
 
-                    var14 = class_120.method_787(var14, NumberUtil.toInt(Math.round(255.0D * (1.0D - 0.75D * (double)var3.getTick() / (double)var3.getType().getDuration()))));
+                    var14 = Colors.method_787(var14, NumberUtil.toInt(Math.round(255.0D * (1.0D - 0.75D * (double) var3.getTick() / (double) var3.getType().getDuration()))));
                     var2.setColor(var14);
                     var2.drawString(var13, var12.method_855() - var2.getFontMetrics().stringWidth(var13) / 2, var12.method_856());
                 }
@@ -1472,7 +1472,7 @@ public class GraphicalRenderer implements Renderer {
                 var9 = 1.0D;
             }
 
-            var2.setColor(class_120.method_787(field_340, NumberUtil.toInt(Math.round(var9 * 255.0D))));
+            var2.setColor(Colors.method_787(field_340, NumberUtil.toInt(Math.round(var9 * 255.0D))));
             var2.setFont(new Font("Courier New", 1, this.method_570(0.0D, var7).method_856()));
             FontMetrics var11 = var2.getFontMetrics();
             GraphicalRenderer.class_218 var12 = this.method_570((1280.0D - (double)var11.stringWidth(var6)) / 2.0D, 400.0D + var7 / 4.0D);
@@ -1659,13 +1659,13 @@ public class GraphicalRenderer implements Renderer {
     private static Color method_591(long var0) {
         switch(NumberUtil.toInt(var0)) {
         case 1:
-            return class_120.method_784();
+            return Colors.method_784();
         case 2:
-            return class_120.method_783();
+            return Colors.method_783();
         case 3:
-            return class_120.method_785();
+            return Colors.method_785();
         case 4:
-            return class_120.method_786();
+            return Colors.method_786();
         default:
             throw new IllegalArgumentException("Can\'t get color for Player {id=" + var0 + "}.");
         }

@@ -7,7 +7,7 @@ import com.a.a.b.a.BodyList;
 import com.a.a.b.b.CollisionInfo;
 import com.a.a.b.d.CollisionListenerAdapter;
 import com.a.c.class_10;
-import com.a.c.class_159;
+import com.a.c.PhysicalBody;
 import com.a.c.class_162;
 import com.a.c.class_8;
 import com.a.c.class_9;
@@ -39,22 +39,22 @@ public class class_186 implements class_10 {
     }
 
     // $FF: renamed from: a (com.a.c.c) com.a.c.c
-    public class_159 method_44(class_159 var1) {
+    public PhysicalBody method_44(PhysicalBody var1) {
         this.field_790.lock();
 
-        class_159 var3;
+        PhysicalBody var3;
         try {
-            Body var2 = this.method_998(var1.method_867());
+            Body var2 = this.method_998(var1.getId());
             if(var2 == null) {
                 var2 = class_188.method_1001(var1);
                 this.world.addBody(var2);
                 this.field_791.put(Long.valueOf(var2.getId()), var2);
-                this.field_792.put(Long.valueOf(var1.method_867()), Long.valueOf(var2.getId()));
-                this.field_793.put(Long.valueOf(var2.getId()), Long.valueOf(var1.method_867()));
+                this.field_792.put(Long.valueOf(var1.getId()), Long.valueOf(var2.getId()));
+                this.field_793.put(Long.valueOf(var2.getId()), Long.valueOf(var1.getId()));
                 class_188.method_1003(var2, var1, this);
             }
 
-            var3 = this.method_1000(var1.method_867());
+            var3 = this.method_1000(var1.getId());
         } finally {
             this.field_790.unlock();
         }
@@ -63,13 +63,13 @@ public class class_186 implements class_10 {
     }
 
     // $FF: renamed from: b (com.a.c.c) void
-    public void method_45(class_159 var1) {
+    public void method_45(PhysicalBody var1) {
         this.field_790.lock();
 
         try {
-            Body var2 = this.method_998(var1.method_867());
+            Body var2 = this.method_998(var1.getId());
             if(var2 == null) {
-                throw new IllegalArgumentException("No body with ID " + var1.method_867() + '.');
+                throw new IllegalArgumentException("No body with ID " + var1.getId() + '.');
             }
 
             class_188.method_1003(var2, var1, this);
@@ -80,11 +80,11 @@ public class class_186 implements class_10 {
     }
 
     // $FF: renamed from: c (com.a.c.c) void
-    public void method_46(class_159 var1) {
+    public void method_46(PhysicalBody var1) {
         this.field_790.lock();
 
         try {
-            Body var2 = this.method_998(var1.method_867());
+            Body var2 = this.method_998(var1.getId());
             if(var2 != null) {
                 class_188.method_1003(var2, var1, this);
             }
@@ -95,26 +95,26 @@ public class class_186 implements class_10 {
     }
 
     // $FF: renamed from: d (com.a.c.c) com.a.c.c
-    public class_159 method_47(class_159 var1) {
+    public PhysicalBody method_47(PhysicalBody var1) {
         this.field_790.lock();
 
-        class_159 var5;
+        PhysicalBody var5;
         try {
-            Long var2 = this.method_996(var1.method_867());
+            Long var2 = this.method_996(var1.getId());
             Body var3;
             if(var2 == null) {
                 return null;
             }
 
             var3 = (Body)this.field_791.remove(var2);
-            class_159 var4;
+            PhysicalBody var4;
             if(var3 == null) {
                 return null;
             }
 
             var4 = class_188.method_1002(var3, this);
             this.world.removeBody(var3);
-            this.field_792.remove(var1.method_867());
+            this.field_792.remove(var1.getId());
             this.field_793.remove(var2);
             var5 = var4;
         } finally {
@@ -205,13 +205,13 @@ public class class_186 implements class_10 {
     }
 
     // $FF: renamed from: d (long) com.a.c.c
-    class_159 method_999(long var1) {
+    PhysicalBody method_999(long var1) {
         Body var3 = (Body)this.field_791.get(Long.valueOf(var1));
         return var3 == null?null:class_188.method_1002(var3, this);
     }
 
     // $FF: renamed from: e (long) com.a.c.c
-    class_159 method_1000(long var1) {
+    PhysicalBody method_1000(long var1) {
         Long var3 = this.method_996(var1);
         return var3 == null?null:this.method_999(var3.longValue());
     }
