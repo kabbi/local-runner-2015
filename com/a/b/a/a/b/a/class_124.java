@@ -1,7 +1,7 @@
 package com.a.b.a.a.b.a;
 
 import com.a.b.class_42;
-import com.a.b.a.a.c.class_148;
+import com.a.b.a.a.c.EffectType;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
@@ -14,7 +14,7 @@ public class class_124 {
     // $FF: renamed from: b long
     private final long field_526;
     // $FF: renamed from: c com.a.b.a.a.c.k
-    private final class_148 field_527;
+    private final EffectType field_527;
     // $FF: renamed from: d int
     private final int field_528;
     // $FF: renamed from: e int
@@ -30,7 +30,7 @@ public class class_124 {
     // $FF: renamed from: j java.util.Map
     private final Map field_534;
 
-    public class_124(class_148 var1, int var2, double var3, double var5, double var7) {
+    public class_124(EffectType var1, int var2, double var3, double var5, double var7) {
         this.field_526 = field_525.incrementAndGet();
         this.field_527 = var1;
         this.field_528 = var2;
@@ -40,7 +40,7 @@ public class class_124 {
         this.field_534 = new HashMap();
     }
 
-    public class_124(class_148 var1, int var2, class_42 var3) {
+    public class_124(EffectType var1, int var2, class_42 var3) {
         this.field_526 = field_525.incrementAndGet();
         this.field_527 = var1;
         this.field_528 = var2;
@@ -51,7 +51,7 @@ public class class_124 {
         this.field_534 = new HashMap();
     }
 
-    public class_124(class_148 var1, int var2, class_42 var3, Map var4) {
+    public class_124(EffectType var1, int var2, class_42 var3, Map var4) {
         this.field_526 = field_525.incrementAndGet();
         this.field_527 = var1;
         this.field_528 = var2;
@@ -68,7 +68,7 @@ public class class_124 {
     }
 
     // $FF: renamed from: b () com.a.b.a.a.c.k
-    public class_148 method_804() {
+    public EffectType method_804() {
         return this.field_527;
     }
 

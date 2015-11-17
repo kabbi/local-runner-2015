@@ -7,7 +7,7 @@ import com.a.b.a.a.a.GameProperties;
 import com.a.b.a.a.b.a.class_124;
 import com.a.b.a.a.b.d.c.class_43;
 import com.a.b.a.a.b.e.class_79;
-import com.a.b.a.a.c.class_148;
+import com.a.b.a.a.c.EffectType;
 import com.a.c.class_159;
 import com.codeforces.commons.geometry.Vector2D;
 import com.codeforces.commons.holder.Readable;
@@ -56,7 +56,7 @@ public class class_22 implements class_2 {
                         } while(class_79.method_481(var5));
                     } while(var5.method_345());
                 } while(var5.method_334() > 0);
-            } while(var5.method_342() != null && var5.method_342() + class_148.DRIFTING.getDuration() >= var2);
+            } while(var5.method_342() != null && var5.method_342() + EffectType.DRIFTING.getDuration() >= var2);
 
             class_159 var6 = var5.method_279();
             double var7 = Math.abs(var6.method_876().dotProduct((new Vector2D(1.0D, 0.0D)).rotate(var6.method_874() + 1.5707963267948966D)));
@@ -67,7 +67,7 @@ public class class_22 implements class_2 {
                 }
 
                 var5.method_343(var2);
-                var1.method_20(new class_124(class_148.DRIFTING, ((Integer)this.field_85.get()).intValue(), var4));
+                var1.method_20(new class_124(EffectType.DRIFTING, ((Integer)this.field_85.get()).intValue(), var4));
             }
         }
     }

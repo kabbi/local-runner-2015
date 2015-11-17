@@ -87,12 +87,12 @@ public class ThreadUtil {
             if(var1 < 1) {
                 throw new IllegalArgumentException("Argument \'attemptNumber\' should be positive.");
             } else {
-                switch(this.type.ordinal()) {
-                case 1:
+                switch(this.type) {
+                case CONSTANT:
                     return this.delayTimeMillis;
-                case 2:
+                case LINEAR:
                     return this.delayTimeMillis * (long)var1;
-                case 3:
+                case SQUARE:
                     return this.delayTimeMillis * (long)var1 * (long)var1;
                 default:
                     throw new IllegalArgumentException("Unknown strategy type \'" + this.type + "\'.");

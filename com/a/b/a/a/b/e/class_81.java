@@ -50,7 +50,7 @@ public final class class_81 {
     // $FF: renamed from: i boolean
     private final boolean field_308;
     // $FF: renamed from: j com.a.b.a.a.b.e.d$a
-    private final class_81.class_223 field_309;
+    private final FloatingPointSerializationStrategy field_309;
     // $FF: renamed from: k int
     private final int field_310;
     // $FF: renamed from: l int
@@ -62,7 +62,7 @@ public final class class_81 {
     // $FF: renamed from: o com.a.b.a.a.c.h
     private DecoratedWorld field_314;
 
-    public class_81(GameProperties var1, boolean var2, class_81.class_223 var3, int var4, int var5) {
+    public class_81(GameProperties var1, boolean var2, FloatingPointSerializationStrategy var3, int var4, int var5) {
         this.field_303 = new HashSet();
         this.field_304 = new HashSet();
         this.field_305 = new HashSet();
@@ -100,7 +100,7 @@ public final class class_81 {
     }
 
     public class_81(GameProperties var1) {
-        this(var1, false, class_81.class_223.field_522, 3, 3);
+        this(var1, false, FloatingPointSerializationStrategy.field_522, 3, 3);
     }
 
     // $FF: renamed from: a (com.a.b.a.a.c.h) java.lang.String
@@ -383,14 +383,14 @@ public final class class_81 {
 
     // $FF: renamed from: a (java.lang.Object, java.lang.reflect.Field, java.lang.Object, boolean, java.lang.String) void
     private void method_490(Object var1, Field var2, Object var3, boolean var4, String var5) {
-        switch(this.field_309.ordinal()) {
-        case 1:
+        switch(this.field_309) {
+        case field_521:
             this.method_492(var2, var4).append(var5);
-        case 2:
+        case field_522:
             break;
-        case 3:
+        case field_523:
             throw new IllegalArgumentException(String.format("Can\'t serialize special floating point value \'%s\' of field \'%s.%s\'.", new Object[]{var3, var1.getClass().getSimpleName(), var2.getName()}));
-        case 4:
+        case field_524:
             this.method_492(var2, var4).append("0.0");
             break;
         default:
@@ -401,14 +401,14 @@ public final class class_81 {
 
     // $FF: renamed from: a (java.lang.reflect.Field, java.lang.Object, java.lang.String) void
     private void method_491(Field var1, Object var2, String var3) {
-        switch(this.field_309.ordinal()) {
-        case 1:
+        switch(this.field_309) {
+        case field_521:
             this.field_306.append(var3);
             break;
-        case 2:
-        case 3:
+        case field_522:
+        case field_523:
             throw new IllegalArgumentException(String.format("Can\'t serialize special floating point value \'%s\' of item of array/collection field \'%s.%s\'.", new Object[]{var2, var1.getDeclaringClass().getSimpleName(), var1.getName()}));
-        case 4:
+        case field_524:
             this.field_306.append("0.0");
             break;
         default:
@@ -519,7 +519,7 @@ public final class class_81 {
         return var2;
     }
 
-    public enum class_223 {
+    public enum FloatingPointSerializationStrategy {
         // $FF: renamed from: a com.a.b.a.a.b.e.d$a
         field_521,
         // $FF: renamed from: b com.a.b.a.a.b.e.d$a

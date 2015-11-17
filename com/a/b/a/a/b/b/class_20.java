@@ -5,7 +5,7 @@ import com.a.b.class_3;
 import com.a.b.class_42;
 import com.a.b.a.a.b.a.class_124;
 import com.a.b.a.a.b.d.c.class_43;
-import com.a.b.a.a.c.class_148;
+import com.a.b.a.a.c.EffectType;
 import com.codeforces.commons.math.Math;
 import com.codeforces.commons.math.NumberUtil;
 import java.util.HashMap;
@@ -34,7 +34,7 @@ public class class_20 implements class_2 {
                         if(var8 != 0) {
                             HashMap var9 = new HashMap();
                             var9.put("durabilityPercentsChange", var8);
-                            var1.method_20(new class_124(class_148.CAR_CONDITION_CHANGE, var2, var6, var9));
+                            var1.method_20(new class_124(EffectType.CAR_CONDITION_CHANGE, var2, var6, var9));
                         }
                     }
                 }

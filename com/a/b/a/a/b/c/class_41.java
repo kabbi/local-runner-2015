@@ -11,20 +11,20 @@ public class class_41 extends class_34 {
     public void afterCollision(class_58 var1) {
         class_43 var2 = (class_43)var1.method_362();
         class_47 var3 = (class_47)var1.method_363();
-        switch(var3.method_349().ordinal()) {
-        case 1:
+        switch(var3.method_349()) {
+        case REPAIR_KIT:
             var2.method_301(Math.min(1.0D, var2.method_300() + 1.0D));
             break;
-        case 2:
+        case AMMO_CRATE:
             var2.method_317(var2.method_316() + 1);
             break;
-        case 3:
+        case NITRO_BOOST:
             var2.method_319(var2.method_318() + 1);
             break;
-        case 4:
+        case OIL_CANISTER:
             var2.method_321(var2.method_320() + 1);
             break;
-        case 5:
+        case PURE_SCORE:
             var2.method_297().method_929(100);
             break;
         default:

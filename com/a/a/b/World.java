@@ -84,8 +84,8 @@ public class World {
         this(iterationCountPerStep, stepCountPerTimeUnit, epsilon, new SimpleBodyList());
     }
 
-    public World(int iterationCountPerStep, int stepCountPerTimeUnit, double var3, BodyList var5) {
-        this(iterationCountPerStep, stepCountPerTimeUnit, var3, var5, null);
+    public World(int iterationCountPerStep, int stepCountPerTimeUnit, double epsilon, BodyList bodyList) {
+        this(iterationCountPerStep, stepCountPerTimeUnit, epsilon, bodyList, null);
     }
 
     public World(int iterationCountPerStep, int stepCountPerTimeUnit,

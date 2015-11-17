@@ -44,7 +44,7 @@ import com.a.b.a.a.c.Car;
 import com.a.b.a.a.c.World;
 import com.a.b.a.a.c.DecoratedWorld;
 import com.a.b.a.a.c.TileType;
-import com.a.b.a.a.c.class_143;
+import com.a.b.a.a.c.CarType;
 import com.a.b.a.a.c.BonusType;
 import com.a.b.a.a.c.Move;
 import com.a.b.a.a.c.Game;
@@ -647,13 +647,13 @@ public class GameSimulatorImpl implements GameSimulator {
             if(var2.isThrowProjectile() && var1.method_322() == 0 && var1.method_316() > 0) {
                 var3 = var1.method_279();
                 var4 = new Point2D(var3.method_870(), var3.method_872());
-                switch(var1.method_299().ordinal()) {
-                case 1:
+                switch(var1.method_299()) {
+                case BUGGY:
                     this.field_721.method_17(new class_49(var1, var1.method_297(), this.tick, var4.copy(), var3.method_874()));
                     this.field_721.method_17(new class_49(var1, var1.method_297(), this.tick, var4.copy(), var3.method_874() + 0.03490658503988659D));
                     this.field_721.method_17(new class_49(var1, var1.method_297(), this.tick, var4.copy(), var3.method_874() - 0.03490658503988659D));
                     break;
-                case 2:
+                case JEEP:
                     this.field_721.method_17(new class_50(var1, var1.method_297(), this.tick, var4.copy(), var3.method_874()));
                     break;
                 default:
@@ -802,62 +802,62 @@ public class GameSimulatorImpl implements GameSimulator {
                 double var11 = var7 + 800.0D;
                 double var13 = (var5 + var9) / 2.0D;
                 double var15 = (var7 + var11) / 2.0D;
-                switch(var4.ordinal()) {
-                case 1:
+                switch(var4) {
+                case EMPTY:
                     break;
-                case 2:
+                case VERTICAL:
                     this.field_721.method_17(new class_53(var5 + 80.0D, var7, var5 + 80.0D, var11));
                     this.field_721.method_17(new class_53(var9 - 80.0D, var7, var9 - 80.0D, var11));
                     break;
-                case 3:
+                case HORIZONTAL:
                     this.field_721.method_17(new class_53(var5, var7 + 80.0D, var9, var7 + 80.0D));
                     this.field_721.method_17(new class_53(var5, var11 - 80.0D, var9, var11 - 80.0D));
                     break;
-                case 4:
+                case LEFT_TOP_CORNER:
                     this.field_721.method_17(new class_53(var5 + 80.0D, var7 + 160.0D, var5 + 80.0D, var11));
                     this.field_721.method_17(new class_53(var5 + 160.0D, var7 + 80.0D, var9, var7 + 80.0D));
                     this.field_721.method_17(new class_55(var5 + 160.0D, var7 + 160.0D, 3.141592653589793D, 1.5707963267948966D));
                     this.field_721.method_17(new class_57(var9, var11, 3.141592653589793D, 1.5707963267948966D));
                     break;
-                case 5:
+                case RIGHT_TOP_CORNER:
                     this.field_721.method_17(new class_53(var9 - 80.0D, var7 + 160.0D, var9 - 80.0D, var11));
                     this.field_721.method_17(new class_53(var5, var7 + 80.0D, var9 - 160.0D, var7 + 80.0D));
                     this.field_721.method_17(new class_55(var9 - 160.0D, var7 + 160.0D, -1.5707963267948966D, 1.5707963267948966D));
                     this.field_721.method_17(new class_57(var5, var11, -1.5707963267948966D, 1.5707963267948966D));
                     break;
-                case 6:
+                case LEFT_BOTTOM_CORNER:
                     this.field_721.method_17(new class_53(var5 + 80.0D, var7, var5 + 80.0D, var11 - 160.0D));
                     this.field_721.method_17(new class_53(var5 + 160.0D, var11 - 80.0D, var9, var11 - 80.0D));
                     this.field_721.method_17(new class_55(var5 + 160.0D, var11 - 160.0D, 1.5707963267948966D, 1.5707963267948966D));
                     this.field_721.method_17(new class_57(var9, var7, 1.5707963267948966D, 1.5707963267948966D));
                     break;
-                case 7:
+                case RIGHT_BOTTOM_CORNER:
                     this.field_721.method_17(new class_53(var9 - 80.0D, var7, var9 - 80.0D, var11 - 160.0D));
                     this.field_721.method_17(new class_53(var5, var11 - 80.0D, var9 - 160.0D, var11 - 80.0D));
                     this.field_721.method_17(new class_55(var9 - 160.0D, var11 - 160.0D, 0.0D, 1.5707963267948966D));
                     this.field_721.method_17(new class_57(var5, var7, 0.0D, 1.5707963267948966D));
                     break;
-                case 8:
+                case LEFT_HEADED_T:
                     this.field_721.method_17(new class_53(var9 - 80.0D, var7, var9 - 80.0D, var11));
                     this.field_721.method_17(new class_57(var5, var7, 0.0D, 1.5707963267948966D));
                     this.field_721.method_17(new class_57(var5, var11, -1.5707963267948966D, 1.5707963267948966D));
                     break;
-                case 9:
+                case RIGHT_HEADED_T:
                     this.field_721.method_17(new class_53(var5 + 80.0D, var7, var5 + 80.0D, var11));
                     this.field_721.method_17(new class_57(var9, var7, 1.5707963267948966D, 1.5707963267948966D));
                     this.field_721.method_17(new class_57(var9, var11, 3.141592653589793D, 1.5707963267948966D));
                     break;
-                case 10:
+                case TOP_HEADED_T:
                     this.field_721.method_17(new class_53(var5, var11 - 80.0D, var9, var11 - 80.0D));
                     this.field_721.method_17(new class_57(var5, var7, 0.0D, 1.5707963267948966D));
                     this.field_721.method_17(new class_57(var9, var7, 1.5707963267948966D, 1.5707963267948966D));
                     break;
-                case 11:
+                case BOTTOM_HEADED_T:
                     this.field_721.method_17(new class_53(var5, var7 + 80.0D, var9, var7 + 80.0D));
                     this.field_721.method_17(new class_57(var5, var11, -1.5707963267948966D, 1.5707963267948966D));
                     this.field_721.method_17(new class_57(var9, var11, 3.141592653589793D, 1.5707963267948966D));
                     break;
-                case 12:
+                case CROSSROADS:
                     this.field_721.method_17(new class_57(var5, var7, 0.0D, 1.5707963267948966D));
                     this.field_721.method_17(new class_57(var5, var11, -1.5707963267948966D, 1.5707963267948966D));
                     this.field_721.method_17(new class_57(var9, var7, 1.5707963267948966D, 1.5707963267948966D));
@@ -958,7 +958,7 @@ public class GameSimulatorImpl implements GameSimulator {
             Entry var4 = (Entry)var3.next();
             class_171 var5 = (class_171)var4.getKey();
             int var6 = this.gameProperties.getTeamSizeForPlayer(var2);
-            class_143[] var7 = method_963(var6, this.gameProperties.shouldSwapCarTypes());
+            CarType[] var7 = method_963(var6, this.gameProperties.shouldSwapCarTypes());
             if(var7 == null || var7.length != var6) {
                 throw new RuntimeException(String.format("Got %d car types, while %d expected.", ArrayUtils.getLength(var7), var6));
             }
@@ -967,11 +967,11 @@ public class GameSimulatorImpl implements GameSimulator {
                 Point2D var9 = class_79.method_477(this.field_723, var2, var1, var6, var8);
                 double var10 = class_79.method_478(this.field_723, var2, var1, var6, var8);
                 Object var12;
-                switch(var7[var8].ordinal()) {
-                case 1:
+                switch(var7[var8]) {
+                case BUGGY:
                     var12 = new class_45(var5, var8, var9.getX(), var9.getY(), var10, this.field_723.method_414()[1]);
                     break;
-                case 2:
+                case JEEP:
                     var12 = new class_44(var5, var8, var9.getX(), var9.getY(), var10, this.field_723.method_414()[1]);
                     break;
                 default:
@@ -1117,12 +1117,12 @@ public class GameSimulatorImpl implements GameSimulator {
     }
 
     // $FF: renamed from: a (int, boolean) com.a.b.a.a.c.d[]
-    private static class_143[] method_963(int var0, boolean var1) {
+    private static CarType[] method_963(int var0, boolean var1) {
         switch(var0) {
         case 1:
-            return new class_143[]{var1?class_143.JEEP:class_143.BUGGY};
+            return new CarType[]{var1? CarType.JEEP: CarType.BUGGY};
         case 2:
-            return var1?new class_143[]{class_143.JEEP, class_143.BUGGY}:new class_143[]{class_143.BUGGY, class_143.JEEP};
+            return var1?new CarType[]{CarType.JEEP, CarType.BUGGY}:new CarType[]{CarType.BUGGY, CarType.JEEP};
         default:
             throw new IllegalArgumentException("Unsupported team size: " + var0 + '.');
         }

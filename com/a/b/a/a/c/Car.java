@@ -12,7 +12,7 @@ public class Car extends RectangularUnit {
     @Until(1.0D)
     private final boolean teammate;
     @Until(1.0D)
-    private final class_143 type;
+    private final CarType type;
     private final int projectileCount;
     private final int nitroChargeCount;
     private final int oilCanisterCount;
@@ -28,7 +28,7 @@ public class Car extends RectangularUnit {
     private final int nextWaypointY;
     private final boolean finishedTrack;
 
-    public Car(@Name("id") long var1, @Name("mass") double var3, @Name("x") double var5, @Name("y") double var7, @Name("speedX") double var9, @Name("speedY") double var11, @Name("angle") double var13, @Name("angularSpeed") double var15, @Name("width") double var17, @Name("height") double var19, @Name("playerId") long var21, @Name("teammateIndex") int var23, @Name("teammate") boolean var24, @Name("type") class_143 var25, @Name("projectileCount") int var26, @Name("nitroChargeCount") int var27, @Name("oilCanisterCount") int var28, @Name("remainingProjectileCooldownTicks") int var29, @Name("remainingNitroCooldownTicks") int var30, @Name("remainingOilCooldownTicks") int var31, @Name("remainingNitroTicks") int var32, @Name("remainingOiledTicks") int var33, @Name("durability") double var34, @Name("enginePower") double var36, @Name("wheelTurn") double var38, @Name("nextWaypointX") int var40, @Name("nextWaypointY") int var41, @Name("finishedTrack") boolean var42) {
+    public Car(@Name("id") long var1, @Name("mass") double var3, @Name("x") double var5, @Name("y") double var7, @Name("speedX") double var9, @Name("speedY") double var11, @Name("angle") double var13, @Name("angularSpeed") double var15, @Name("width") double var17, @Name("height") double var19, @Name("playerId") long var21, @Name("teammateIndex") int var23, @Name("teammate") boolean var24, @Name("type") CarType var25, @Name("projectileCount") int var26, @Name("nitroChargeCount") int var27, @Name("oilCanisterCount") int var28, @Name("remainingProjectileCooldownTicks") int var29, @Name("remainingNitroCooldownTicks") int var30, @Name("remainingOilCooldownTicks") int var31, @Name("remainingNitroTicks") int var32, @Name("remainingOiledTicks") int var33, @Name("durability") double var34, @Name("enginePower") double var36, @Name("wheelTurn") double var38, @Name("nextWaypointX") int var40, @Name("nextWaypointY") int var41, @Name("finishedTrack") boolean var42) {
         super(var1, var3, var5, var7, var9, var11, var13, var15, var17, var19);
         this.playerId = var21;
         this.teammateIndex = var23;
@@ -62,7 +62,7 @@ public class Car extends RectangularUnit {
         return this.teammate;
     }
 
-    public class_143 getType() {
+    public CarType getType() {
         return this.type;
     }
 

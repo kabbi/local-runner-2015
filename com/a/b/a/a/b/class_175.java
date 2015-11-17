@@ -131,7 +131,7 @@ public class class_175 implements class_3 {
         try {
             var4 = var3.getClass().getMethod("beforeCollision", class_3.class, class_42.class, class_42.class);
         } catch (NoSuchMethodException var10) {
-            throw new IllegalArgumentException(String.format("Listener %s doesn\'t implement beforeCollision(...) method.", new Object[]{var3.getClass().getSimpleName()}), var10);
+            throw new IllegalArgumentException(String.format("Listener %s doesn\'t implement beforeCollision(...) method.", var3.getClass().getSimpleName()), var10);
         }
 
         final Method var5;

@@ -2,7 +2,7 @@ package com.a.b.a.a.b.d.c;
 
 import com.a.b.class_42;
 import com.a.b.a.a.b.class_171;
-import com.a.b.a.a.c.class_143;
+import com.a.b.a.a.c.CarType;
 import com.a.c.a.class_128;
 import com.codeforces.commons.math.Math;
 import com.codeforces.commons.pair.IntPair;
@@ -18,7 +18,7 @@ public abstract class class_43 extends class_42 {
     private final int field_158;
     // $FF: renamed from: c com.a.b.a.a.c.d
     @Name("type")
-    private final class_143 field_159;
+    private final CarType field_159;
     // $FF: renamed from: d double
     private double field_160;
     // $FF: renamed from: e java.lang.Integer
@@ -62,7 +62,7 @@ public abstract class class_43 extends class_42 {
     // $FF: renamed from: x java.lang.Integer
     private Integer field_180;
 
-    protected class_43(class_171 var1, int var2, class_143 var3, double var4, double var6, double var8, double var10, double var12, double var14, IntPair var16) {
+    protected class_43(class_171 var1, int var2, CarType var3, double var4, double var6, double var8, double var10, double var12, double var14, IntPair var16) {
         super(new class_128(210.0D, 140.0D));
         if(!Double.isNaN(var10) && !Double.isInfinite(var10) && var10 > 0.0D) {
             this.field_157 = var1;
@@ -105,7 +105,7 @@ public abstract class class_43 extends class_42 {
     }
 
     // $FF: renamed from: m () com.a.b.a.a.c.d
-    public class_143 method_299() {
+    public CarType method_299() {
         return this.field_159;
     }
 

@@ -13,8 +13,8 @@ import com.google.inject.AbstractModule;
 public final class GameModule extends AbstractModule {
     protected void configure() {
         this.bind(GameSimulator.class).toInstance(new GameSimulatorImpl());
-        CellSpaceBodyList var1 = new CellSpaceBodyList(100.0D, 1000.0D);
-        this.bind(class_10.class).toInstance(new class_186(10, 1, 1.0E-7D, var1));
+        CellSpaceBodyList fastBodyList = new CellSpaceBodyList(100.0D, 1000.0D);
+        this.bind(class_10.class).toInstance(new class_186(10, 1, 1.0E-7D, fastBodyList));
         this.bind(class_3.class).toInstance(new class_175(false));
     }
 }

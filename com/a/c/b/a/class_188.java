@@ -185,19 +185,19 @@ class class_188 {
         if(var0 == null) {
             return null;
         } else {
-            switch(var0.getShape().ordinal()) {
-            case 1:
+            switch(var0.getShape()) {
+            case CIRCLE:
                 CircularForm var7 = (CircularForm)var0;
                 return new class_129(var7.getRadius());
-            case 2:
+            case RECTANGLE:
                 RectangularForm var8 = (RectangularForm)var0;
                 return new class_128(var8.getWidth(), var8.getHeight());
-            case 3:
+            case LINE:
                 LinearForm var9 = (LinearForm)var0;
                 class_127 var11 = new class_127(var9.getPoint1(var1, var2, var4), var9.getPoint2(var1, var2, var4));
                 var11.method_817(var9.isEndpointCollisionEnabled());
                 return var11;
-            case 4:
+            case ARC:
                 ArcForm var10 = (ArcForm)var0;
                 class_126 var6 = new class_126(var10.getRadius(), var10.getAngle(), var10.getSector());
                 var6.method_817(var10.isEndpointCollisionEnabled());

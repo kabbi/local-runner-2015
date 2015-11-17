@@ -28,14 +28,14 @@ public class class_186 implements class_10 {
     // $FF: renamed from: d java.util.Map
     private final Map field_793 = new HashMap();
     // $FF: renamed from: e com.a.a.b.g
-    private final World field_794;
+    private final World world;
 
     public class_186() {
-        this.field_794 = new World();
+        this.world = new World();
     }
 
-    public class_186(int var1, int var2, double var3, BodyList var5) {
-        this.field_794 = new World(var1, var2, var3, var5);
+    public class_186(int var1, int var2, double epsilon, BodyList bodyList) {
+        this.world = new World(var1, var2, epsilon, bodyList);
     }
 
     // $FF: renamed from: a (com.a.c.c) com.a.c.c
@@ -47,7 +47,7 @@ public class class_186 implements class_10 {
             Body var2 = this.method_998(var1.method_867());
             if(var2 == null) {
                 var2 = class_188.method_1001(var1);
-                this.field_794.addBody(var2);
+                this.world.addBody(var2);
                 this.field_791.put(Long.valueOf(var2.getId()), var2);
                 this.field_792.put(Long.valueOf(var1.method_867()), Long.valueOf(var2.getId()));
                 this.field_793.put(Long.valueOf(var2.getId()), Long.valueOf(var1.method_867()));
@@ -113,7 +113,7 @@ public class class_186 implements class_10 {
             }
 
             var4 = class_188.method_1002(var3, this);
-            this.field_794.removeBody(var3);
+            this.world.removeBody(var3);
             this.field_792.remove(var1.method_867());
             this.field_793.remove(var2);
             var5 = var4;
@@ -129,7 +129,7 @@ public class class_186 implements class_10 {
         this.field_790.lock();
 
         try {
-            this.field_794.proceed();
+            this.world.proceed();
         } finally {
             this.field_790.unlock();
         }
@@ -144,11 +144,11 @@ public class class_186 implements class_10 {
             String var2;
             do {
                 var2 = RandomUtils.randomHexString();
-            } while(this.field_794.hasCollisionListener(var2));
+            } while(this.world.hasCollisionListener(var2));
 
             if(var1 instanceof class_9) {
                 final class_9 var3 = (class_9)var1;
-                this.field_794.registerCollisionListener(new CollisionListenerAdapter() {
+                this.world.registerCollisionListener(new CollisionListenerAdapter() {
                     // $FF: renamed from: a (com.a.a.b.a, com.a.a.b.a) boolean
                     public boolean beforeStartingCollision(Body bodyA, Body bodyB) {
                         return var3.method_42(class_186.this.method_999(bodyA.getId()), class_186.this.method_999(bodyB.getId()));
@@ -165,7 +165,7 @@ public class class_186 implements class_10 {
                     }
                 }, var2);
             } else {
-                this.field_794.registerCollisionListener(new CollisionListenerAdapter() {
+                this.world.registerCollisionListener(new CollisionListenerAdapter() {
                     // $FF: renamed from: b (com.a.a.b.b.f) void
                     public void afterResolvingCollision(CollisionInfo collisionInfo) {
                         var1.method_41(new class_162(class_186.this.method_999(collisionInfo.getBodyA().getId()), class_186.this.method_999(collisionInfo.getBodyB().getId()), collisionInfo.getPoint().copy(), collisionInfo.getNormalB().copy()));
@@ -180,12 +180,12 @@ public class class_186 implements class_10 {
 
     // $FF: renamed from: b () int
     public int method_50() {
-        return this.field_794.getStepCountPerTimeUnit();
+        return this.world.getStepCountPerTimeUnit();
     }
 
     // $FF: renamed from: c () com.a.a.b.g
     World method_995() {
-        return this.field_794;
+        return this.world;
     }
 
     // $FF: renamed from: a (long) java.lang.Long

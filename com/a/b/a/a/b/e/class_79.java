@@ -51,15 +51,15 @@ public final class class_79 {
         double var11 = (140.0D + var7) * (double)(var4 * var2 + var1);
         Preconditions.checkNotNull(var6.getFirst());
         Preconditions.checkNotNull(var6.getSecond());
-        switch(var5.ordinal()) {
-        case 1:
-            return new Point2D(800.0D * ((double) (Integer) var6.getFirst() + 0.5D), 800.0D * (double)((Integer) var6.getSecond() + 1) - var9 - var11);
-        case 2:
+        switch(var5) {
+        case LEFT:
+            return new Point2D(800.0D * ((double) (Integer) var6.getFirst() + 0.5D), 800.0D * (double)(var6.getSecond() + 1) - var9 - var11);
+        case RIGHT:
             return new Point2D(800.0D * ((double) (Integer) var6.getFirst() + 0.5D), 800.0D * (double) (Integer) var6.getSecond() + var9 + var11);
-        case 3:
+        case UP:
             return new Point2D(800.0D * (double) (Integer) var6.getFirst() + var9 + var11, 800.0D * ((double) (Integer) var6.getSecond() + 0.5D));
-        case 4:
-            return new Point2D(800.0D * (double)((Integer) var6.getFirst() + 1) - var9 - var11, 800.0D * ((double) (Integer) var6.getSecond() + 0.5D));
+        case DOWN:
+            return new Point2D(800.0D * (double)(var6.getFirst() + 1) - var9 - var11, 800.0D * ((double) (Integer) var6.getSecond() + 0.5D));
         default:
             throw new IllegalArgumentException("Unsupported starting direction: " + var0.getStartingDirection() + '.');
         }
@@ -68,14 +68,14 @@ public final class class_79 {
     // $FF: renamed from: b (com.a.b.a.a.b.e.i$a, int, int, int, int) double
     public static double method_478(MapUtils.Map var0, int var1, int var2, int var3, int var4) {
         method_484(var1, var2, var3, var4);
-        switch(var0.getStartingDirection().ordinal()) {
-        case 1:
+        switch(var0.getStartingDirection()) {
+        case LEFT:
             return 3.141592653589793D;
-        case 2:
+        case RIGHT:
             return 0.0D;
-        case 3:
+        case UP:
             return -1.5707963267948966D;
-        case 4:
+        case DOWN:
             return 1.5707963267948966D;
         default:
             throw new IllegalArgumentException("Unsupported starting direction: " + var0.getStartingDirection() + '.');

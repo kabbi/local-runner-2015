@@ -412,13 +412,13 @@ public final class MapUtils {
         } else {
             IntPair var9 = var3[0];
             TileType var7 = var2[var9.getFirst()][var9.getSecond()];
-            switch(var7.ordinal()) {
-            case 1:
+            switch(var7) {
+            case VERTICAL:
                 if(var5 != Direction.UP && var5 != Direction.DOWN) {
                     throw new IllegalArgumentException(String.format("Starting direction should be either UP or DOWN for VERTICAL waypoint, but got %s.", new Object[]{var5}));
                 }
                 break;
-            case 2:
+            case HORIZONTAL:
                 if(var5 != Direction.LEFT && var5 != Direction.RIGHT) {
                     throw new IllegalArgumentException(String.format("Starting direction should be either LEFT or RIGHT for HORIZONTAL waypoint, but got %s.", new Object[]{var5}));
                 }

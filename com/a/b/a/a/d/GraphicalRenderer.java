@@ -960,11 +960,11 @@ public class GraphicalRenderer implements Renderer {
         double var8 = var4 == null?var3.getAngle():var4.method_854();
         this.method_585(var2, class_85.method_501(var7, new Vector2D(var3.getWidth(), var3.getHeight()), var8));
         Vector2D var10 = (new Vector2D(1.0D, 0.0D)).rotate(var8);
-        switch(var3.getType().ordinal()) {
-        case 1:
+        switch(var3.getType()) {
+        case BUGGY:
             this.method_585(var2, class_85.method_501(var7.copy().add(var10.copy().multiply(-0.15D * var3.getWidth())), new Vector2D(0.5D * var3.getWidth(), 0.5D * var3.getHeight()), var8));
             break;
-        case 2:
+        case JEEP:
             this.method_585(var2, class_85.method_501(var7.copy().add(var10.copy().multiply(-0.3D * var3.getWidth())), new Vector2D(0.2D * var3.getWidth(), 0.8D * var3.getHeight()), var8));
             this.method_585(var2, class_85.method_501(var7.copy().add(var10.copy().multiply(-0.0D * var3.getWidth())), new Vector2D(0.2D * var3.getWidth(), 0.8D * var3.getHeight()), var8));
             break;
@@ -1197,20 +1197,20 @@ public class GraphicalRenderer implements Renderer {
 
     // $FF: renamed from: a (java.awt.Graphics, com.a.b.a.a.c.a) void
     private void method_555(Graphics var1, Bonus var2) {
-        switch(var2.getType().ordinal()) {
-        case 1:
+        switch(var2.getType()) {
+        case REPAIR_KIT:
             this.method_556(var1, var2);
             break;
-        case 2:
+        case AMMO_CRATE:
             this.method_557(var1, var2);
             break;
-        case 3:
+        case NITRO_BOOST:
             this.method_558(var1, var2);
             break;
-        case 4:
+        case OIL_CANISTER:
             this.method_559(var1, var2);
             break;
-        case 5:
+        case PURE_SCORE:
             this.method_560(var1, var2);
             break;
         default:
@@ -1315,14 +1315,14 @@ public class GraphicalRenderer implements Renderer {
 
         while(var7 < var6) {
             class_151 var8 = var5[var7];
-            switch(var8.getType().ordinal()) {
-            case 6:
+            switch(var8.getType()) {
+            case CAR_CONDITION_CHANGE:
                 this.method_564(var1, var2, var8);
-            case 1:
-            case 2:
-            case 3:
-            case 4:
-            case 5:
+            case CAR_AND_BORDER_IMPACT:
+            case CAR_AND_CAR_IMPACT:
+            case CAR_AND_WASHER_IMPACT:
+            case CAR_AND_TIRE_IMPACT:
+            case DRIFTING:
                 ++var7;
                 break;
             default:

@@ -8,7 +8,7 @@ import com.a.b.a.a.b.a.class_124;
 import com.a.b.a.a.b.d.c.class_43;
 import com.a.b.a.a.b.d.e.class_48;
 import com.a.b.a.a.b.e.class_79;
-import com.a.b.a.a.c.class_148;
+import com.a.b.a.a.c.EffectType;
 import com.codeforces.commons.holder.Readable;
 import com.codeforces.commons.math.Math;
 import com.codeforces.commons.math.NumberUtil;
@@ -36,13 +36,13 @@ public class class_36 extends class_34 {
 
     public void afterCollision(class_58 var1) {
         class_48 var2 = (class_48)var1.method_362();
-        switch(var2.method_354().ordinal()) {
-        case 1:
-            var1.method_361().method_20(new class_124(class_148.CAR_AND_WASHER_IMPACT, ((Integer)this.field_143.get()).intValue(), var1.method_364().getX(), var1.method_364().getY(), var1.method_365().copyNegate().getAngle()));
+        switch(var2.method_354()) {
+        case WASHER:
+            var1.method_361().method_20(new class_124(EffectType.CAR_AND_WASHER_IMPACT, ((Integer)this.field_143.get()).intValue(), var1.method_364().getX(), var1.method_364().getY(), var1.method_365().copyNegate().getAngle()));
             var1.method_361().method_18(var2);
             break;
-        case 2:
-            var1.method_361().method_20(new class_124(class_148.CAR_AND_TIRE_IMPACT, ((Integer)this.field_143.get()).intValue(), var1.method_364().getX(), var1.method_364().getY(), var1.method_365().copyNegate().getAngle()));
+        case TIRE:
+            var1.method_361().method_20(new class_124(EffectType.CAR_AND_TIRE_IMPACT, ((Integer)this.field_143.get()).intValue(), var1.method_364().getX(), var1.method_364().getY(), var1.method_365().copyNegate().getAngle()));
             if(var2.method_279().method_876().getSquaredLength() <= Math.sqr(15.0D) || NumberUtil.equals((Integer)this.field_143.get(), var2.method_355())) {
                 var1.method_361().method_18(var2);
             }

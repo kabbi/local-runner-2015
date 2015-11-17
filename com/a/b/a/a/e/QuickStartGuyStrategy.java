@@ -15,20 +15,20 @@ public class QuickStartGuyStrategy implements Strategy {
 
         double cornerTileOffset = 0.25D * game.getTrackTileSize();
 
-        switch(world.getTilesXY()[self.getNextWaypointX()][self.getNextWaypointY()].ordinal()) {
-        case 1:
+        switch(world.getTilesXY()[self.getNextWaypointX()][self.getNextWaypointY()]) {
+        case LEFT_TOP_CORNER:
             nextWaypointX += cornerTileOffset;
             nextWaypointY += cornerTileOffset;
             break;
-        case 2:
+        case RIGHT_TOP_CORNER:
             nextWaypointX -= cornerTileOffset;
             nextWaypointY += cornerTileOffset;
             break;
-        case 3:
+        case LEFT_BOTTOM_CORNER:
             nextWaypointX += cornerTileOffset;
             nextWaypointY -= cornerTileOffset;
             break;
-        case 4:
+        case RIGHT_BOTTOM_CORNER:
             nextWaypointX -= cornerTileOffset;
             nextWaypointY -= cornerTileOffset;
         }

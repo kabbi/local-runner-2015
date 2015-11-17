@@ -15,7 +15,7 @@ public abstract class class_42 {
     private static final AtomicLong field_146 = new AtomicLong();
     // $FF: renamed from: b long
     @Name("id")
-    private final long field_147;
+    private final long id;
     // $FF: renamed from: c com.a.c.c
     @Name("body")
     private class_159 field_148;
@@ -37,15 +37,15 @@ public abstract class class_42 {
     private Vector2D field_156 = new Vector2D(0.0D, 0.0D);
 
     protected class_42(class_125 var1) {
-        this.field_147 = field_146.incrementAndGet();
-        this.field_148 = new class_161(this.field_147);
-        this.field_148.method_869(this.getClass().getSimpleName() + '#' + this.field_147);
+        this.id = field_146.incrementAndGet();
+        this.field_148 = new class_161(this.id);
+        this.field_148.method_869(this.getClass().getSimpleName() + '#' + this.id);
         this.field_148.method_903(var1);
     }
 
     // $FF: renamed from: a () long
     public final long method_278() {
-        return this.field_147;
+        return this.id;
     }
 
     // $FF: renamed from: b () com.a.c.c
@@ -149,11 +149,11 @@ public abstract class class_42 {
     }
 
     public final boolean equals(Object var1) {
-        return this == var1 || var1 != null && this.getClass() == var1.getClass() && this.field_147 == ((class_42)var1).field_147;
+        return this == var1 || var1 != null && this.getClass() == var1.getClass() && this.id == ((class_42)var1).id;
     }
 
     public final int hashCode() {
-        return (int)(this.field_147 ^ this.field_147 >>> 32);
+        return (int)(this.id ^ this.id >>> 32);
     }
 
     public String toString() {

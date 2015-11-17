@@ -1,6 +1,5 @@
 package com.a.b.a.a.c;
 
-import com.a.b.a.a.c.class_148;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
@@ -9,7 +8,7 @@ import java.util.Map;
 public final class class_151 {
     // $FF: renamed from: id long
     private final long field_586;
-    private final class_148 type;
+    private final EffectType type;
     private final int tick;
     private final Long affectedUnitId;
     // $FF: renamed from: x java.lang.Double
@@ -19,7 +18,7 @@ public final class class_151 {
     private final Double angle;
     private final Map attributes;
 
-    public class_151(long var1, class_148 var3, int var4, Long var5, Double var6, Double var7, Double var8) {
+    public class_151(long var1, EffectType var3, int var4, Long var5, Double var6, Double var7, Double var8) {
         this.field_586 = var1;
         this.type = var3;
         this.tick = var4;
@@ -30,7 +29,7 @@ public final class class_151 {
         this.attributes = null;
     }
 
-    public class_151(long var1, class_148 var3, int var4, Long var5, Double var6, Double var7, Double var8, Map var9) {
+    public class_151(long var1, EffectType var3, int var4, Long var5, Double var6, Double var7, Double var8, Map var9) {
         this.field_586 = var1;
         this.type = var3;
         this.tick = var4;
@@ -45,7 +44,7 @@ public final class class_151 {
         return this.field_586;
     }
 
-    public class_148 getType() {
+    public EffectType getType() {
         return this.type;
     }
 
