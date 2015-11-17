@@ -14,9 +14,9 @@ import org.slf4j.LoggerFactory;
 // $FF: renamed from: com.a.b.a.a.e.a.a
 public class class_181 implements StrategyAdapter {
     // $FF: renamed from: a org.slf4j.Logger
-    private static final Logger field_765 = LoggerFactory.getLogger(class_181.class);
+    private static final Logger logger = LoggerFactory.getLogger(class_181.class);
     // $FF: renamed from: b java.lang.String
-    private static final String field_766 = class_181.class.getPackage().getName();
+    private static final String BASE_STRATEGY_PACKAGE = Strategy.class.getPackage().getName();
     // $FF: renamed from: c com.a.b.a.a.e.d[]
     private final Strategy[] field_767;
     // $FF: renamed from: d int
@@ -30,7 +30,7 @@ public class class_181 implements StrategyAdapter {
         } else {
             var1 = var1.substring(0, var1.length() - ".class".length());
             if(var1.indexOf(46) == -1) {
-                var1 = field_766 + '.' + var1;
+                var1 = BASE_STRATEGY_PACKAGE + '.' + var1;
             }
 
             Constructor var3;
@@ -39,11 +39,11 @@ public class class_181 implements StrategyAdapter {
                 var3 = Class.forName(var1).getConstructor();
             } catch (ClassNotFoundException var8) {
                 var5 = String.format("Class \'%s\' does not exist.", var1);
-                field_765.error(var5, var8);
+                logger.error(var5, var8);
                 throw new IllegalArgumentException(var5, var8);
             } catch (NoSuchMethodException var9) {
                 var5 = String.format("Class \'%s\' hasn\'t default constructor.", var1);
-                field_765.error(var5, var9);
+                logger.error(var5, var9);
                 throw new IllegalArgumentException(var5, var9);
             }
 
@@ -56,11 +56,11 @@ public class class_181 implements StrategyAdapter {
                     if(var6 instanceof Strategy) {
                         var10 = (Strategy)var6;
                     } else {
-                        field_765.error(String.format("Instance of class \'%s\' is not a strategy.", var1));
+                        logger.error(String.format("Instance of class \'%s\' is not a strategy.", var1));
                         var10 = new EmptyStrategy();
                     }
                 } catch (Exception var7) {
-                    field_765.error(String.format("Can\'t create instance of class \'%s\'.", new Object[]{var1}), var7);
+                    logger.error(String.format("Can\'t create instance of class \'%s\'.", new Object[]{var1}), var7);
                     var10 = new EmptyStrategy();
                 }
 
