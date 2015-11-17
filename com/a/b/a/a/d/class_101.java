@@ -2,7 +2,7 @@ package com.a.b.a.a.d;
 
 import com.a.b.a.a.a.GameProperties;
 import com.a.b.a.a.b.e.class_81;
-import com.a.b.a.a.c.class_138;
+import com.a.b.a.a.c.DecoratedWorld;
 import com.codeforces.commons.io.FileUtil;
 import com.codeforces.commons.io.http.HttpMethod;
 import com.codeforces.commons.io.http.HttpRequest;
@@ -22,7 +22,7 @@ import java.util.concurrent.atomic.AtomicReference;
 import org.apache.log4j.Logger;
 
 // $FF: renamed from: com.a.b.a.a.d.k
-public class class_101 implements class_5 {
+public class class_101 implements Renderer {
     // $FF: renamed from: a org.apache.log4j.Logger
     private static final Logger field_373 = Logger.getLogger(class_101.class);
     // $FF: renamed from: b java.util.concurrent.ExecutorService
@@ -52,7 +52,7 @@ public class class_101 implements class_5 {
     }
 
     // $FF: renamed from: a (com.a.b.a.a.c.h) void
-    public void method_32(final class_138 var1) throws IOException {
+    public void render(final DecoratedWorld var1) throws IOException {
         this.method_628();
         this.field_374.execute(new Runnable() {
             public void run() {
@@ -119,7 +119,7 @@ public class class_101 implements class_5 {
     }
 
     // $FF: renamed from: c (com.a.b.a.a.c.h) boolean
-    private static boolean method_623(class_138 var0) {
+    private static boolean method_623(DecoratedWorld var0) {
         return (var0.getTick() + 1) % 500 == 0;
     }
 

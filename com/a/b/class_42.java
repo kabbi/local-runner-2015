@@ -157,6 +157,6 @@ public abstract class class_42 {
     }
 
     public String toString() {
-        return StringUtil.toString(this, false, new String[]{"id", "body.name"});
+        return StringUtil.toString(this, false, "id", "body.name");
     }
 }

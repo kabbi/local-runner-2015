@@ -12,7 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 // $FF: renamed from: com.a.b.a.a.e.a.a
-public class class_181 implements class_11 {
+public class class_181 implements StrategyAdapter {
     // $FF: renamed from: a org.slf4j.Logger
     private static final Logger field_765 = LoggerFactory.getLogger(class_181.class);
     // $FF: renamed from: b java.lang.String

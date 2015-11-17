@@ -34,25 +34,25 @@ import com.a.b.a.a.b.d.d.class_46;
 import com.a.b.a.a.b.d.e.class_48;
 import com.a.b.a.a.b.d.e.class_49;
 import com.a.b.a.a.b.d.e.class_50;
-import com.a.b.a.a.b.e.class_72;
-import com.a.b.a.a.b.e.class_77;
+import com.a.b.a.a.b.e.PlayerUtils;
+import com.a.b.a.a.b.e.WorldUtils;
 import com.a.b.a.a.b.e.class_79;
 import com.a.b.a.a.b.e.class_84;
 import com.a.b.a.a.b.e.class_85;
 import com.a.b.a.a.b.e.MapUtils;
 import com.a.b.a.a.c.Car;
 import com.a.b.a.a.c.World;
-import com.a.b.a.a.c.class_138;
+import com.a.b.a.a.c.DecoratedWorld;
 import com.a.b.a.a.c.TileType;
 import com.a.b.a.a.c.class_143;
 import com.a.b.a.a.c.BonusType;
 import com.a.b.a.a.c.Move;
 import com.a.b.a.a.c.Game;
 import com.a.b.a.a.d.class_101;
-import com.a.b.a.a.d.class_5;
-import com.a.b.a.a.d.class_96;
+import com.a.b.a.a.d.Renderer;
+import com.a.b.a.a.d.GraphicalRenderer;
 import com.a.b.a.a.d.class_97;
-import com.a.b.a.a.e.a.class_11;
+import com.a.b.a.a.e.a.StrategyAdapter;
 import com.a.b.a.a.e.a.class_180;
 import com.a.c.class_159;
 import com.codeforces.commons.compress.ZipUtil;
@@ -128,13 +128,13 @@ public class GameSimulatorImpl implements GameSimulator {
     // $FF: renamed from: j int
     private int field_729;
     // $FF: renamed from: k int
-    private int field_730;
+    private int tick;
     // $FF: renamed from: l java.lang.Integer
     private Integer field_731;
     // $FF: renamed from: m int
     private int field_732;
     // $FF: renamed from: n java.util.List
-    private final List field_733;
+    private final List<Renderer> renderers;
     // $FF: renamed from: o java.util.Map
     private final java.util.Map field_734;
     // $FF: renamed from: p java.util.List
@@ -144,7 +144,7 @@ public class GameSimulatorImpl implements GameSimulator {
     // $FF: renamed from: r java.util.List
     private final List field_737;
     // $FF: renamed from: s java.util.concurrent.ExecutorService
-    private ExecutorService field_738;
+    private ExecutorService strategyExecutor;
     // $FF: renamed from: t long
     private long startTime;
     // $FF: renamed from: u boolean
@@ -152,13 +152,13 @@ public class GameSimulatorImpl implements GameSimulator {
     // $FF: renamed from: v java.io.BufferedReader
     private BufferedReader replayFileReader;
     // $FF: renamed from: w com.a.b.a.a.c.h
-    private class_138 field_742;
+    private DecoratedWorld field_742;
 
     public GameSimulatorImpl() {
         this.gameProperties = GameProperties.instance;
         this.field_725 = new AtomicBoolean(false);
         this.field_726 = new AtomicReference(null);
-        this.field_733 = new ArrayList();
+        this.renderers = new ArrayList<>();
         this.field_734 = new LinkedHashMap();
         this.field_735 = new ArrayList();
         this.field_736 = new ArrayList();
@@ -175,7 +175,7 @@ public class GameSimulatorImpl implements GameSimulator {
             try {
                 this.replayFileReader = new BufferedReader(new InputStreamReader(new BufferedInputStream(new FileInputStream(gameProperties.getReplayFile())), StandardCharsets.UTF_8));
             } catch (IOException e) {
-                this.method_965(String.format("Can\'t open log file: %s", ExceptionUtils.getStackTrace(e)));
+                this.persistErrorMessage(String.format("Can\'t open log file: %s", ExceptionUtils.getStackTrace(e)));
                 return;
             }
 
@@ -190,12 +190,12 @@ public class GameSimulatorImpl implements GameSimulator {
         this.method_954();
         this.method_955();
         if(!this.hasReplayFile) {
-            this.method_956();
-            this.method_957();
-            this.method_958();
-            this.method_959();
-            this.method_961();
-            this.method_962();
+            this.populatePlayers();
+            this.sendGameContexts();
+            this.populatePlayerUnits();
+            this.populateBonuses();
+            this.populateCollisionListeners();
+            this.populateGameEvents();
         }
 
         logger.info("Game has been initialized.");
@@ -203,7 +203,7 @@ public class GameSimulatorImpl implements GameSimulator {
 
     // $FF: renamed from: a () void
     public void start() {
-        for(this.field_730 = 0; (this.hasReplayFile || this.field_730 <= this.field_732) && !this.field_725.get() && (this.hasReplayFile || !this.method_964()); ++this.field_730) {
+        for(this.tick = 0; (this.hasReplayFile || this.tick <= this.field_732) && !this.field_725.get() && (this.hasReplayFile || !this.method_964()); ++this.tick) {
             this.method_944(false);
             if(this.hasReplayFile) {
                 this.field_742 = this.method_966();
@@ -215,7 +215,7 @@ public class GameSimulatorImpl implements GameSimulator {
             } else {
                 this.method_945();
                 this.method_947();
-                this.field_721.method_22(this.field_730);
+                this.field_721.method_22(this.tick);
                 this.method_948();
             }
         }
@@ -235,7 +235,7 @@ public class GameSimulatorImpl implements GameSimulator {
 
                 for (Object aVar2 : var2) {
                     class_43 var4 = (class_43) aVar2;
-                    double var5 = this.field_730 > 180 ? var4.method_291() / (double) (this.field_730 - 180) : 0.0D;
+                    double var5 = this.tick > 180 ? var4.method_291() / (double) (this.tick - 180) : 0.0D;
                     logger.info(String.format("Average speed of %s is %.2f per tick.", var4, var5));
                     logger.info(String.format("Max speed of %s is %.2f per tick (tick=%d).", var4, var4.method_281(), var4.method_282()));
                     logger.info(String.format("Max angular speed of %s is %.3f/%.1f° per tick (tick=%d).", var4, var4.method_284(), var4.method_284() * 57.29577951308232D, var4.method_285()));
@@ -265,10 +265,9 @@ public class GameSimulatorImpl implements GameSimulator {
 
     // $FF: renamed from: c () void
     private void method_935() {
-        Iterator var1 = this.field_734.keySet().iterator();
 
-        while(var1.hasNext()) {
-            class_171 var2 = (class_171)var1.next();
+        for (Object o : this.field_734.keySet()) {
+            class_171 var2 = (class_171) o;
             IoUtil.closeQuietly(var2.method_920());
         }
 
@@ -276,16 +275,13 @@ public class GameSimulatorImpl implements GameSimulator {
 
     // $FF: renamed from: d () void
     private void method_936() {
-        Iterator var1 = this.field_733.iterator();
 
-        while(var1.hasNext()) {
-            class_5 var2 = (class_5)var1.next();
-
+        for (Renderer renderer : this.renderers) {
             try {
-                var2.close();
-            } catch (IOException var4) {
-                logger.error(String.format("Can\'t close renderer \'%s\'.", new Object[]{var2.getClass().getSimpleName()}), var4);
-                this.method_965(String.format("Can\'t close renderer \'%s\': %s", var2.getClass().getSimpleName(), ExceptionUtils.getStackTrace(var4)));
+                renderer.close();
+            } catch (IOException e) {
+                logger.error(String.format("Can\'t close renderer \'%s\'.", renderer.getClass().getSimpleName()), e);
+                this.persistErrorMessage(String.format("Can\'t close renderer \'%s\': %s", renderer.getClass().getSimpleName(), ExceptionUtils.getStackTrace(e)));
             }
         }
 
@@ -445,7 +441,7 @@ public class GameSimulatorImpl implements GameSimulator {
     private java.util.Map method_943() {
         HashMap var1 = new HashMap();
         ArrayList var2 = new ArrayList(this.field_734.keySet());
-        Collections.sort(var2, class_72.method_455());
+        Collections.sort(var2, PlayerUtils.method_455());
 
         for(int var3 = var2.size() - 1; var3 >= 0; --var3) {
             var1.put(Integer.valueOf(((class_171)var2.get(var3)).method_928()), Integer.valueOf(var3 + 1));
@@ -460,23 +456,19 @@ public class GameSimulatorImpl implements GameSimulator {
         List var3 = this.field_721.method_19();
         List var4 = this.field_721.method_21();
         double var5 = 1.0D / (double)this.field_721.method_24();
-        class_138 var7;
+        DecoratedWorld decoratedWorld;
         if(this.field_742 == null) {
-            var7 = class_77.method_462(class_77.method_461(this.field_730, this.field_729, this.field_732, this.field_727, this.field_728, var5, var2, this.gameProperties, var3, null), this.gameProperties.getSeed(), var5, var1, var4, var2, var3);
+            decoratedWorld = WorldUtils.method_462(WorldUtils.method_461(this.tick, this.field_729, this.field_732, this.field_727, this.field_728, var5, var2, this.gameProperties, var3, null), this.gameProperties.getSeed(), var5, var1, var4, var2, var3);
         } else {
-            var7 = this.field_742;
+            decoratedWorld = this.field_742;
         }
 
-        Iterator var8 = this.field_733.iterator();
-
-        while(var8.hasNext()) {
-            class_5 var9 = (class_5)var8.next();
-
+        for (Renderer renderer : this.renderers) {
             try {
-                var9.method_32(var7);
-            } catch (IOException var11) {
-                logger.error(String.format("Can\'t render world using renderer \'%s\' [tick=%d].", new Object[]{var9.getClass().getSimpleName(), Integer.valueOf(this.field_730)}), var11);
-                this.method_965(String.format("Can\'t render world using renderer \'%s\': %s [tick=%d]", var9.getClass().getSimpleName(), ExceptionUtils.getStackTrace(var11), Integer.valueOf(this.field_730)));
+                renderer.render(decoratedWorld);
+            } catch (IOException e) {
+                logger.error(String.format("Can\'t render world using renderer \'%s\' [tick=%d].", renderer.getClass().getSimpleName(), this.tick), e);
+                this.persistErrorMessage(String.format("Can\'t render world using renderer \'%s\': %s [tick=%d]", renderer.getClass().getSimpleName(), ExceptionUtils.getStackTrace(e), this.tick));
             }
         }
 
@@ -508,14 +500,14 @@ public class GameSimulatorImpl implements GameSimulator {
                                 continue label94;
                             }
 
-                            final World var19 = class_77.method_461(this.field_730, this.field_729, this.field_732, this.field_727, this.field_728, 1.0D / (double)this.field_721.method_24(), var1, this.gameProperties, var2, var7);
+                            final World var19 = WorldUtils.method_461(this.tick, this.field_729, this.field_732, this.field_727, this.field_728, 1.0D / (double) this.field_721.method_24(), var1, this.gameProperties, var2, var7);
                             final Car[] var20 = new Car[var9];
 
                             for(int var21 = 0; var21 < var9; ++var21) {
                                 var20[var21] = class_79.method_476((class_43)var8.get(var21), 1.0D / (double)this.field_721.method_24(), var7);
                             }
 
-                            Future var22 = this.field_738.submit(new Callable() {
+                            Future var22 = this.strategyExecutor.submit(new Callable() {
                                 // $FF: renamed from: a () com.a.b.a.a.c.m[]
                                 public Move[] method_916() throws Exception {
                                     return var7.method_920().method_53(var20, var19);
@@ -549,7 +541,7 @@ public class GameSimulatorImpl implements GameSimulator {
                                     }
                                 }
 
-                                throw new RuntimeException(String.format("Strategy adapter \'%s\' of %s returned %d moves for %d cars at tick %d.", new Object[]{var7.method_920().getClass().getSimpleName(), var7, Integer.valueOf(var14 == null?0:var14.length), Integer.valueOf(var9), Integer.valueOf(this.field_730)}));
+                                throw new RuntimeException(String.format("Strategy adapter \'%s\' of %s returned %d moves for %d cars at tick %d.", new Object[]{var7.method_920().getClass().getSimpleName(), var7, Integer.valueOf(var14 == null?0:var14.length), Integer.valueOf(var9), Integer.valueOf(this.tick)}));
                             }
                             break label89;
                         }
@@ -594,17 +586,17 @@ public class GameSimulatorImpl implements GameSimulator {
                 var3.set(var2.get(5000L, TimeUnit.MILLISECONDS));
             }
         } catch (InterruptedException var10) {
-            logger.error(String.format("Strategy adapter \'%s\' of %s has been interrupted at a tick %d.", new Object[]{var1.method_920().getClass().getSimpleName(), var1, Integer.valueOf(this.field_730)}), var10);
+            logger.error(String.format("Strategy adapter \'%s\' of %s has been interrupted at a tick %d.", new Object[]{var1.method_920().getClass().getSimpleName(), var1, Integer.valueOf(this.tick)}), var10);
             var2.cancel(true);
             var1.method_924("Ожидание отклика от стратегии было прервано.");
             return false;
         } catch (ExecutionException var11) {
-            logger.warn(String.format("Strategy adapter \'%s\' of %s has failed at a tick %d.", new Object[]{var1.method_920().getClass().getSimpleName(), var1, Integer.valueOf(this.field_730)}), var11);
+            logger.warn(String.format("Strategy adapter \'%s\' of %s has failed at a tick %d.", new Object[]{var1.method_920().getClass().getSimpleName(), var1, Integer.valueOf(this.tick)}), var11);
             var2.cancel(true);
-            var1.method_924("Процесс стратегии непредвиденно завершился на тике " + this.field_730 + '.');
+            var1.method_924("Процесс стратегии непредвиденно завершился на тике " + this.tick + '.');
             return false;
         } catch (TimeoutException var12) {
-            logger.warn(String.format("Strategy adapter \'%s\' of %s has timed out at a tick %d.", new Object[]{var1.method_920().getClass().getSimpleName(), var1, Integer.valueOf(this.field_730)}), var12);
+            logger.warn(String.format("Strategy adapter \'%s\' of %s has timed out at a tick %d.", new Object[]{var1.method_920().getClass().getSimpleName(), var1, Integer.valueOf(this.tick)}), var12);
             var2.cancel(true);
             var1.method_924("Процесс стратегии превысил ограничение по времени на тик.");
             return false;
@@ -614,7 +606,7 @@ public class GameSimulatorImpl implements GameSimulator {
             long var6 = System.currentTimeMillis() - var4;
             long var8 = var1.method_925();
             if(var8 < var6) {
-                logger.warn(String.format("Strategy adapter \'%s\' of %s has consumed all available game time at a tick %d.", var1.method_920().getClass().getSimpleName(), var1, Integer.valueOf(this.field_730)));
+                logger.warn(String.format("Strategy adapter \'%s\' of %s has consumed all available game time at a tick %d.", var1.method_920().getClass().getSimpleName(), var1, Integer.valueOf(this.tick)));
                 var1.method_924("Процесс стратегии превысил ограничение по времени на игру.");
                 return false;
             }
@@ -631,7 +623,7 @@ public class GameSimulatorImpl implements GameSimulator {
 
         while(var1.hasNext()) {
             class_2 var2 = (class_2)var1.next();
-            var2.method_16(this.field_721, this.field_730);
+            var2.method_16(this.field_721, this.tick);
         }
 
     }
@@ -642,7 +634,7 @@ public class GameSimulatorImpl implements GameSimulator {
 
         while(var1.hasNext()) {
             class_2 var2 = (class_2)var1.next();
-            var2.method_16(this.field_721, this.field_730);
+            var2.method_16(this.field_721, this.tick);
         }
 
     }
@@ -657,12 +649,12 @@ public class GameSimulatorImpl implements GameSimulator {
                 var4 = new Point2D(var3.method_870(), var3.method_872());
                 switch(var1.method_299().ordinal()) {
                 case 1:
-                    this.field_721.method_17(new class_49(var1, var1.method_297(), this.field_730, var4.copy(), var3.method_874()));
-                    this.field_721.method_17(new class_49(var1, var1.method_297(), this.field_730, var4.copy(), var3.method_874() + 0.03490658503988659D));
-                    this.field_721.method_17(new class_49(var1, var1.method_297(), this.field_730, var4.copy(), var3.method_874() - 0.03490658503988659D));
+                    this.field_721.method_17(new class_49(var1, var1.method_297(), this.tick, var4.copy(), var3.method_874()));
+                    this.field_721.method_17(new class_49(var1, var1.method_297(), this.tick, var4.copy(), var3.method_874() + 0.03490658503988659D));
+                    this.field_721.method_17(new class_49(var1, var1.method_297(), this.tick, var4.copy(), var3.method_874() - 0.03490658503988659D));
                     break;
                 case 2:
-                    this.field_721.method_17(new class_50(var1, var1.method_297(), this.field_730, var4.copy(), var3.method_874()));
+                    this.field_721.method_17(new class_50(var1, var1.method_297(), this.tick, var4.copy(), var3.method_874()));
                     break;
                 default:
                     throw new IllegalArgumentException("Unsupported car type: " + var1.method_299() + '.');
@@ -715,7 +707,7 @@ public class GameSimulatorImpl implements GameSimulator {
             } else {
                 var1.method_279().method_891(0.001D);
                 double var5 = var3 * (var3 >= 0.0D?var1.method_310():var1.method_311());
-                if(this.field_730 >= 180) {
+                if(this.tick >= 180) {
                     var1.method_279().method_884().add((new Vector2D(var5, 0.0D)).rotate(var1.method_279().method_874()));
                 }
             }
@@ -767,18 +759,18 @@ public class GameSimulatorImpl implements GameSimulator {
     private void method_954() {
         logger.debug("Started to add renderers.");
         if(this.gameProperties.shouldRenderToScreen()) {
-            logger.debug("Adding " + class_96.class.getSimpleName() + '.');
-            this.field_733.add(new class_96(this.gameProperties));
+            logger.debug("Adding " + GraphicalRenderer.class.getSimpleName() + '.');
+            this.renderers.add(new GraphicalRenderer(this.gameProperties));
         }
 
         File var1 = this.gameProperties.getSomeTextFile();
         if(var1 != null) {
             try {
                 logger.debug("Adding " + class_97.class.getSimpleName() + '.');
-                this.field_733.add(new class_97(var1, this.gameProperties));
+                this.renderers.add(new class_97(var1, this.gameProperties));
             } catch (IOException var5) {
                 logger.error(String.format("Can\'t create renderer \'%s\'.", class_97.class.getSimpleName()), var5);
-                this.method_965(String.format("Can\'t create renderer \'%s\': %s", class_97.class.getSimpleName(), ExceptionUtils.getStackTrace(var5)));
+                this.persistErrorMessage(String.format("Can\'t create renderer \'%s\': %s", class_97.class.getSimpleName(), ExceptionUtils.getStackTrace(var5)));
             }
         }
 
@@ -786,10 +778,10 @@ public class GameSimulatorImpl implements GameSimulator {
         if(StringUtils.isNotBlank(var2)) {
             try {
                 logger.debug("Adding " + class_101.class.getSimpleName() + '.');
-                this.field_733.add(new class_101(var2, this.gameProperties));
+                this.renderers.add(new class_101(var2, this.gameProperties));
             } catch (RuntimeException var4) {
                 logger.error(String.format("Can\'t create renderer \'%s\'.", new Object[]{class_101.class.getSimpleName()}), var4);
-                this.method_965(String.format("Can\'t create renderer \'%s\': %s", class_101.class.getSimpleName(), ExceptionUtils.getStackTrace(var4)));
+                this.persistErrorMessage(String.format("Can\'t create renderer \'%s\': %s", class_101.class.getSimpleName(), ExceptionUtils.getStackTrace(var4)));
             }
         }
 
@@ -881,33 +873,33 @@ public class GameSimulatorImpl implements GameSimulator {
     }
 
     // $FF: renamed from: o () void
-    private void method_956() {
+    private void populatePlayers() {
         logger.debug("Started to add players.");
-        List var1 = this.gameProperties.getPositionalArguments();
-        int var2 = var1.size();
-        if(var2 != 2 && var2 != 4) {
-            throw new IllegalArgumentException("Unexpected player count: " + var2 + '.');
+        List<String> players = this.gameProperties.getPositionalArguments();
+        int playerCount = players.size();
+        if(playerCount != 2 && playerCount != 4) {
+            throw new IllegalArgumentException("Unexpected player count: " + playerCount + '.');
         } else {
-            if(this.field_738 != null) {
-                this.field_738.shutdown();
+            if(this.strategyExecutor != null) {
+                this.strategyExecutor.shutdown();
             }
 
-            this.field_738 = Executors.newFixedThreadPool(var2, new ThreadFactory() {
+            this.strategyExecutor = Executors.newFixedThreadPool(playerCount, new ThreadFactory() {
                 // $FF: renamed from: b java.util.concurrent.atomic.AtomicInteger
-                private final AtomicInteger field_689 = new AtomicInteger();
+                private final AtomicInteger lastThreadId = new AtomicInteger();
 
-                public Thread newThread(Runnable var1) {
-                    Thread var2 = new Thread(var1);
-                    var2.setDaemon(true);
-                    var2.setName(String.format("%s#StrategyThread-%d", GameSimulatorImpl.class.getSimpleName(), this.field_689.incrementAndGet()));
-                    return var2;
+                public Thread newThread(Runnable runnable) {
+                    Thread thread = new Thread(runnable);
+                    thread.setDaemon(true);
+                    thread.setName(String.format("%s#StrategyThread-%d", GameSimulatorImpl.class.getSimpleName(), this.lastThreadId.incrementAndGet()));
+                    return thread;
                 }
             });
 
-            for(int var3 = 0; var3 < var2; ++var3) {
-                int var4 = this.gameProperties.getTeamSizeForPlayer(var3);
-                class_171 var5 = class_72.method_450(this.gameProperties, var3, this.gameProperties.getPlayerName(var3), (String)var1.get(var3), var4, this.field_733);
-                var5.method_926((long)(var4 * (this.field_729 + 1)) * 50L + 5000L);
+            for(int i = 0; i < playerCount; ++i) {
+                int teamSize = this.gameProperties.getTeamSizeForPlayer(i);
+                class_171 var5 = PlayerUtils.instantiatePlayer(this.gameProperties, i, this.gameProperties.getPlayerName(i), players.get(i), teamSize, this.renderers);
+                var5.method_926((long)(teamSize * (this.field_729 + 1)) * 50L + 5000L);
                 if(var5.method_921()) {
                     if(this.field_735.size() >= 1) {
                         throw new IllegalArgumentException(String.format("Can only add %d keyboard player(s).", 1));
@@ -924,17 +916,16 @@ public class GameSimulatorImpl implements GameSimulator {
     }
 
     // $FF: renamed from: p () void
-    private void method_957() {
+    private void sendGameContexts() {
         logger.debug("Sending game contexts.");
-        Iterator var1 = this.field_734.keySet().iterator();
 
-        while(var1.hasNext()) {
-            final class_171 var2 = (class_171)var1.next();
+        for (Object o : this.field_734.keySet()) {
+            final class_171 var2 = (class_171) o;
             final Game var3 = class_84.method_499(var2.method_919(), this.field_729, this.gameProperties);
-            Future var4 = this.field_738.submit(new Callable() {
+            Future var4 = this.strategyExecutor.submit(new Callable() {
                 // $FF: renamed from: a () java.lang.Integer
                 public Integer method_914() throws Exception {
-                    class_11 var1 = var2.method_920();
+                    StrategyAdapter var1 = var2.method_920();
                     int var2x = var1.method_51();
                     var1.method_52(var3);
                     return var2x;
@@ -946,9 +937,9 @@ public class GameSimulatorImpl implements GameSimulator {
                 }
             });
             SimpleMutable var5 = new SimpleMutable();
-            if(this.method_946(var2, var4, var5)) {
-                Integer var6 = (Integer)var5.get();
-                if(!var2.method_922() && !class_16.method_71(var6)) {
+            if (this.method_946(var2, var4, var5)) {
+                Integer var6 = (Integer) var5.get();
+                if (!var2.method_922() && !class_16.method_71(var6)) {
                     logger.warn(String.format("Strategy adapter \'%s\' returned unsupported protocol version %d.", var2.method_920().getClass().getSimpleName(), var6));
                     var2.method_924("Процесс стратегии использует устаревшую версию протокола.");
                 }
@@ -958,7 +949,7 @@ public class GameSimulatorImpl implements GameSimulator {
     }
 
     // $FF: renamed from: q () void
-    private void method_958() {
+    private void populatePlayerUnits() {
         logger.debug("Adding player units.");
         int var1 = this.field_734.size();
         int var2 = 0;
@@ -995,7 +986,7 @@ public class GameSimulatorImpl implements GameSimulator {
     }
 
     // $FF: renamed from: r () void
-    private void method_959() {
+    private void populateBonuses() {
         logger.debug("Adding bonuses.");
         int var1 = NumberUtil.toInt(Math.floor(0.25D * (double)this.field_724.length));
 
@@ -1049,12 +1040,12 @@ public class GameSimulatorImpl implements GameSimulator {
     }
 
     // $FF: renamed from: t () void
-    private void method_961() {
+    private void populateCollisionListeners() {
         logger.debug("Adding collision listeners.");
         Readable var1 = new Readable() {
             // $FF: renamed from: a () java.lang.Integer
             public Integer method_915() {
-                return GameSimulatorImpl.this.field_730;
+                return GameSimulatorImpl.this.tick;
             }
 
             // $FF: synthetic method
@@ -1072,14 +1063,14 @@ public class GameSimulatorImpl implements GameSimulator {
     }
 
     // $FF: renamed from: u () void
-    private void method_962() {
+    private void populateGameEvents() {
         logger.debug("Adding game events.");
         this.field_736.add(new class_25(this.gameProperties));
         this.field_737.add(new class_25(this.gameProperties));
         this.field_737.add(new class_22(new Readable() {
             // $FF: renamed from: a () java.lang.Integer
             public Integer method_912() {
-                return GameSimulatorImpl.this.field_730;
+                return GameSimulatorImpl.this.tick;
             }
 
             // $FF: synthetic method
@@ -1090,7 +1081,7 @@ public class GameSimulatorImpl implements GameSimulator {
         this.field_737.add(new class_26(this.gameProperties, new Readable() {
             // $FF: renamed from: a () java.lang.Integer
             public Integer method_913() {
-                return GameSimulatorImpl.this.field_730;
+                return GameSimulatorImpl.this.tick;
             }
 
             // $FF: synthetic method
@@ -1163,7 +1154,7 @@ public class GameSimulatorImpl implements GameSimulator {
     }
 
     // $FF: renamed from: a (java.lang.String) void
-    private void method_965(String var1) {
+    private void persistErrorMessage(String var1) {
         if(!this.field_725.getAndSet(true)) {
             this.field_726.set(var1);
         }
@@ -1171,11 +1162,11 @@ public class GameSimulatorImpl implements GameSimulator {
     }
 
     // $FF: renamed from: w () com.a.b.a.a.c.h
-    private class_138 method_966() {
+    private DecoratedWorld method_966() {
         try {
-            return class_77.method_463(this.replayFileReader.readLine(), this.field_742, this.field_721.method_19());
+            return WorldUtils.method_463(this.replayFileReader.readLine(), this.field_742, this.field_721.method_19());
         } catch (IOException var2) {
-            this.method_965(String.format("Can\'t read world from log file: %s", ExceptionUtils.getStackTrace(var2)));
+            this.persistErrorMessage(String.format("Can\'t read world from log file: %s", ExceptionUtils.getStackTrace(var2)));
             return null;
         }
     }

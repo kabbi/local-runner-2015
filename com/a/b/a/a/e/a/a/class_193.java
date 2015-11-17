@@ -1,7 +1,7 @@
 package com.a.b.a.a.e.a.a;
 
 import com.a.b.a.a.a.GameProperties;
-import com.a.b.a.a.e.a.class_177;
+import com.a.b.a.a.e.a.RemotePlayerException;
 import com.codeforces.commons.io.IoUtil;
 import com.codeforces.commons.math.Math;
 import com.codeforces.commons.math.NumberUtil;
@@ -64,7 +64,7 @@ public abstract class class_193 implements class_14 {
             this.field_816.setSoTimeout(this.field_815);
             this.field_816.setReceiveBufferSize(field_812);
         } catch (IOException var3) {
-            throw new class_177(String.format("Can\'t start %s.", this.getClass()), var3);
+            throw new RemotePlayerException(String.format("Can\'t start %s.", this.getClass()), var3);
         }
     }
 
@@ -85,7 +85,7 @@ public abstract class class_193 implements class_14 {
             }
 
         } catch (IOException var2) {
-            throw new class_177("Can\'t accept remote process connection.", var2);
+            throw new RemotePlayerException("Can\'t accept remote process connection.", var2);
         }
     }
 
@@ -235,7 +235,7 @@ public abstract class class_193 implements class_14 {
         try {
             return IOUtils.toByteArray(this.field_818, var1);
         } catch (IOException var3) {
-            throw new class_177(String.format("Can\'t read %d bytes from input stream.", var1), var3);
+            throw new RemotePlayerException(String.format("Can\'t read %d bytes from input stream.", var1), var3);
         }
     }
 
@@ -246,7 +246,7 @@ public abstract class class_193 implements class_14 {
         try {
             this.field_820.write(var1);
         } catch (IOException var3) {
-            throw new class_177(String.format("Can\'t write %d bytes into output stream.", var1.length), var3);
+            throw new RemotePlayerException(String.format("Can\'t write %d bytes into output stream.", var1.length), var3);
         }
     }
 
@@ -264,7 +264,7 @@ public abstract class class_193 implements class_14 {
             }
 
         } catch (IOException var2) {
-            throw new class_177("Can\'t flush output stream.", var2);
+            throw new RemotePlayerException("Can\'t flush output stream.", var2);
         }
     }
 

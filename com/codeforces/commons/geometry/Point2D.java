@@ -8,64 +8,65 @@ import com.codeforces.commons.text.StringUtil;
 
 public class Point2D extends DoublePair {
     public Point2D(double var1, double var3) {
-        super(Double.valueOf(var1), Double.valueOf(var3));
+        super(var1, var3);
     }
 
     public Point2D(Point2D var1) {
-        super(Double.valueOf(var1.getX()), Double.valueOf(var1.getY()));
+        super(var1.getX(), var1.getY());
     }
 
     public double getX() {
-        return ((Double)this.getFirst()).doubleValue();
+        return this.getFirst();
     }
 
-    public void setX(double var1) {
-        this.setFirst(Double.valueOf(var1));
+    public void setX(double x) {
+        this.setFirst(x);
     }
 
     public double getY() {
-        return ((Double)this.getSecond()).doubleValue();
+        return this.getSecond();
     }
 
-    public void setY(double var1) {
-        this.setSecond(Double.valueOf(var1));
+    public void setY(double y) {
+        this.setSecond(y);
     }
 
-    public Point2D add(Vector2D var1) {
-        this.setX(this.getX() + var1.getX());
-        this.setY(this.getY() + var1.getY());
+    public Point2D add(Vector2D vector) {
+        this.setX(this.getX() + vector.getX());
+        this.setY(this.getY() + vector.getY());
         return this;
     }
 
-    public Point2D add(double var1, double var3) {
-        this.setX(this.getX() + var1);
-        this.setY(this.getY() + var3);
+    public Point2D add(double x, double y) {
+        this.setX(this.getX() + x);
+        this.setY(this.getY() + y);
         return this;
     }
 
-    public Point2D subtract(Vector2D var1) {
-        this.setX(this.getX() - var1.getX());
-        this.setY(this.getY() - var1.getY());
+    public Point2D subtract(Vector2D vector) {
+        this.setX(this.getX() - vector.getX());
+        this.setY(this.getY() - vector.getY());
         return this;
     }
 
-    public double getDistanceTo(Point2D var1) {
-        return Math.hypot(this.getX() - var1.getX(), this.getY() - var1.getY());
+    public double getDistanceTo(Point2D point) {
+        return Math.hypot(this.getX() - point.getX(), this.getY() - point.getY());
     }
 
-    public double getSquaredDistanceTo(Point2D var1) {
-        return Math.sumSqr(this.getX() - var1.getX(), this.getY() - var1.getY());
+    public double getSquaredDistanceTo(Point2D point) {
+        return Math.sumSqr(this.getX() - point.getX(), this.getY() - point.getY());
     }
 
     public Point2D copy() {
         return new Point2D(this);
     }
 
-    public boolean nearlyEquals(Point2D var1, double var2) {
-        return var1 != null && NumberUtil.nearlyEquals(Double.valueOf(this.getX()), Double.valueOf(var1.getX()), var2) && NumberUtil.nearlyEquals(Double.valueOf(this.getY()), Double.valueOf(var1.getY()), var2);
+    public boolean nearlyEquals(Point2D point, double epsilon) {
+        return point != null && NumberUtil.nearlyEquals(this.getX(), point.getX(), epsilon) &&
+                NumberUtil.nearlyEquals(this.getY(), point.getY(), epsilon);
     }
 
     public String toString() {
-        return StringUtil.toString(this, false, new String[]{"x", "y"});
+        return StringUtil.toString(this, false, "x", "y");
     }
 }

@@ -8,14 +8,14 @@ import com.a.b.a.a.c.Game;
 import java.util.concurrent.atomic.AtomicLong;
 
 // $FF: renamed from: com.a.b.a.a.e.a.c
-public class class_179 implements class_11 {
+public class class_179 implements StrategyAdapter {
     // $FF: renamed from: a int
-    private final int field_753;
+    private final int teamSize;
     // $FF: renamed from: b com.a.b.a.a.e.a.c$a
     private final class_179.class_209 field_754;
 
     public class_179(int var1, class_179.class_209 var2) {
-        this.field_753 = var1;
+        this.teamSize = var1;
         this.field_754 = var2;
     }
 
@@ -29,14 +29,14 @@ public class class_179 implements class_11 {
     }
 
     // $FF: renamed from: a (com.a.b.a.a.c.c[], com.a.b.a.a.c.v) com.a.b.a.a.c.m[]
-    public Move[] method_53(Car[] var1, World var2) {
-        if(var1.length != this.field_753) {
-            throw new IllegalArgumentException(String.format("Strategy adapter \'%s\' got %d cars while team size is %d.", new Object[]{this.getClass().getSimpleName(), Integer.valueOf(var1.length), Integer.valueOf(this.field_753)}));
+    public Move[] method_53(Car[] cars, World world) {
+        if(cars.length != this.teamSize) {
+            throw new IllegalArgumentException(String.format("Strategy adapter \'%s\' got %d cars while team size is %d.", this.getClass().getSimpleName(), cars.length, this.teamSize));
         } else {
-            Move[] var3 = new Move[this.field_753];
+            Move[] var3 = new Move[this.teamSize];
 
-            for(int var4 = 0; var4 < this.field_753; ++var4) {
-                Car var5 = var1[var4];
+            for(int var4 = 0; var4 < this.teamSize; ++var4) {
+                Car var5 = cars[var4];
                 Move var6 = new Move();
                 this.method_974(var5, var6);
                 var3[var4] = var6;

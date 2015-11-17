@@ -13,7 +13,7 @@ import com.a.b.a.a.c.Player;
 import com.a.b.a.a.c.class_146;
 import com.a.b.a.a.c.Move;
 import com.a.b.a.a.c.Game;
-import com.a.b.a.a.e.a.class_177;
+import com.a.b.a.a.e.a.RemotePlayerException;
 
 import java.io.File;
 
@@ -356,7 +356,7 @@ public class class_194 extends class_193 {
     // $FF: renamed from: a (com.a.b.a.a.e.a.a.g$a, com.a.b.a.a.e.a.a.g$a) void
     private static void method_1052(class_194.class_224 var0, class_194.class_224 var1) {
         if(var0 != var1) {
-            throw new class_177(String.format("Received wrong message [actual=%s, expected=%s].", var0, var1));
+            throw new RemotePlayerException(String.format("Received wrong message [actual=%s, expected=%s].", var0, var1));
         }
     }
 

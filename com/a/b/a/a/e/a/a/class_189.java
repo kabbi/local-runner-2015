@@ -1,7 +1,5 @@
 package com.a.b.a.a.e.a.a;
 
-import com.a.b.a.a.e.a.a.class_192;
-import com.a.b.a.a.e.a.a.class_200;
 import com.codeforces.commons.compress.ZipUtil;
 import com.codeforces.commons.io.FileUtil;
 import com.codeforces.commons.io.IoUtil;
@@ -13,7 +11,6 @@ import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
-import java.nio.file.attribute.FileAttribute;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -33,11 +30,11 @@ import org.slf4j.LoggerFactory;
 // $FF: renamed from: com.a.b.a.a.e.a.a.a
 public class class_189 {
     // $FF: renamed from: a org.slf4j.Logger
-    private static final Logger field_799 = LoggerFactory.getLogger(class_189.class);
+    private static final Logger logger = LoggerFactory.getLogger(class_189.class);
     // $FF: renamed from: b java.lang.String
     private final String field_800;
     // $FF: renamed from: c java.lang.Process
-    private final Process field_801;
+    private final Process process;
     // $FF: renamed from: d java.io.File
     private final File field_802;
     // $FF: renamed from: e java.util.concurrent.atomic.AtomicBoolean
@@ -45,7 +42,7 @@ public class class_189 {
 
     private class_189(String var1, Process var2, File var3) {
         this.field_800 = var1;
-        this.field_801 = var2;
+        this.process = var2;
         this.field_802 = var3;
     }
 
@@ -59,7 +56,7 @@ public class class_189 {
         Thread var3 = new Thread(new Runnable() {
             public void run() {
                 try {
-                    class_189.this.field_801.waitFor();
+                    class_189.this.process.waitFor();
                 } catch (InterruptedException var2) {
                     ;
                 }
@@ -79,11 +76,11 @@ public class class_189 {
     // $FF: renamed from: b () void
     public void method_1008() {
         if(this.field_803.compareAndSet(false, true)) {
-            this.field_801.destroy();
+            this.process.destroy();
 
             try {
-                this.field_801.waitFor();
-                field_799.info("Process finished with exit code \'" + this.field_801.exitValue() + "\'.");
+                this.process.waitFor();
+                logger.info("Process finished with exit code \'" + this.process.exitValue() + "\'.");
             } catch (InterruptedException var2) {
                 ;
             }
@@ -93,7 +90,7 @@ public class class_189 {
 
     protected void finalize() throws Throwable {
         if(!this.field_803.get()) {
-            field_799.error(String.format("Process \'%s\' in directory \'%s\' has not been destroyed.", this.field_800, this.field_802.getAbsolutePath()));
+            logger.error(String.format("Process \'%s\' in directory \'%s\' has not been destroyed.", this.field_800, this.field_802.getAbsolutePath()));
         }
 
         this.method_1008();
@@ -101,7 +98,7 @@ public class class_189 {
     }
 
     // $FF: renamed from: a (java.lang.String, java.util.Map, java.io.File, java.lang.String[]) com.a.b.a.a.e.a.a.a
-    public static class_189 method_1009(String var0, Map var1, File var2, String... var3) throws IOException {
+    public static class_189 startProcess(String var0, Map var1, File var2, String... var3) throws IOException {
         File var4 = new File(var0);
         File var5 = method_1013(var4.getParentFile());
         String var6 = FilenameUtils.getExtension(var4.getName());
@@ -132,7 +129,7 @@ public class class_189 {
         Process var12 = (new ProcessBuilder(var9)).directory(var5).start();
         method_1010(var12, var12.getInputStream(), new File(var5, "runexe.output"));
         method_1010(var12, var12.getErrorStream(), new File(var5, "runexe.error"));
-        field_799.info("Running \'" + var10 + "\' in the \'" + var5 + "\'.");
+        logger.info("Running \'" + var10 + "\' in the \'" + var5 + "\'.");
         return new class_189(var13, var12, var5);
     }
 
@@ -146,7 +143,7 @@ public class class_189 {
                     ;
                 }
 
-                class_189.field_799.debug("Completed to write stream from " + var0 + " to \'" + var2 + "\'.");
+                class_189.logger.debug("Completed to write stream from " + var0 + " to \'" + var2 + "\'.");
             }
         })).start();
     }

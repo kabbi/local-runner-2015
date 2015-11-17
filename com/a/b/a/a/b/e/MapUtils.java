@@ -76,7 +76,7 @@ public final class MapUtils {
 
     // $FF: renamed from: a (java.lang.String) byte[]
     private static byte[] readMapContent(String mapFilePath) {
-        byte[] data = ResourceUtil.getResourceOrNull(class_77.class, "/maps/" + mapFilePath);
+        byte[] data = ResourceUtil.getResourceOrNull(WorldUtils.class, "/maps/" + mapFilePath);
         if(data == null) {
             try {
                 File mapFile = new File(mapFilePath);
@@ -136,39 +136,39 @@ public final class MapUtils {
     private static void parseMapTiles(TileType[][] mapTiles, String[] mapLines, MutableInt currentLinePtr, int width, int height) {
         int var5 = mapLines.length;
 
-        int var6;
-        for(var6 = 0; currentLinePtr.intValue() < var5 && var6 < height; currentLinePtr.increment()) {
-            String var7 = mapLines[currentLinePtr.intValue()];
-            if(StringUtil.isNotBlank(var7) && var7.indexOf(35) != 0) {
-                var7 = Patterns.WHITESPACE_PATTERN.matcher(var7).replaceAll("");
-                if(var7.length() != width) {
+        int y;
+        for(y = 0; currentLinePtr.intValue() < var5 && y < height; currentLinePtr.increment()) {
+            String mapLine = mapLines[currentLinePtr.intValue()];
+            if(StringUtil.isNotBlank(mapLine) && mapLine.indexOf('#') != 0) {
+                mapLine = Patterns.WHITESPACE_PATTERN.matcher(mapLine).replaceAll("");
+                if(mapLine.length() != width) {
                     throw new IllegalArgumentException("Length of the map line is not " + width + '.');
                 }
 
-                for(int var8 = 0; var8 < width; ++var8) {
-                    char var9 = var7.charAt(var8);
-                    mapTiles[var8][var6] = tileTypeByChar(var9);
+                for(int x = 0; x < width; ++x) {
+                    char c = mapLine.charAt(x);
+                    mapTiles[x][y] = tileTypeByChar(c);
                 }
 
-                ++var6;
+                ++y;
             }
         }
 
-        if(var6 < height) {
+        if(y < height) {
             throw new CantReadResourceException("Number of the map lines is not " + height + '.');
         }
     }
 
     // $FF: renamed from: a (com.a.b.a.a.c.t[][], int, int) void
-    private static void method_506(TileType[][] var0, int var1, int var2) {
-        for(int var3 = 0; var3 < var1; ++var3) {
-            for(int var4 = 0; var4 < var2; ++var4) {
-                TileType var5 = var0[var3][var4];
-                TileType var6 = var3 > 0?var0[var3 - 1][var4]:null;
-                TileType var7 = var3 < var1 - 1?var0[var3 + 1][var4]:null;
-                TileType var8 = var4 > 0?var0[var3][var4 - 1]:null;
-                TileType var9 = var4 < var2 - 1?var0[var3][var4 + 1]:null;
-                method_507(var3, var4, var5, var6, var7, var8, var9);
+    private static void method_506(TileType[][] var0, int width, int height) {
+        for(int x = 0; x < width; ++x) {
+            for(int y = 0; y < height; ++y) {
+                TileType var5 = var0[x][y];
+                TileType var6 = x > 0?var0[x - 1][y]:null;
+                TileType var7 = x < width - 1?var0[x + 1][y]:null;
+                TileType var8 = y > 0?var0[x][y - 1]:null;
+                TileType var9 = y < height - 1?var0[x][y + 1]:null;
+                method_507(x, y, var5, var6, var7, var8, var9);
             }
         }
 
@@ -177,7 +177,7 @@ public final class MapUtils {
     // $FF: renamed from: a (int, int, com.a.b.a.a.c.t, com.a.b.a.a.c.t, com.a.b.a.a.c.t, com.a.b.a.a.c.t, com.a.b.a.a.c.t) void
     private static void method_507(int var0, int var1, TileType var2, TileType var3, TileType var4, TileType var5, TileType var6) {
         if(field_322.contains(var2) && (var5 == null || !field_321.contains(var5)) || field_321.contains(var2) && (var6 == null || !field_322.contains(var6)) || field_319.contains(var2) && (var4 == null || !field_320.contains(var4)) || field_320.contains(var2) && (var3 == null || !field_319.contains(var3))) {
-            throw new IllegalArgumentException(String.format("Illegal environment of tile (%d, %d) (tileType=%s, leftTileType=%s, rightTileType=%s, topTileType=%s, bottomTileType=%s).", new Object[]{Integer.valueOf(var0), Integer.valueOf(var1), var2, var3, var4, var5, var6}));
+            throw new IllegalArgumentException(String.format("Illegal environment of tile (%d, %d) (tileType=%s, leftTileType=%s, rightTileType=%s, topTileType=%s, bottomTileType=%s).", var0, var1, var2, var3, var4, var5, var6));
         }
     }
 

@@ -1,7 +1,7 @@
 package com.a.b.a.a.b;
 
 import com.a.a.a.a.RandomUtils;
-import com.a.b.a.a.e.a.class_11;
+import com.a.b.a.a.e.a.StrategyAdapter;
 import com.a.b.a.a.e.a.class_179;
 import com.codeforces.commons.io.IoUtil;
 import com.codeforces.commons.reflection.Name;
@@ -21,7 +21,7 @@ public class class_171 {
     // $FF: renamed from: d long
     private final long field_694 = RandomUtils.randomLong();
     // $FF: renamed from: e com.a.b.a.a.e.a.f
-    private final class_11 field_695;
+    private final StrategyAdapter field_695;
     // $FF: renamed from: f boolean
     private boolean field_696;
     // $FF: renamed from: g java.lang.String
@@ -33,7 +33,7 @@ public class class_171 {
     // $FF: renamed from: j int
     private int field_700;
 
-    public class_171(String var1, class_11 var2) {
+    public class_171(String var1, StrategyAdapter var2) {
         this.field_692 = field_691.incrementAndGet();
         this.field_693 = var1;
         this.field_695 = var2;
@@ -55,7 +55,7 @@ public class class_171 {
     }
 
     // $FF: renamed from: d () com.a.b.a.a.e.a.f
-    public class_11 method_920() {
+    public StrategyAdapter method_920() {
         return this.field_695;
     }
 

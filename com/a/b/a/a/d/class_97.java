@@ -2,7 +2,7 @@ package com.a.b.a.a.d;
 
 import com.a.b.a.a.a.GameProperties;
 import com.a.b.a.a.b.e.class_81;
-import com.a.b.a.a.c.class_138;
+import com.a.b.a.a.c.DecoratedWorld;
 import com.codeforces.commons.io.FileUtil;
 import com.codeforces.commons.io.IoUtil;
 import com.codeforces.commons.math.NumberUtil;
@@ -19,7 +19,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicReference;
 
 // $FF: renamed from: com.a.b.a.a.d.o
-public class class_97 implements class_5 {
+public class class_97 implements Renderer {
     // $FF: renamed from: a java.util.concurrent.ExecutorService
     private final ExecutorService field_365 = Executors.newSingleThreadExecutor();
     // $FF: renamed from: b java.util.concurrent.atomic.AtomicReference
@@ -36,7 +36,7 @@ public class class_97 implements class_5 {
     }
 
     // $FF: renamed from: a (com.a.b.a.a.c.h) void
-    public void method_32(final class_138 var1) throws IOException {
+    public void render(final DecoratedWorld var1) throws IOException {
         this.method_616();
         this.field_365.execute(new Runnable() {
             public void run() {

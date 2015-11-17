@@ -1,6 +1,6 @@
 package com.a.b.a.a.a;
 
-import com.a.a.b.a.class_202;
+import com.a.a.b.a.CellSpaceBodyList;
 import com.a.b.GameSimulator;
 import com.a.b.class_3;
 import com.a.b.a.a.b.class_175;
@@ -13,7 +13,7 @@ import com.google.inject.AbstractModule;
 public final class GameModule extends AbstractModule {
     protected void configure() {
         this.bind(GameSimulator.class).toInstance(new GameSimulatorImpl());
-        class_202 var1 = new class_202(100.0D, 1000.0D);
+        CellSpaceBodyList var1 = new CellSpaceBodyList(100.0D, 1000.0D);
         this.bind(class_10.class).toInstance(new class_186(10, 1, 1.0E-7D, var1));
         this.bind(class_3.class).toInstance(new class_175(false));
     }

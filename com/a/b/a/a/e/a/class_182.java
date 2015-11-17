@@ -6,7 +6,7 @@ import com.a.b.a.a.c.Move;
 import com.a.b.a.a.c.Game;
 
 // $FF: renamed from: com.a.b.a.a.e.a.b
-public class class_182 implements class_11 {
+public class class_182 implements StrategyAdapter {
     // $FF: renamed from: a int
     private final int field_770;
 

@@ -7,10 +7,7 @@ import com.codeforces.commons.pair.SimplePair;
 import com.codeforces.commons.text.StringUtil;
 import com.google.common.base.Preconditions;
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 import java.util.regex.Pattern;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.BooleanUtils;
@@ -33,7 +30,7 @@ public class GameProperties {
     // $FF: renamed from: f java.util.regex.Pattern
     private static final Pattern SCREEN_DIMENSION_PATTERN = Pattern.compile("[1-9][0-9]{0,3}x[1-9][0-9]{0,3}");
     // $FF: renamed from: g java.util.Map
-    private final java.util.Map keyValueArguments;
+    private final Map<String, String> keyValueArguments;
     // $FF: renamed from: h java.util.List
     private final List<String> positionalArguments;
     // $FF: renamed from: i int
@@ -52,7 +49,7 @@ public class GameProperties {
         this(parseKeyValueArguments(args), parsePositionalArguments(args));
     }
 
-    public GameProperties(java.util.Map keyValueArguments, List<String> positionalArguments) {
+    public GameProperties(Map<String, String> keyValueArguments, List<String> positionalArguments) {
         this.keyValueArguments = new HashMap<>(keyValueArguments);
         this.positionalArguments = new ArrayList<>(positionalArguments);
         this.normalizeArguments();
@@ -268,7 +265,7 @@ public class GameProperties {
     }
 
     // $FF: renamed from: a (java.util.Map, boolean) int
-    private static int getScreenDimension(java.util.Map args, boolean firstOrSecond) {
+    private static int getScreenDimension(Map<String, String> args, boolean firstOrSecond) {
         String screenSize = StringUtil.trimToNull(args.get("render-to-screen-size"));
         if(screenSize == null) {
             screenSize = "1280x800";
@@ -288,7 +285,7 @@ public class GameProperties {
     }
 
     // $FF: renamed from: a (java.util.Map) java.lang.Integer
-    private static Integer getTickCount(java.util.Map args) {
+    private static Integer getTickCount(Map<String, String> args) {
         logger.debug("Parsing tick count.");
         String tickCountStr = StringUtil.trimToNull(args.get("tick-count"));
         if(tickCountStr != null && !"0".equals(tickCountStr) && !tickCountStr.startsWith("-")) {
@@ -308,8 +305,8 @@ public class GameProperties {
     }
 
     // $FF: renamed from: a (java.lang.String[]) java.util.Map
-    private static java.util.Map parseKeyValueArguments(String[] args) {
-        java.util.Map arguments = new HashMap<>();
+    private static Map<String, String> parseKeyValueArguments(String[] args) {
+        Map<String, String> arguments = new HashMap<>();
 
         for (String arg : args) {
             if (arg.startsWith("-")) {

@@ -60,7 +60,7 @@ public final class class_81 {
     // $FF: renamed from: n float
     private float field_313;
     // $FF: renamed from: o com.a.b.a.a.c.h
-    private class_138 field_314;
+    private DecoratedWorld field_314;
 
     public class_81(GameProperties var1, boolean var2, class_81.class_223 var3, int var4, int var5) {
         this.field_303 = new HashSet();
@@ -104,7 +104,7 @@ public final class class_81 {
     }
 
     // $FF: renamed from: a (com.a.b.a.a.c.h) java.lang.String
-    public String method_485(class_138 var1) {
+    public String method_485(DecoratedWorld var1) {
         this.field_306.setLength(0);
 
         try {
@@ -175,7 +175,7 @@ public final class class_81 {
 
     // $FF: renamed from: a (java.lang.Object, java.lang.Class) boolean
     private boolean method_487(Object var1, Class var2) {
-        if(var2 == class_138.class) {
+        if(var2 == DecoratedWorld.class) {
             return ((World)var1).getTick() == 0;
         } else if(var2 == Player.class) {
             return this.field_303.add(((Player) var1).getId());
@@ -428,7 +428,7 @@ public final class class_81 {
 
     // $FF: renamed from: a (com.a.b.a.a.c.v) void
     private void method_493(World var1) {
-        Map var2 = class_77.method_472(this.field_314);
+        Map var2 = WorldUtils.method_472(this.field_314);
         List var3 = method_494(var1);
         boolean var4 = this.field_307.isDebug();
         Iterator var5 = var3.iterator();
@@ -473,7 +473,7 @@ public final class class_81 {
 
     // $FF: renamed from: c (com.a.b.a.a.c.v) void
     private void method_495(World var1) {
-        Map var2 = class_77.method_471(this.field_314);
+        Map var2 = WorldUtils.method_471(this.field_314);
         boolean var3 = this.field_307.isDebug();
         Player[] var4 = var1.getPlayersUnsafe();
         int var5 = var4.length;

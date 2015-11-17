@@ -14,6 +14,7 @@ import com.google.common.base.Preconditions;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -23,21 +24,21 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 // $FF: renamed from: com.a.b.a.a.e.a.d
-public class class_180 implements class_11 {
+public class class_180 implements StrategyAdapter {
     // $FF: renamed from: a org.slf4j.Logger
-    private static final Logger field_755 = LoggerFactory.getLogger(class_180.class);
+    private static final Logger logger = LoggerFactory.getLogger(class_180.class);
     // $FF: renamed from: b java.util.concurrent.atomic.AtomicInteger
-    private static final AtomicInteger field_756 = new AtomicInteger();
+    private static final AtomicInteger nextAdapterPort = new AtomicInteger();
     // $FF: renamed from: c com.a.b.a.a.a.b
-    private final GameProperties field_757;
+    private final GameProperties gameProperties;
     // $FF: renamed from: d java.lang.String
-    private final String field_758;
+    private final String playerDefinition;
     // $FF: renamed from: e boolean
-    private final boolean field_759;
+    private final boolean remote;
     // $FF: renamed from: f int
-    private final int field_760;
+    private final int playerIndex;
     // $FF: renamed from: g int
-    private final int field_761;
+    private final int teamSize;
     // $FF: renamed from: h com.a.b.a.a.e.a.a.a
     private class_189 field_762;
     // $FF: renamed from: i com.a.b.a.a.e.a.a.e
@@ -46,87 +47,87 @@ public class class_180 implements class_11 {
     private final AtomicBoolean field_764 = new AtomicBoolean(true);
 
     // $FF: renamed from: a (com.a.b.a.a.a.b, int, java.lang.String, int) com.a.b.a.a.e.a.d
-    public static class_180 method_975(GameProperties var0, int var1, String var2, int var3) {
-        method_977(var1, var3);
-        Preconditions.checkArgument((new File(var2)).isFile(), "Argument \'playerDefinition\' is expected to be a file.");
-        return new class_180(var0, var1, var2, var3, false);
+    public static class_180 createFromFile(GameProperties gameProperties, int playerIndex, String playerDefinition, int teamSize) {
+        validateArguments(playerIndex, teamSize);
+        Preconditions.checkArgument((new File(playerDefinition)).isFile(), "Argument \'playerDefinition\' is expected to be a file.");
+        return new class_180(gameProperties, playerIndex, playerDefinition, teamSize, false);
     }
 
     // $FF: renamed from: b (com.a.b.a.a.a.b, int, java.lang.String, int) com.a.b.a.a.e.a.d
-    public static class_180 method_976(GameProperties var0, int var1, String var2, int var3) {
-        method_977(var1, var3);
-        Preconditions.checkArgument("#LocalTestPlayer".equals(var2), "Argument \'playerDefinition\' is not \'#LocalTestPlayer\'.");
-        return new class_180(var0, var1, var2, var3, true);
+    public static class_180 createRemote(GameProperties gameProperties, int playerIndex, String playerDefinition, int teamSize) {
+        validateArguments(playerIndex, teamSize);
+        Preconditions.checkArgument("#LocalTestPlayer".equals(playerDefinition), "Argument \'playerDefinition\' is not \'#LocalTestPlayer\'.");
+        return new class_180(gameProperties, playerIndex, playerDefinition, teamSize, true);
     }
 
     // $FF: renamed from: a (int, int) void
-    private static void method_977(int var0, int var1) {
-        Preconditions.checkArgument(var0 >= 0 && var0 <= 9, "Unexpected argument \'playerIndex\': " + var0 + '.');
-        Preconditions.checkArgument(var1 >= 1 && var1 <= 9, "Unexpected argument \'teamSize\': " + var1 + '.');
+    private static void validateArguments(int playerIndex, int teamSize) {
+        Preconditions.checkArgument(playerIndex >= 0 && playerIndex <= 9, "Unexpected argument \'playerIndex\': " + playerIndex + '.');
+        Preconditions.checkArgument(teamSize >= 1 && teamSize <= 9, "Unexpected argument \'teamSize\': " + teamSize + '.');
     }
 
-    private class_180(GameProperties var1, int var2, String var3, int var4, boolean var5) {
-        this.field_760 = var2;
-        this.field_757 = var1;
-        this.field_758 = var3;
-        this.field_761 = var4;
-        this.field_759 = var5;
+    private class_180(GameProperties gameProperties, int playerIndex, String playerDefinition, int teamSize, boolean remote) {
+        this.playerIndex = playerIndex;
+        this.gameProperties = gameProperties;
+        this.playerDefinition = playerDefinition;
+        this.teamSize = teamSize;
+        this.remote = remote;
     }
 
     // $FF: renamed from: b () java.io.File
     public File method_978() {
-        return this.field_762 == null?null:this.field_762.method_1006();
+        return this.field_762 == null ? null : this.field_762.method_1006();
     }
 
     // $FF: renamed from: c () void
     public void method_979() {
-        int var1 = this.field_757.getBaseAdapterPort() + field_756.getAndIncrement();
+        int var1 = this.gameProperties.getBaseAdapterPort() + nextAdapterPort.getAndIncrement();
         String var2 = Integer.toString(var1);
-        String var3;
-        if(this.field_757.isDebug()) {
-            var3 = StringUtils.repeat("0", 16);
+        String authToken;
+        if(this.gameProperties.isDebug()) {
+            authToken = StringUtils.repeat("0", 16);
         } else {
-            var3 = RandomStringUtils.randomAlphanumeric(16);
+            authToken = RandomStringUtils.randomAlphanumeric(16);
         }
 
-        File var4 = this.field_757.getTcpDumpFileForPlayer(this.field_760);
-        this.field_763 = new class_194(this.field_757, var4);
+        File var4 = this.gameProperties.getTcpDumpFileForPlayer(this.playerIndex);
+        this.field_763 = new class_194(this.gameProperties, var4);
         this.field_763.method_56(var1);
-        if(!this.field_759) {
-            long var5 = TimeUnit.MILLISECONDS.toSeconds(15L * (long)this.field_761 * (long)this.field_757.method_82() + 5000L + TimeUnit.SECONDS.toMillis(1L) - 1L);
+        if(!this.remote) {
+            long var5 = TimeUnit.MILLISECONDS.toSeconds(15L * (long)this.teamSize * (long)this.gameProperties.method_82() + 5000L + TimeUnit.SECONDS.toMillis(1L) - 1L);
             StringBuilder var7 = new StringBuilder();
-            String var8 = this.field_757.getSystemUserLogin();
+            String var8 = this.gameProperties.getSystemUserLogin();
             if(!StringUtils.isBlank(var8)) {
                 var7.append(" -l ").append(var8);
             }
 
-            String var9 = this.field_757.getSystemUserPassword();
+            String var9 = this.gameProperties.getSystemUserPassword();
             if(!StringUtils.isBlank(var9)) {
                 var7.append(" -p ").append(var9);
             }
 
-            String var10 = method_981();
-            HashMap var11 = new HashMap();
-            var11.put("remote-process.port", var2);
-            var11.put("time-limit-seconds", String.valueOf(var5));
-            var11.put("system-user-credentials", var7.toString());
-            var11.put("jruby-home", var10);
-            var11.put("jruby-home.double-backslashed", StringUtil.replace(var10, "/", "\\\\"));
+            String var10 = findJRubyHomeDirectory();
+            Map<String, String> params = new HashMap<>();
+            params.put("remote-process.port", var2);
+            params.put("time-limit-seconds", String.valueOf(var5));
+            params.put("system-user-credentials", var7.toString());
+            params.put("jruby-home", var10);
+            params.put("jruby-home.double-backslashed", StringUtil.replace(var10, "/", "\\\\"));
 
             try {
-                File var12 = this.field_757.getCacheDirectory();
-                this.field_762 = class_189.method_1009(this.field_758, var11, var12, new String[]{"127.0.0.1", var2, var3});
+                File var12 = this.gameProperties.getCacheDirectory();
+                this.field_762 = class_189.startProcess(this.playerDefinition, params, var12, new String[]{"127.0.0.1", var2, authToken});
             } catch (IOException var13) {
-                throw new class_177(String.format("Failed to start process for player \'%s\'.", new Object[]{this.field_758}), var13);
+                throw new RemotePlayerException(String.format("Failed to start process for player \'%s\'.", new Object[]{this.playerDefinition}), var13);
             }
         }
 
-        this.method_980(var3);
+        this.authenticatePlayer(authToken);
     }
 
     // $FF: renamed from: a (java.lang.String) void
-    private void method_980(String var1) {
-        for(int var2 = 2; var2 >= 0; --var2) {
+    private void authenticatePlayer(String var1) {
+        for(int attempts = 2; attempts >= 0; --attempts) {
             String var3;
             try {
                 this.field_763.method_57();
@@ -134,19 +135,19 @@ public class class_180 implements class_11 {
                 if(var1.equals(var3)) {
                     break;
                 }
-            } catch (class_177 var5) {
-                field_755.error("Got unexpected exception while authenticating strategy \'" + this.field_758 + "\'.", var5);
-                if(var2 != 0) {
+            } catch (RemotePlayerException e) {
+                logger.error("Got unexpected exception while authenticating strategy \'" + this.playerDefinition + "\'.", e);
+                if(attempts != 0) {
                     continue;
                 }
 
-                throw var5;
+                throw e;
             }
 
-            String var4 = String.format("Player \'%s\' has returned unexpected token: \'%s\' expected, but \'%s\' found.", new Object[]{this.field_758, var1, var3});
-            field_755.error(var4);
-            if(var2 == 0) {
-                throw new class_177(var4);
+            String errorMessage = String.format("Player \'%s\' has returned unexpected token: \'%s\' expected, but \'%s\' found.", this.playerDefinition, var1, var3);
+            logger.error(errorMessage);
+            if(attempts == 0) {
+                throw new RemotePlayerException(errorMessage);
             }
         }
 
@@ -154,7 +155,7 @@ public class class_180 implements class_11 {
 
     // $FF: renamed from: a () int
     public int method_51() {
-        this.field_763.method_59(this.field_761);
+        this.field_763.method_59(this.teamSize);
         return this.field_763.method_60();
     }
 
@@ -165,8 +166,8 @@ public class class_180 implements class_11 {
 
     // $FF: renamed from: a (com.a.b.a.a.c.c[], com.a.b.a.a.c.v) com.a.b.a.a.c.m[]
     public Move[] method_53(Car[] var1, World var2) {
-        if(var1.length != this.field_761) {
-            throw new IllegalArgumentException(String.format("Strategy adapter \'%s\' got %d cars while team size is %d.", new Object[]{this.getClass().getSimpleName(), Integer.valueOf(var1.length), Integer.valueOf(this.field_761)}));
+        if(var1.length != this.teamSize) {
+            throw new IllegalArgumentException(String.format("Strategy adapter \'%s\' got %d cars while team size is %d.", new Object[]{this.getClass().getSimpleName(), Integer.valueOf(var1.length), Integer.valueOf(this.teamSize)}));
         } else {
             this.field_763.method_62(new class_146(var1, var2), this.field_764.getAndSet(false));
             return this.field_763.method_63();
@@ -181,7 +182,7 @@ public class class_180 implements class_11 {
         (new Thread(new Runnable() {
             public void run() {
                 if(class_180.this.field_762 != null) {
-                    if(class_180.this.field_757.isDebug()) {
+                    if(class_180.this.gameProperties.isDebug()) {
                         class_180.this.field_762.method_1007(TimeUnit.MINUTES.toMillis(20L));
                     } else {
                         class_180.this.field_762.method_1007(TimeUnit.SECONDS.toMillis(5L));
@@ -201,37 +202,35 @@ public class class_180 implements class_11 {
     }
 
     // $FF: renamed from: d () java.lang.String
-    private static String method_981() {
-        String var0 = System.getenv("JRUBY_HOME");
-        if(StringUtil.isNotBlank(var0)) {
-            File var1 = new File(var0);
-            if(var1.isDirectory() && (new File(var1, "bin")).isDirectory()) {
-                for(var0 = var1.getAbsolutePath().replace('\\', '/'); var0.contains("//"); var0 = StringUtil.replace(var0, "//", "/")) {
+    private static String findJRubyHomeDirectory() {
+        String homeEnv = System.getenv("JRUBY_HOME");
+        if(StringUtil.isNotBlank(homeEnv)) {
+            File directory = new File(homeEnv);
+            if(directory.isDirectory() && (new File(directory, "bin")).isDirectory()) {
+                for(homeEnv = directory.getAbsolutePath().replace('\\', '/'); homeEnv.contains("//"); homeEnv = StringUtil.replace(homeEnv, "//", "/")) {
                     ;
                 }
 
-                while(var0.endsWith("/")) {
-                    var0 = var0.substring(0, var0.length() - 1);
+                while(homeEnv.endsWith("/")) {
+                    homeEnv = homeEnv.substring(0, homeEnv.length() - 1);
                 }
 
-                return var0;
+                return homeEnv;
             }
         }
 
-        String[] var8 = new String[]{"C:/Programs/", "C:/", "C:/Program Files/", "C:/Program Files (x86)/"};
-        String[] var2 = new String[]{"jruby-9.0.3.0", "jruby-9.0.1.0", "jruby-1.7.13", "jruby"};
-        int var3 = var8.length;
-        int var4 = var2.length;
+        String[] possiblePathes = new String[]{"C:/Programs/", "C:/", "C:/Program Files/", "C:/Program Files (x86)/"};
+        String[] possibleVersions = new String[]{"jruby-9.0.3.0", "jruby-9.0.1.0", "jruby-1.7.13", "jruby"};
 
-        for(int var5 = 0; var5 < var3; ++var5) {
-            for(int var6 = 0; var6 < var4; ++var6) {
-                String var7 = var8[var5] + var2[var6];
-                if((new File(var7)).isDirectory() && (new File(var7, "bin")).isDirectory()) {
-                    return var7;
+        for (String possiblePath : possiblePathes) {
+            for (String possibleVersion : possibleVersions) {
+                String path = possiblePath + possibleVersion;
+                if ((new File(path)).isDirectory() && (new File(path, "bin")).isDirectory()) {
+                    return path;
                 }
             }
         }
 
-        throw new class_177("Can\'t find JRuby home directory.");
+        throw new RemotePlayerException("Can\'t find JRuby home directory.");
     }
 }
